@@ -538,7 +538,7 @@ function bindTips(root){root.querySelectorAll("[data-tt]").forEach(el=>{el.addEv
 
 /* ---------- time-course chart (time since seeding) ---------- */
 function curveChart(series,{w=640,h=300,ymax,xmin=0,xmax=96,treat=null,animate=false,clickable=false,endLabels=true,yfit=false,ylab="NCI",xlab="hours since seeding"}={}){
-  const m={l:40,r:endLabels?92:16,t:14,b:34};const iw=w-m.l-m.r,ih=h-m.t-m.b;
+  const m={l:yfit?48:40,r:endLabels?92:16,t:yfit?24:14,b:34};const iw=w-m.l-m.r,ih=h-m.t-m.b;
   const all=series.flatMap(s=>(s.pts||[]).map(p=>p[1]).concat((s.err||[]).map(e=>e[1]+e[2])));
   let Y=ymax||Math.max(1,Math.ceil(Math.max(...all)*1.05)),Y0=0,st=Y>8?2:1,dec=0;
   if(yfit){const hi=Math.max(...all),lo=Math.min(0,...all),raw=(hi-lo)/5||0.1,p=Math.pow(10,Math.floor(Math.log10(raw))),f=raw/p;st=(f<=1?1:f<=2?2:f<=5?5:10)*p;Y=Math.ceil(hi*1.04/st)*st||st;Y0=lo< -0.03*hi?Math.floor(lo/st)*st:0;dec=Math.max(0,-Math.floor(Math.log10(st)+1e-9))}
@@ -934,7 +934,7 @@ function yours(){
 
   /* ---- loading ---- */
   let libP=null;
-  const lib=()=>libP||(libP=new Promise((res,rej)=>{if(window.XLSX)return res(window.XLSX);const s=document.createElement("script");s.src="/lib/xlsx.core.min.js";s.onload=()=>res(window.XLSX);s.onerror=()=>{libP=null;rej(new Error("The spreadsheet reader could not be loaded. Save the file as CSV and try again."))};document.head.appendChild(s)}));
+  const lib=()=>libP||(libP=new Promise((res,rej)=>{if(window.XLSX)return res(window.XLSX);const s=document.createElement("script");s.src=window.XLSX_SRC||"/lib/xlsx.core.min.js";s.onload=()=>res(window.XLSX);s.onerror=()=>{libP=null;rej(new Error("The spreadsheet reader could not be loaded. Save the file as CSV and try again."))};document.head.appendChild(s)}));
   async function readFile(f){
     status(`Reading ${esc(f.name)}…`);
     try{
@@ -960,39 +960,48 @@ function yours(){
     if(ln){const a=get(ln);const hr=a.findIndex(r=>r.some(c=>/^well\s*id$/i.test(String(c))));
       if(hr>=0){const H=a[hr].map(c=>String(c).trim().toLowerCase()),iw=H.findIndex(c=>/^well\s*id$/.test(c)),ic=H.findIndex(c=>/compound/.test(c)),iz=H.findIndex(c=>/concentration/.test(c)),iu=H.findIndex(c=>/^unit/.test(c)),it=H.findIndex(c=>/cell-?type/.test(c));
         layout={};a.slice(hr+1).forEach(r=>{const w=String(r[iw]||"").trim();if(!w)return;const cmp=String(ic>=0?r[ic]:"").trim(),z=iz>=0?r[iz]:"",u=String(iu>=0?r[iu]:"").trim();
-          layout[w.toUpperCase()]={label:[cmp||w,z!==""?`${z}${u?" "+u.replace(/^uM$/i,"µM"):""}`:""].filter(Boolean).join(" "),ctrl:CTRL_RE.test(cmp)||(cmp===""&&z===""),cell:String(it>=0?r[it]:"").trim()}})}}
-    const order=[...wb.SheetNames].sort((a,b)=>(/plot/i.test(b)?1:0)-(/plot/i.test(a)?1:0));
-    for(const n of order){const a=get(n);try{return fromRows(a,layout)}catch(e){}}
-    throw new Error("No sheet with a time column in hours was found. Use the CSV template, or export the Plot sheet from the RTCA software.");
+          const zero=z!==""&&+z===0,ctrl=CTRL_RE.test(cmp)||(cmp===""&&z==="")||zero;
+          layout[w.toUpperCase()]={label:zero?`Control (${cmp||w} 0)`:[cmp||w,z!==""?`${z}${u?" "+u.replace(/^uM$/i,"µM"):""}`:""].filter(Boolean).join(" "),ctrl,cell:String(it>=0?r[it]:"").trim()}})}}
+    const rank=n=>/^plot$/i.test(n)?0:/plot/i.test(n)?1:/^well\s*graph$/i.test(n)?2:/hide/i.test(n)?9:5;
+    const order=[...wb.SheetNames].sort((a,b)=>rank(a)-rank(b));
+    let ds=null;for(const n of order){try{ds=fromRows(get(n),layout);ds.sheet=n;break}catch(e){}}
+    if(!ds)throw new Error("No sheet with a time column was found. In the RTCA software, open the Plot tab so the curves are drawn, then export again. Or use the CSV template.");
+    const mn=wb.SheetNames.find(n=>/message/i.test(n));
+    if(mn){const a=get(mn);let st=null,pa=[];a.forEach(r=>{const tt=r[0],m=String(r[2]||"");if(!isNum(tt))return;if(/^start experiment/i.test(m))st=st==null?tt:Math.min(st,tt);if(/^pause experiment/i.test(m))pa.push(tt)});
+      if(st!=null){const h=pa.map(x=>(x-st)*24).filter(h=>h>0.5&&h<ds.t[ds.t.length-1]).sort((p,q)=>p-q)[0];if(h!=null){ds.treat=+h.toFixed(2);ds.treatSrc="log"}}}
+    return ds;
   }
   function fromRows(a,layout){
-    const hr=a.findIndex(r=>r.some(c=>isTimeH(c)));
+    const hr=a.findIndex(r=>r.some(c=>timeUnit(c)));
     if(hr<0)throw new Error("No column named “Time (h)” or “time_h” was found.");
-    const H=a[hr].map(c=>String(c).trim()),it=H.findIndex(isTimeH);
+    const H=a[hr].map(c=>String(c).trim()),it=H.findIndex(c=>timeUnit(c)),k=timeUnit(H[it]);
     const cols=H.map((c,i)=>({c,i})).filter(o=>o.i!==it&&o.c&&!/time|hh:mm/i.test(o.c));
     const data=a.slice(hr+1).map(r=>r.map(toNum)).filter(r=>isNum(r[it]));
     if(data.length<5)throw new Error("Fewer than five time points were found below the header row.");
-    const t=data.map(r=>r[it]);const groups=new Map();
-    cols.forEach(o=>{if(!data.some(r=>isNum(r[o.i])))return;const m=o.c.match(/^Y\s*\(\s*([A-P]\d{1,2})\s*\)$/i),well=m?m[1].toUpperCase():o.c;
-      const L=layout&&layout[well],label=L?L.label:o.c.replace(/(\D)\.\d+$/,"$1");
+    const t=data.map(r=>r[it]*k);const groups=new Map(),bad=[],spk=[];
+    cols.forEach(o=>{const v=data.map(r=>r[o.i]).filter(isNum);if(!v.length)return;
+      const m=o.c.match(/^(?:Y\s*\(\s*)?([A-P]\d{1,2})\s*\)?$/i),well=m?m[1].toUpperCase():o.c;
+      const nb=v.filter(x=>Math.abs(x)>50).length;if(nb>0.2*v.length){bad.push(well);return}if(nb){spk.push(well);data.forEach(r=>{if(Math.abs(r[o.i])>50)r[o.i]=NaN})}
+      const L=layout&&layout[well];if(layout&&m&&!L)return;
+      const label=L?L.label:o.c.replace(/(\D)\.\d+$/,"$1");
       if(!groups.has(label))groups.set(label,{label,wells:[],cols:[],ctrl:L?L.ctrl:CTRL_RE.test(label)});
       const g=groups.get(label);g.wells.push(well);g.cols.push(o.i)});
     if(!groups.size)throw new Error("No data columns were found next to the time column.");
     const G=[...groups.values()].map(g=>{const ci=[],sd=[];data.forEach(r=>{const v=g.cols.map(i=>r[i]).filter(isNum);const mu=v.length?v.reduce((p,q)=>p+q,0)/v.length:NaN;ci.push(mu);sd.push(v.length>1?Math.sqrt(v.reduce((p,q)=>p+(q-mu)*(q-mu),0)/(v.length-1)):0)});return{label:g.label,wells:g.wells,ctrl:g.ctrl,ci,sd}});
     const cell=layout?[...new Set(Object.values(layout).map(v=>v.cell).filter(Boolean))].join(", "):"";
-    const ds={t,groups:G,cell,treat:null,treatSrc:"none"};
+    const ds={t,groups:G,cell,bad,spk,treat:null,treatSrc:"none"};
     const dt=t.slice(1).map((v,i)=>v-t[i]),med=dt.slice().sort((p,q)=>p-q)[dt.length>>1];
     let bi=-1;dt.forEach((v,i)=>{if(t[i]>1&&v>Math.max(0.2,2*med)&&(bi<0||v>dt[bi]))bi=i});
     if(bi>=0){ds.treat=+t[bi].toFixed(2);ds.treatSrc="pause"}
     return ds;
   }
-  function isTimeH(c){c=String(c).trim();return/^(time\s*\(\s*h(our)?s?\s*\)|time_?h|time,\s*h|time\s*\[h\]|t\s*\(h\)|hours?)$/i.test(c)}
+  function timeUnit(c){c=String(c).trim();if(/^(time\s*\(\s*h(our)?s?\s*\)|time_?h|time,\s*h|time\s*\[h\]|t\s*\(h\)|hours?)$/i.test(c))return 1;if(/^(time\s*points?\s*\(\s*s\s*\)|time\s*\(\s*s(ec(onds?)?)?\s*\)|time_?s)$/i.test(c))return 1/3600;if(/^(time\s*\(\s*min(utes?)?\s*\)|time_?min)$/i.test(c))return 1/60;return 0}
 
   /* ---- computation ---- */
   const interp=(t,v,x)=>{if(x<t[0]||x>t[t.length-1]+1e-9)return null;let i=t.findIndex(q=>q>=x);if(i<0)i=t.length-1;if(i===0||t[i]===x)return isNum(v[i])?v[i]:null;const f=(x-t[i-1])/(t[i]-t[i-1]),a=v[i-1],b=v[i];return isNum(a)&&isNum(b)?a*(1-f)+b*f:null};
   function prep(){
     const d=Y.ds,T=d.treat;let i0=-1;if(T!=null)d.t.forEach((q,i)=>{if(q<=T+1e-6)i0=i});
-    d.i0=i0;d.groups.forEach(g=>{g.base=i0>=0?g.ci[i0]:null;g.nci=g.base&&Math.abs(g.base)>1e-9?g.ci.map(v=>v/g.base):null;g.fitN=T!=null&&g.nci?fit(d.t,g.nci,T):null;g.fitR=T!=null?fit(d.t,g.ci,T):null});
+    d.i0=i0;d.groups.forEach(g=>{g.base=i0>=0?g.ci[i0]:null;g.nci=g.base!=null&&g.base>0.02?g.ci.map(v=>v/g.base):null;g.fitN=T!=null&&g.nci?fit(d.t,g.nci,T):null;g.fitR=T!=null?fit(d.t,g.ci,T):null});
   }
   function fit(t,v,T){
     const s=t.map((q,i)=>[q,v[i]]).filter(p=>p[0]>=T+3-1e-9&&isNum(p[1]));if(s.length<8)return null;
@@ -1012,19 +1021,23 @@ function yours(){
       const r=pt(-1);if(r.f<P[0].f){const e=pt(-2);P[n]=e.f<r.f?e:r}else if(r.f<P[n-1].f)P[n]=r;else{const k=pt(r.f<w.f?-0.5:0.5);if(k.f<Math.min(w.f,r.f))P[n]=k;else P=P.map((p,i)=>i?{x:p.x.map((v,j)=>P[0].x[j]+0.5*(v-P[0].x[j])),f:0}:p).map((p,i)=>i?{x:p.x,f:f(p.x)}:p)}}
     P.sort((a,b)=>a.f-b.f);return P[0]}
   const vals=g=>Y.norm?g.nci:g.ci;
-  const lowCtrl=()=>{const c=Y.ds.groups[Y.ctrl];return!c||c.base==null||Math.abs(c.base)<0.1};
+  const lowCtrl=()=>{const c=Y.ds.groups[Y.ctrl];return!c||c.base==null||c.base<0.1};
   const pct=(g,h)=>{const d=Y.ds,c=d.groups[Y.ctrl];if(!c||d.treat==null||lowCtrl())return null;const gv=vals(g),cv=vals(c);if(!gv||!cv)return null;const a=interp(d.t,gv,d.treat+h),b=interp(d.t,cv,d.treat+h);return a==null||b==null||b<=0.05?null:a/b*100};
   const hourly=(t,v)=>{const o=[];for(let q=Math.ceil(t[0]);q<=Math.floor(t[t.length-1]);q++){const y=interp(t,v,q);if(y!=null)o.push([q,y])}return o};
 
   /* ---- render ---- */
-  function load(ds){Y.ds=ds;Y.hide=new Set();const c=ds.groups.findIndex(g=>g.ctrl);Y.ctrl=c>=0?c:0;Y.norm=ds.treat!=null&&!ds.preNorm;prep();render()}
+  function load(ds){Y.ds=ds;Y.hide=new Set();const c=ds.groups.findIndex(g=>g.ctrl);Y.ctrl=c>=0?c:0;Y.norm=ds.treat!=null&&!ds.preNorm;prep();if(Y.norm&&lowCtrl())Y.norm=false;render()}
   function render(){
     const d=Y.ds,pal=PAL(),T=d.treat,c=d.groups[Y.ctrl];
     const col=i=>i===Y.ctrl?css("--control"):pal[(i-(i>Y.ctrl?1:0))%pal.length];
     const warn=[];
     if(T==null)warn.push("No drug-addition time was found in the file. Enter it above to get normalized curves, % of control and the re-fit.");
     else if(d.treatSrc==="pause")warn.push(`Drug addition was taken from the pause in recording at ${T} h. Change it above if that is wrong.`);
-    if(T!=null&&c&&c.base!=null&&Math.abs(c.base)<0.1)warn.push(`The control cell index at drug addition is ${c.base.toFixed(3)}. Below 0.1 the signal is close to instrument noise, so % of control is not calculated. The curves are still shown.`);
+    else if(d.treatSrc==="log")warn.push(`Drug addition was taken from the “Pause Experiment” entry in the instrument log, ${T} h after the start. Change it above if that is wrong.`);
+    if(d.sheet&&!/^plot$/i.test(d.sheet))warn.push(`The Plot sheet in this file is empty, so the curves were read from the “${esc(d.sheet)}” sheet. It holds fewer time points than the full recording.`);
+    if(d.bad&&d.bad.length)warn.push(`Left out ${d.bad.length===1?"well":"wells"} ${d.bad.join(", ")}: more than a fifth of the readings are beyond ±50 cell index, which points to an electrode or connection fault.`);
+    if(d.spk&&d.spk.length)warn.push(`Removed single readings beyond ±50 cell index in ${d.spk.length===1?"well":"wells"} ${d.spk.join(", ")}. The rest of ${d.spk.length===1?"that well":"those wells"} is kept.`);
+    if(T!=null&&c&&c.base!=null&&c.base<0.1)warn.push(c.base<=0?`The control cell index at drug addition is ${c.base.toFixed(3)}. A value at or below zero cannot serve as a reference, so % of control is not calculated and the curves open as recorded.`:`The control cell index at drug addition is ${c.base.toFixed(3)}. Below 0.1 the signal is close to instrument noise, so % of control is not calculated and the curves open as recorded. Normalizing would divide by a value near zero.`);
     const norm=Y.norm&&T!=null;const fitOf=g=>norm?g.fitN:g.fitR;
     const tmax=d.t[d.t.length-1],xmax=Math.max(24,Math.ceil((tmax-0.75)/12)*12);
     const ser=[];
@@ -1036,7 +1049,7 @@ function yours(){
     const drugOpts=Y.ov.line?Object.keys(D.rtca[Y.ov.line]).map(x=>`<option ${x===Y.ov.drug?"selected":""}>${x}</option>`).join(""):"";
     const doseOpts=Y.ov.drug?Object.keys(rtcaOf(Y.ov.line,Y.ov.drug).series).filter(z=>z!=="0").map(Number).sort((p,q)=>p-q).map(z=>`<option value="${z}" ${String(z)===String(Y.ov.dose)?"selected":""}>${z} µM</option>`).join(""):"";
     const H=[24,48,72];
-    const rows=d.groups.map((g,i)=>{const f=fitOf(g);return`<tr><th class="rowh"><i style="background:${col(i)}"></i>${esc(g.label)}${i===Y.ctrl&&!/control|ctrl/i.test(g.label)?' <span class="src">control</span>':""}</th><td class="src">${g.wells.length}</td>${H.map(h=>{const v=i===Y.ctrl?null:pct(g,h);return`<td>${i===Y.ctrl?'<span class="src">100%</span>':v==null?`<span class="src">${T!=null&&T+h>tmax+0.01?"ends "+tmax.toFixed(0)+" h":"–"}</span>`:fmt(v)+"%"}</td>`}).join("")}<td>${f&&f.ok?f.g.toFixed(3):'<span class="src">–</span>'}</td><td>${f&&f.ok?f.K.toFixed(2):'<span class="src">–</span>'}</td><td>${f?(f.ok?f.r2.toFixed(2):`<span class="src">${f.r2.toFixed(2)}, no fit</span>`):'<span class="src">–</span>'}</td></tr>`}).join("");
+    const rows=d.groups.map((g,i)=>{const f=fitOf(g);return`<tr><th class="rowh"><i style="background:${col(i)}"></i>${esc(g.label)}${i===Y.ctrl&&!CTRL_RE.test(g.label)&&!/control/i.test(g.label)?' <span class="src">control</span>':""}</th><td class="src">${g.wells.length}</td>${H.map(h=>{const v=i===Y.ctrl?null:pct(g,h);return`<td>${i===Y.ctrl?'<span class="src">100%</span>':v==null?`<span class="src">${T!=null&&T+h>tmax+0.01?"ends "+tmax.toFixed(0)+" h":"–"}</span>`:fmt(v)+"%"}</td>`}).join("")}<td>${f&&f.ok?f.g.toFixed(3):'<span class="src">–</span>'}</td><td>${f&&f.ok?f.K.toFixed(2):'<span class="src">–</span>'}</td><td>${f?(f.ok?f.r2.toFixed(2):`<span class="src">${f.r2.toFixed(2)}, no fit</span>`):'<span class="src">–</span>'}</td></tr>`}).join("");
     let paperRow="";if(ovTxt){const r=rtcaOf(Y.ov.line,Y.ov.drug),s=r.series[dkey(Y.ov.dose)],c0=r.series["0"],bs=norm?at(s,r.treat):1,bc=norm?at(c0,r.treat):1,v=H.map(h=>{const a=at(s,r.treat+h),b=at(c0,r.treat+h);return a==null||b==null||b<=0?null:(a/bs)/(b/bc)*100}),pf0=s.fit,pf=pf0&&{...pf0,K:pf0.K/bs};
       paperRow=`<tr><th class="rowh"><svg width="16" height="6" viewBox="0 0 16 6" aria-hidden="true" style="margin-right:8px;flex:none"><line x1="0" y1="3" x2="16" y2="3" stroke="${css("--ink")}" stroke-width="2.2" stroke-dasharray="1.5 4" stroke-linecap="round"/></svg>Paper: ${esc(ovTxt)}</th><td class="src">–</td>${v.map(x=>`<td>${x==null?'<span class="src">n/a</span>':fmt(x)+"%"}</td>`).join("")}<td>${pf&&pf.r2>=0.5?pf.g.toFixed(3):'<span class="src">–</span>'}</td><td>${pf&&pf.r2>=0.5?pf.K.toFixed(2):'<span class="src">–</span>'}</td><td>${pf?(pf.r2>=0.5?pf.r2.toFixed(2):'<span class="src">no fit</span>'):'<span class="src">–</span>'}</td></tr>`}
     const legend=`<div class="cmp-legend">${d.groups.map((g,i)=>`<button class="lg" data-g="${i}" aria-pressed="${!Y.hide.has(i)}" style="${Y.hide.has(i)?"opacity:.4":""}">${i===Y.ctrl?`<svg width="24" height="6" viewBox="0 0 24 6" aria-hidden="true" style="flex:none"><line x1="0" y1="3" x2="24" y2="3" stroke="${col(i)}" stroke-width="1.6" stroke-dasharray="3 4"/></svg>`:`<i style="background:${col(i)}"></i>`}${esc(g.label)}</button>`).join("")}${ovTxt?`<span class="lg" style="cursor:default"><svg width="24" height="6" viewBox="0 0 24 6" aria-hidden="true" style="flex:none"><line x1="0" y1="3" x2="24" y2="3" stroke="${css("--ink")}" stroke-width="2.2" stroke-dasharray="1.5 4" stroke-linecap="round"/></svg>Paper · ${esc(ovTxt)}</span>`:""}</div>`;

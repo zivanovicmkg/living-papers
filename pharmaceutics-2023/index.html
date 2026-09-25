@@ -270,6 +270,21 @@ footer{border-top:1px solid var(--line);margin-top:64px;padding-block:28px 40px;
 .fitlabel{display:inline-flex;gap:14px;flex-wrap:wrap;font-family:var(--mono);font-size:11.5px;color:var(--muted);margin-top:6px}
 .fitlabel i{display:inline-block;width:14px;height:3px;border-radius:2px;margin-right:6px;vertical-align:middle}
 .seg button i.dz{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px;vertical-align:1px;box-shadow:0 0 0 1.5px var(--bg)}
+
+.agent-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+@media (max-width:860px){.agent-grid{grid-template-columns:1fr}}
+.urlrow{display:flex;gap:8px;align-items:stretch;flex-wrap:wrap}
+.urlrow code{flex:1 1 260px;min-width:0;font-family:var(--mono);font-size:13px;background:var(--sunk);border-radius:8px;padding:10px 12px;overflow-wrap:anywhere;user-select:all}
+.howto{margin:6px 0 0;padding-left:20px;font-size:15px}
+.howto li{margin-bottom:6px}
+.asks{display:flex;flex-direction:column;gap:8px}
+.ask{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:8px;padding:10px 12px;background:var(--bg);font-size:14.5px}
+.ask span{flex:1}
+.ask button{border:1px solid var(--line);background:var(--surface);border-radius:6px;font-family:var(--mono);font-size:11px;padding:4px 8px;cursor:pointer;color:var(--ink);min-height:28px}
+.ask button:hover{border-color:var(--ink)}
+.toolchips{display:flex;flex-wrap:wrap;gap:6px}
+.toolchips span{font-family:var(--mono);font-size:11.5px;border:1px solid var(--line);border-radius:5px;padding:3px 7px;color:var(--muted);background:var(--bg)}
+.agent-grid .panel + .panel{margin-top:0}
 </style>
 </head>
 <body>
@@ -290,7 +305,7 @@ footer{border-top:1px solid var(--line);margin-top:64px;padding-block:28px 40px;
       </div>
       <div class="actions">
         <a class="btn primary" href="#explore">Explore the results</a>
-        <a class="btn" href="#compare">Compare conditions</a>
+        <a class="btn" href="#agent">Ask your AI</a>
         <a class="btn" data-doi href="#" target="_blank" rel="noopener">Original paper ↗</a>
       </div>
     </div>
@@ -311,6 +326,7 @@ footer{border-top:1px solid var(--line);margin-top:64px;padding-block:28px 40px;
   <div class="wrap" id="navLinks">
     <a href="#overview">Overview</a>
     <a href="#explore">Explore</a>
+    <a href="#agent">AI agent</a>
     <a href="#compare">Compare</a>
     <a href="#evidence">Evidence</a>
     <a href="#methods">Methods</a>
@@ -337,6 +353,31 @@ footer{border-top:1px solid var(--line);margin-top:64px;padding-block:28px 40px;
     <div class="story">
       <div class="steps" role="tablist" id="steps"></div>
       <article class="chapter" id="chapter" role="tabpanel" aria-live="polite"></article>
+    </div>
+  </section>
+
+  <section class="block" id="agent">
+    <div class="sec-head"><div><div class="eyebrow">For AI agents</div><h2>Ask your own AI about this paper</h2><p>The same data behind this page is served to AI agents through MCP (Model Context Protocol). Connect your agent once and ask in plain language. Your agent, your tokens: this page makes no AI calls.</p></div></div>
+    <div class="agent-grid">
+      <div class="panel">
+        <div class="pick-label">Server address</div>
+        <div class="urlrow"><code id="mcpUrl"></code><button class="btn" id="mcpCopy">Copy</button></div>
+        <div class="pick-label" style="margin-top:18px">Connect in Claude</div>
+        <ol class="howto">
+          <li>Settings → Connectors → <b>Add custom connector</b>.</li>
+          <li>Name it <b>Living Papers</b> and paste the address above.</li>
+          <li>Authentication: <b>No sign-in</b>. Click <b>Add</b>.</li>
+          <li>In a new chat, switch the connector on and ask.</li>
+        </ol>
+        <p class="note">Any other MCP client works with the same address. <span id="mcpTransport"></span>.</p>
+      </div>
+      <div class="panel">
+        <div class="pick-label">Try asking</div>
+        <div class="asks" id="mcpAsks"></div>
+        <div class="pick-label" style="margin-top:18px">What your agent can call</div>
+        <div class="toolchips" id="mcpTools"></div>
+        <p class="note">Every answer carries its source figure or table and is marked observed or derived.</p>
+      </div>
     </div>
   </section>
 
@@ -849,7 +890,7 @@ function renderCompare(){
 /* ---------- nav highlight ---------- */
 const links=[...document.querySelectorAll("#navLinks a")];
 const io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting)links.forEach(a=>a.classList.toggle("on",a.getAttribute("href")==="#"+en.target.id))}),{rootMargin:"-40% 0px -55% 0px"});
-["overview","explore","compare","evidence","methods","limitations","code","references"].forEach(id=>io.observe(document.getElementById(id)));
+["overview","explore","agent","compare","evidence","methods","limitations","code","references"].forEach(id=>io.observe(document.getElementById(id)));
 
 function renderAll(){if(S.step!==1)S.sel=null;picker();steps();renderChapter(true)}
 hero();renderAll();cards();refs();cmpAdder();renderCompare();
@@ -877,6 +918,16 @@ function renderStatic(P){
     ${(m.notes||[]).map(t=>`<p style="margin-top:10px">${rich(t)}</p>`).join("")}</div></details>`).join("");
   $("#limList").innerHTML=P.limitations.map(l=>`<div><b>${esc(l.title)}</b><p>${esc(l.text)}</p></div>`).join("");
   $("#provList").innerHTML=P.provenance.map(r=>`<div><div class="k">${esc(r.item)}</div><div class="v">${esc(r.source)}</div></div>`).join("");
+  if(P.agent){
+    $("#mcpUrl").textContent=P.agent.mcpUrl;$("#mcpTransport").textContent=P.agent.transport;
+    $("#mcpAsks").innerHTML=P.agent.examples.map((q,i)=>`<div class="ask"><span>${esc(q)}</span><button data-q="${i}">Copy</button></div>`).join("");
+    $("#mcpTools").innerHTML=P.agent.tools.map(t=>`<span>${esc(t)}</span>`).join("");
+    const copy=(txt,btn)=>{const done=()=>{const o=btn.textContent;btn.textContent="Copied";setTimeout(()=>btn.textContent=o,1400)};
+      try{navigator.clipboard.writeText(txt).then(done,()=>sel())}catch(e){sel()}
+      function sel(){const r=document.createRange();r.selectNodeContents(btn.previousElementSibling);const s=getSelection();s.removeAllRanges();s.addRange(r);btn.textContent="Press Ctrl+C"}};
+    $("#mcpCopy").onclick=e=>copy(P.agent.mcpUrl,e.currentTarget);
+    $("#mcpAsks").onclick=e=>{const b=e.target.closest("[data-q]");if(b)copy(P.agent.examples[+b.dataset.q],b)};
+  } else document.getElementById("agent").hidden=true;
   $("#footCite").innerHTML=`${esc(p.authors[0].split(" ").slice(-1)[0])} ${esc(p.authors[0][0])}. et al. <i>${esc(p.journal)}</i> ${p.year}, ${esc(p.volume)}, ${esc(p.article)} · <a href="https://doi.org/${p.doi}" target="_blank" rel="noopener">doi:${p.doi}</a>`;
 }
 boot();

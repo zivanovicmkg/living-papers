@@ -349,5 +349,29 @@
    "source": "Simulated model curves (FEM output), for a model-over-data view"
   }
  ],
- "relatedPapers": []
+ "relatedPapers": [],
+ "agent": {
+  "mcpUrl": "https://living-papers-mcp.zivanovicmkg.workers.dev/mcp",
+  "transport": "Streamable HTTP, no sign-in, read-only",
+  "examples": [
+   "Compare oxaliplatin at 10 and 100 µM on HCT-116 and MRC-5 across all assays.",
+   "Which conditions have both impedance curves and fitted model parameters?",
+   "Show the late-apoptosis fraction at 72 h for every breast-regimen drug on MDA-MB-231.",
+   "What are the fitted s1–s4 for irinotecan 50 µM in both fits, with sources?"
+  ],
+  "tools": [
+   "list_papers",
+   "get_paper_overview",
+   "list_conditions",
+   "get_rtca_curve",
+   "get_viability_percent",
+   "get_flow_cytometry",
+   "get_gene_expression",
+   "get_model_parameters",
+   "get_sensitivity_analysis",
+   "compare_conditions",
+   "get_methods",
+   "get_quote"
+  ]
+ }
 }

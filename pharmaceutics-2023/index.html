@@ -313,6 +313,16 @@ footer{border-top:1px solid var(--line);margin-top:64px;padding-block:28px 40px;
 #yOut .seg button:disabled{opacity:.4;cursor:not-allowed}
 #yOut .adder{grid-template-columns:repeat(3,minmax(0,1fr))}
 @media (max-width:560px){#yOut .adder{grid-template-columns:1fr}}
+
+.refopen{display:flex;align-items:baseline;gap:14px;width:100%;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px;cursor:pointer;color:var(--ink);font:inherit}
+.refopen:hover{border-color:var(--ink)}
+.refopen:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.refopen .rt{font-family:var(--display);font-weight:600;font-size:22px}
+.refopen .rn{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.refopen .ra{margin-left:auto;font-size:20px}
+.reflist li{font-size:14px;line-height:1.5;overflow-wrap:anywhere;padding:4px 6px;border-radius:6px}
+.reflist li a{font-family:var(--mono);font-size:12px}
+.reflist li.hit{background:var(--accent-soft)}
 </style></head><body><div class="wrap">
   <header class="hero" id="overview">
     <div>
@@ -476,13 +486,12 @@ footer{border-top:1px solid var(--line);margin-top:64px;padding-block:28px 40px;
   </section>
 
   <section class="block" id="references">
-    <div class="sec-head"><div><div class="eyebrow">References</div><h2>What the methods stand on</h2></div></div>
-    <ol class="refs" id="refs"></ol>
+    <button class="refopen" id="refOpen" type="button"><span class="rt">References</span><span class="rn" id="refCount"></span><span class="ra" aria-hidden="true">→</span></button>
   </section>
 
   <footer>
     <span id="footCite"></span>
-    <span>Biology 2.0 · living paper</span>
+    <span><a href="https://biology2.net" target="_blank" rel="noopener">Biology 2.0</a> · <a href="../">all living papers</a></span>
   </footer>
 </main>
 
@@ -501,7 +510,6 @@ async function boot(){
 }
 function main(D,P){
 const DOI="https://doi.org/"+P.paper.doi;
-const REFS=P.references.map(r=>({n:r.n,t:r.title,a:r.authors,j:r.journal,y:r.year,doi:r.doi}));
 const TEXT=Object.fromEntries(Object.entries(P.quotes).map(([k,v])=>[k,{src:v.source,q:v.text}]));
 const LINES=Object.fromEntries(Object.entries(P.cellLines).map(([k,v])=>[k,{tissue:v.tissue,kind:v.kind,drugs:v.drugs,rtcaFig:v.rtcaFigure}]));
 const FLOWFIG=Object.fromEntries(Object.entries(P.cellLines).map(([k,v])=>[k,v.flowFigure]));
@@ -802,8 +810,14 @@ function closeDrawer(){drawer.classList.remove("on");scrim.classList.remove("on"
 $("#drClose").onclick=closeDrawer;scrim.onclick=closeDrawer;addEventListener("keydown",e=>{if(e.key==="Escape")closeDrawer()});
 function openText(k){const t=TEXT[k];openDrawer("From the paper",`<div class="dr-src">${t.src}</div><div style="margin-top:14px">${t.q.map(q=>`<blockquote>${q}</blockquote>`).join("")}</div><p class="dr-src">Verbatim from the published article (CC BY 4.0).</p><a class="btn" href="${DOI}" target="_blank" rel="noopener">Open the full article ↗</a>`)}
 function openMethod(id){const d=document.getElementById(id);d.open=true;d.scrollIntoView({block:"center"});d.classList.remove("flash");void d.offsetWidth;d.classList.add("flash")}
-function refs(){$("#refs").innerHTML=REFS.slice().sort((a,b)=>a.n-b.n).map(r=>`<li value="${r.n}">${r.a}. ${r.t}. <i>${r.j}</i> ${r.y}. <a href="https://doi.org/${r.doi}" target="_blank" rel="noopener">doi:${r.doi}</a></li>`).join("");
-  document.querySelectorAll(".cite").forEach(b=>b.addEventListener("click",()=>{const r=REFS[+b.dataset.ref];openDrawer(`Reference ${r.n}`,`<h4 style="font-size:19px">${r.t}</h4><p style="color:var(--muted)">${r.a}<br><i>${r.j}</i>, ${r.y}</p><a class="btn" href="https://doi.org/${r.doi}" target="_blank" rel="noopener">Open DOI ↗</a>`)}))}
+function refs(){const RL=(P.referenceList||[]).slice().sort((a,b)=>a.n-b.n),byN=Object.fromEntries(RL.map(r=>[r.n,r]));
+  const host=u=>{try{const h=new URL(u).host.replace(/^www\./,"");return h==="doi.org"?"doi:"+decodeURIComponent(new URL(u).pathname.slice(1)):h==="pubmed.ncbi.nlm.nih.gov"?"search PubMed":h}catch(e){return u}};
+  const item=r=>`<li value="${r.n}">${esc(r.citation)} <a href="${esc(r.url)}" target="_blank" rel="noopener">${esc(host(r.url))} ↗</a></li>`;
+  $("#refCount").textContent=RL.length+" cited works";
+  const openAll=n=>{openDrawer(`References · ${RL.length}`,`<p class="dr-src">From the published article, with a link to each source.</p><ol class="refs reflist">${RL.map(item).join("")}</ol>`);if(n){const li=document.querySelector(`#drBody li[value="${n}"]`);if(li){li.classList.add("hit");li.scrollIntoView({block:"center"})}}};
+  $("#refOpen").onclick=()=>openAll();
+  document.querySelectorAll('#navLinks a[href="#references"]').forEach(a=>a.addEventListener("click",e=>{e.preventDefault();document.getElementById("references").scrollIntoView();openAll()}));
+  document.querySelectorAll(".cite").forEach(b=>b.addEventListener("click",()=>{const r=byN[+b.dataset.n];if(!r)return;openDrawer(`Reference ${r.n}`,`<p style="font-size:16px">${esc(r.citation)}</p><div class="row-links"><a class="btn" href="${esc(r.url)}" target="_blank" rel="noopener">Open source ↗</a><button class="btn" id="refAll" type="button">All references</button></div>`);$("#refAll").onclick=()=>openAll(r.n)}))}
 
 /* ---------- audit ---------- */
 function jump(o){Object.assign(S,{doses:null,healthy:false,sel:null,fit:null},o);renderAll();document.getElementById("explore").scrollIntoView()}
@@ -1135,7 +1149,7 @@ new MutationObserver(rerender).observe(document.documentElement,{attributes:true
 function esc(s){return String(s).replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"})[c])}
 function renderStatic(P){
   const refIdx=n=>P.references.findIndex(r=>r.n===n);
-  const rich=s=>esc(s).replace(/\[ref:(\d+)\]/g,(m,n)=>`<button class="cite" data-ref="${refIdx(+n)}">${n}</button>`);
+  const rich=s=>esc(s).replace(/\[ref:(\d+)\]/g,(m,n)=>`<button class="cite" data-n="${n}">${n}</button>`);
   const p=P.paper,$=s=>document.querySelector(s);
   document.title="Living Paper: "+p.journal+" "+p.year;
   $("#heroMeta").innerHTML=`<span class="chip solid">${esc(p.status)}</span><span class="chip">${esc(p.journal)} · ${p.year} · ${esc(p.volume)}, ${esc(p.article)}</span><span class="chip">${esc(p.license)}</span>`;

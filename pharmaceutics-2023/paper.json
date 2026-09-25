@@ -369,5 +369,289 @@
    "get_methods",
    "get_quote"
   ]
- }
+ },
+ "referenceList": [
+  {
+   "n": 1,
+   "citation": "Chaffer, C.L.; Weinberg, R.A. A perspective on cancer cell metastasis. Science 2011, 331, 1559–1564.",
+   "url": "https://doi.org/10.1126/science.1203543",
+   "link": "doi"
+  },
+  {
+   "n": 2,
+   "citation": "Bray, F.; Laversanne, M.; Weiderpass, E.; Soerjomataram, I. The ever-increasing importance of cancer as a leading cause of premature death worldwide. Cancer 2021, 127, 3029–3030.",
+   "url": "https://doi.org/10.1002/cncr.33587",
+   "link": "doi"
+  },
+  {
+   "n": 3,
+   "citation": "WHO. Cancer. 2020. Available online: https://www.who.int/news-room/fact-sheets/detail/cancer (accessed on 6 April 2023).",
+   "url": "https://www.who.int/news-room/fact-sheets/detail/cancer",
+   "link": "web"
+  },
+  {
+   "n": 4,
+   "citation": "World Cancer Research Fund. Colorectal Cancer Statistics. Available online: https://www.wcrf.org/cancer-trends/colorectal-cancer-statistics/ (accessed on 6 April 2023).",
+   "url": "https://www.wcrf.org/cancer-trends/colorectal-cancer-statistics/",
+   "link": "web"
+  },
+  {
+   "n": 5,
+   "citation": "World Cancer Research Fund. Breast Cancer Statistics. Available online: https://www.wcrf.org/cancer-trends/breast-cancer-statistics/ (accessed on 6 April 2023).",
+   "url": "https://www.wcrf.org/cancer-trends/breast-cancer-statistics/",
+   "link": "web"
+  },
+  {
+   "n": 6,
+   "citation": "Hawkes, N. Cancer survival data emphasise importance of early diagnosis. BMJ 2019, 364, 1408.",
+   "url": "https://doi.org/10.1136/bmj.l408",
+   "link": "doi"
+  },
+  {
+   "n": 7,
+   "citation": "Knezevic, C.E.; Clarke, W. Cancer Chemotherapy: The Case for Therapeutic Drug Monitoring. Ther. Drug. Monit. 2020, 42, 6–19.",
+   "url": "https://doi.org/10.1097/FTD.0000000000000701",
+   "link": "doi"
+  },
+  {
+   "n": 8,
+   "citation": "Labianca, R.; Beretta, G.D.; Kildani, B.; Milesi, L.; Merlin, F.; Mosconi, S.; Pessi, M.A.; Prochilo, T.; Quadri, A.; Gatta, G.; et al. Colon cancer. Crit. Rev. Oncol. Hematol. 2010, 74, 106–133.",
+   "url": "https://doi.org/10.1016/j.critrevonc.2010.01.010",
+   "link": "doi"
+  },
+  {
+   "n": 9,
+   "citation": "Cvetković, D.; Živanović, M.; Milutinović, M.; Đukić, T.; Radović, M.; Cvetković, A.; Filipović, N.; Zdravković, N. Real-time monitoring of cytotoxic effects of electroporation on breast and colon cancer cell lines. Bioelectrochemistry 2017, 113, 85–94.",
+   "url": "https://doi.org/10.1016/j.bioelechem.2016.10.005",
+   "link": "doi"
+  },
+  {
+   "n": 10,
+   "citation": "Filipovic, N.; Djukic, T.; Saveljic, I.; Milenkovic, P.; Jovicic, G.; Djuric, M. Modeling of liver metastatic disease with applied drug therapy. Comput. Methods Programs Biomed. 2014, 115, 162–170.",
+   "url": "https://doi.org/10.1016/j.cmpb.2014.04.013",
+   "link": "doi"
+  },
+  {
+   "n": 11,
+   "citation": "Mao, X.; Wang, H. Evaluation of the Efficacy of Neoadjuvant Chemotherapy for Breast Cancer. Drug Des. Devel. Ther. 2022, 14, 2423.",
+   "url": "https://www.dovepress.com/evaluation-of-the-efficacy-of-neoadjuvant-chemotherapy-for-breast-canc-peer-reviewed-fulltext-article-DDDT",
+   "link": "publisher"
+  },
+  {
+   "n": 12,
+   "citation": "Tilsed, C.M.; Fisher, S.A.; Nowak, A.K.; Lake, R.A.; Lesterhuis, W.J. Cancer chemotherapy: Insights into cellular and tumor microenvironmental mechanisms of action. Front. Oncol. 2022, 12, 960317.",
+   "url": "https://doi.org/10.3389/fonc.2022.960317",
+   "link": "doi"
+  },
+  {
+   "n": 13,
+   "citation": "Barry, M.; Bleackley, R.C. Cytotoxic T lymphocytes: All roads lead to death. Nat. Rev. Immunol. 2002, 2, 401–409.",
+   "url": "https://doi.org/10.1038/nri819",
+   "link": "doi"
+  },
+  {
+   "n": 14,
+   "citation": "Fontebasso, Y.; Dubinett, S.M. Drug Development for Metastasis Prevention. Crit. Rev. Oncog. 2015, 20, 449–473.",
+   "url": "https://doi.org/10.1615/CritRevOncog.v20.i5-6.150",
+   "link": "doi"
+  },
+  {
+   "n": 15,
+   "citation": "Wigmore, P.M.; Mustafa, S.; El-Beltagy, M.; Lyons, L.; Umka, J.; Bennett, B. Effects of 5-FU. Advances in Experimental Medicine and Biology; Raffa, R.B., Tallarida, R.J., Eds.; Springer: New York, NY, USA, 2010; Volume 678, pp. 157–164.",
+   "url": "https://link.springer.com/chapter/10.1007/978-1-4419-6306-2_20",
+   "link": "publisher"
+  },
+  {
+   "n": 16,
+   "citation": "Danenberg, P.V.; Gustavsson, B.; Johnston, P.; Lindberg, P.; Moser, R.; Odin, E.; Peters, G.J.; Petrelli, N. Folates as adjuvants to anticancer agents: Chemical rationale and mechanism of action. Crit. Rev. Oncol. Hematol. 2016, 106, 118–131.",
+   "url": "https://doi.org/10.1016/j.critrevonc.2016.08.001",
+   "link": "doi"
+  },
+  {
+   "n": 17,
+   "citation": "Bailly, C. Irinotecan: 25 years of cancer treatment. Pharmacol. Res. 2019, 148, 104398.",
+   "url": "https://doi.org/10.1016/j.phrs.2019.104398",
+   "link": "doi"
+  },
+  {
+   "n": 18,
+   "citation": "Yang, J.; Parsons, J.; Nicolay, N.H.; Caporali, S.; Harrington, C.F.; Singh, R.; Finch, D.; D’Atri, S.; Farmer, P.B.; Johnston, P.G.; et al. Cells deficient in the base excision repair protein, DNA polymerase beta, are hypersensitive to oxaliplatin chemotherapy. Oncogene 2010, 29, 463–468. 18 of 19",
+   "url": "https://doi.org/10.1038/onc.2009.327",
+   "link": "doi"
+  },
+  {
+   "n": 19,
+   "citation": "Schettini, F.; Giuliano, M.; Lambertini, M.; Bartsch, R.; Pinato, D.J.; Onesti, C.E.; Harbeck, N.; Lüftner, D.; Rottey, S.; van Dam, P.A.; et al. Anthracyclines Strike Back: Rediscovering Non-Pegylated Liposomal Doxorubicin in Current Therapeutic Scenarios of Breast Cancer. Cancers 2021, 13, 4421.",
+   "url": "https://doi.org/10.3390/cancers13174421",
+   "link": "doi"
+  },
+  {
+   "n": 20,
+   "citation": "Yong, M.; Burns, K.E.; de Zoysa, J.; Helsby, N.A. Intracellular activation of 4-hydroxycyclophosphamide into a DNA-alkylating agent in human leucocytes. Mol. Toxicol. 2021, 51, 1188–1198.",
+   "url": "https://doi.org/10.1080/00498254.2021.1975060",
+   "link": "doi"
+  },
+  {
+   "n": 21,
+   "citation": "Nabors, L.B.; Surboeck, B.; Grisold, W. Chapter 14—Complications from pharmacotherapy. In Handbook of Clinical Neurology, 3rd ed.; Berger, M.S., Weller, M., Eds.; Elsevier: Amsterdam, The Netherlands, 2016; Volume 134, pp. 235–250.",
+   "url": "https://www.sciencedirect.com/science/chapter/handbook/abs/pii/B9780128029978000141?via%3Dihub",
+   "link": "publisher"
+  },
+  {
+   "n": 22,
+   "citation": "Imran, M.; Saleem, S.; Chaudhuri, A.; Ali, J.; Baboota, S. Docetaxel: An update on its molecular mechanisms, therapeutic trajectory and nanotechnology in the treatment of breast, lung and prostate cancer. J. Drug Deliv. Sci. Technol. 2020, 60, 101959.",
+   "url": "https://doi.org/10.1016/j.jddst.2020.101959",
+   "link": "doi"
+  },
+  {
+   "n": 23,
+   "citation": "Nikolic, S.; Gazdic-Jankovic, M.; Rosic, G.; Miletic-Kovacevic, M.; Jovicic, N.; Nestorovic, N.; Stojkovic, P.; Filipovic, N.; Milosevic- Djordjevic, O.; Selakovic, D.; et al. Orally administered fluorescent nanosized polystyrene particles affect cell viability, hormonal and inflammatory profile, and behavior in treated mice. Environ. Pollut. 2022, 305, 119206.",
+   "url": "https://doi.org/10.1016/j.envpol.2022.119206",
+   "link": "doi"
+  },
+  {
+   "n": 24,
+   "citation": "Livak, K.J.; Schmittgen, T.D. Analysis of relative gene expression data using real-time quantitative PCR and the 2(-Delta Delta C(T)) Method. Methods 2001, 25, 402–408.",
+   "url": "https://doi.org/10.1006/meth.2001.1262",
+   "link": "doi"
+  },
+  {
+   "n": 25,
+   "citation": "Breward, C.J.W.; Byrne, H.M.; Lewis, C.E. The role of cell-cell interactions in a two-phase model for avascular tumour growth. J. Math. Biol. 2002, 45, 125–152.",
+   "url": "https://doi.org/10.1007/s002850200149",
+   "link": "doi"
+  },
+  {
+   "n": 26,
+   "citation": "Kojic, M.; Filipovic, N.; Stojanovic, B.; Kojic, N. Computer Modeling in Bioengineering, Theoretical Background, Examples and Software; John Wiley and Sons: Chichester, UK, 2008.",
+   "url": "https://www.wiley.com/en-us/shop/general-introductory-biomedical-engineering/computer-modeling-in-bioengineering-theoretical-background-examples-and-software-p-9780470060353",
+   "link": "publisher"
+  },
+  {
+   "n": 27,
+   "citation": "Byrd, R.H.; Gilbert, J.C.; Nocedal, J. A trust region method based on interior point techniques for nonlinear programming. Math. Program. 2000, 89, 149–185.",
+   "url": "https://doi.org/10.1007/PL00011391",
+   "link": "doi"
+  },
+  {
+   "n": 28,
+   "citation": "Powell, M.J.D. A fast algorithm for nonlinearly constrained optimization calculations. In Numerical Analysis; Lecture Notes in Mathematics; Watson, G.A., Ed.; Springer: Berlin, Germany, 1978; Volume 630, pp. 144–157.",
+   "url": "https://link.springer.com/chapter/10.1007/BFb0067703",
+   "link": "publisher"
+  },
+  {
+   "n": 29,
+   "citation": "Nelder, J.; Mead, R. A simplex method for function minimization. Comput. J. 1965, 7, 308–313.",
+   "url": "https://doi.org/10.1093/comjnl/7.4.308",
+   "link": "doi"
+  },
+  {
+   "n": 30,
+   "citation": "Lagarias, J.; Reeds, J.; Wright, M.H.; Wright, P.E. Convergence Properties of the Nelder-Mead Simplex Method in Low Dimensions. SIAM J. Optim. 1998, 9, 112–147.",
+   "url": "https://doi.org/10.1137/S1052623496303470",
+   "link": "doi"
+  },
+  {
+   "n": 31,
+   "citation": "Demetriades, M.; Zivanovic, M.; Hadjicharalambous, M.; Ioannou, E.; Ljujic, B.; Vucicevic, K.; Ivosevic, Z.; Dagovic, A.; Milivojevic, N.; Kokkinos, O.; et al. Interrogating and Quantifying In Vitro Cancer Drug Pharmacodynamics via Agent-Based and Bayesian Monte Carlo Modelling. Pharmaceutics 2022, 14, 749.",
+   "url": "https://doi.org/10.3390/pharmaceutics14040749",
+   "link": "doi"
+  },
+  {
+   "n": 32,
+   "citation": "Sokolovskaya, A.; Korneeva, E.; Zaichenko, D.; Virus, E.; Kolesov, D.; Moskovtsev, A.; Kubatiev, A. Changes in the Surface Expression of Intercellular Adhesion Molecule 3, the Induction of Apoptosis, and the Inhibition of Cell-Cycle Progression of Human Multidrug-Resistant Jurkat/A4 Cells Exposed to a Random Positioning Machine. Int. J. Mol. Sci. 2020, 21, 855.",
+   "url": "https://doi.org/10.3390/ijms21030855",
+   "link": "doi"
+  },
+  {
+   "n": 33,
+   "citation": "Srinivas, U.S.; Dyczkowski, J.; Beißbarth, T.; Gaedcke, J.; Mansour, W.Y.; Borgmann, K.; Dobbelstein, M. 5-Fluorouracil sensitizes colorectal tumor cells towards double stranded DNA breaks by interfering with homologous recombination repair. Oncotarget 2015, 6, 12574–12586.",
+   "url": "https://doi.org/10.18632/oncotarget.3728",
+   "link": "doi"
+  },
+  {
+   "n": 34,
+   "citation": "McQuade, M.R.; Stojanovska, V.; Bornstein, C.J.; Nurgali, K. Colorectal Cancer Chemotherapy: The Evolution of Treatment and New Approaches. Curr. Med. Chem. 2017, 24, 1537–1557.",
+   "url": "https://doi.org/10.2174/0929867324666170111152436",
+   "link": "doi"
+  },
+  {
+   "n": 35,
+   "citation": "Rivory, L.P.; Bowles, M.R.; Robert, J.; Pond, S.M. Conversion of irinotecan (CPT-11) to its active metabolite, 7-ethyl-10- hydroxycamptothecin (SN-38), by Human Liver Carboxylesterase. Biochem. Pharmacol. 1996, 52, 1103–1111.",
+   "url": "https://doi.org/10.1016/0006-2952(96)00457-1",
+   "link": "doi"
+  },
+  {
+   "n": 36,
+   "citation": "Chaney, S.G.; Campbell, S.L.; Bassett, E.; Wu, Y. Recognition and processing of cisplatin- and oxaliplatin-DNA adducts. Crit. Rev. Oncol. Hematol. 2005, 53, 3–11.",
+   "url": "https://doi.org/10.1016/j.critrevonc.2004.08.008",
+   "link": "doi"
+  },
+  {
+   "n": 37,
+   "citation": "Stanton, R.A.; Gernert, K.M.; Nettles, J.H.; Aneja, R. Drugs that target dynamic microtubules: A new molecular perspective. Med. Res. Rev. 2011, 31, 443–481.",
+   "url": "https://doi.org/10.1002/med.20242",
+   "link": "doi"
+  },
+  {
+   "n": 38,
+   "citation": "Mirkes, P.E. Cyclophosphamide teratogenesis: A review. Teratog. Carcinog. Mutagen. 1985, 5, 75–88.",
+   "url": "https://doi.org/10.1002/tcm.1770050202",
+   "link": "doi"
+  },
+  {
+   "n": 39,
+   "citation": "Cho, Y.H.; Ro, E.J.; Yoon, J.S.; Mizutani, T.; Kang, D.W.; Park, J.C.; Kim, T.I.; Clevers, H.; Choi, K.Y. 5-FU promotes stemness of colorectal cancer via p53-mediated WNT/β-catenin pathway activation. Nat. Commun. 2020, 11, 5321.",
+   "url": "https://doi.org/10.1038/s41467-020-19173-2",
+   "link": "doi"
+  },
+  {
+   "n": 40,
+   "citation": "Meek, D.W. The p53 response to DNA damage. DNA Repair. 2004, 3, 1049–1056.",
+   "url": "https://doi.org/10.1016/j.dnarep.2004.03.027",
+   "link": "doi"
+  },
+  {
+   "n": 41,
+   "citation": "Mhaidat, N.M.; Bouklihacene, M.; Thorne, R.F. 5-Fluorouracil-induced apoptosis in colorectal cancer cells is caspase-9-dependent and mediated by activation of protein kinase C-δ. Oncol. Lett. 2014, 8, 699–704.",
+   "url": "https://doi.org/10.3892/ol.2014.2211",
+   "link": "doi"
+  },
+  {
+   "n": 42,
+   "citation": "Zanardelli, M.; Micheli, L.; Nicolai, R.; Failli, P.; Ghelardini, C.; Mannelli, L.D.C. Different Apoptotic Pathways Activated by Oxaliplatin in Primary Astrocytes vs. Colo-Rectal Cancer Cells. Int. J. Mol. Sci. 2015, 16, 5386–5399.",
+   "url": "https://doi.org/10.3390/ijms16035386",
+   "link": "doi"
+  },
+  {
+   "n": 43,
+   "citation": "Takeba, Y.; Kumai, T.; Matsumoto, N.; Nakaya, S.; Tsuzuki, Y.; Yanagida, Y.; Kobayashi, S. Irinotecan Activates p53 with Its Active Metabolite, Resulting in Human Hepatocellular Carcinoma Apoptosis. J. Pharmacol. Sci. 2007, 104, 232–242.",
+   "url": "https://doi.org/10.1254/jphs.FP0070442",
+   "link": "doi"
+  },
+  {
+   "n": 44,
+   "citation": "Childs, A.C.; Phaneuf, S.L.; Dirks, A.J.; Phillips, T.; Leeuwenburgh, C. Doxorubicin Treatment In Vivo Causes Cytochrome c Release and Cardiomyocyte Apoptosis, As Well As Increased Mitochondrial Efficiency, Superoxide Dismutase Activity, and Bcl-2:Bax Ratio. Cancer Res. 2002, 62, 4592–4598.",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/?term=Doxorubicin%20Treatment%20In%20Vivo%20Causes%20Cytochrome%20c%20Release%20and%20Cardiomyocyte%20Apoptosis%20%20As%20Well%20As%20Increased%20Mitochondria",
+   "link": "search"
+  },
+  {
+   "n": 45,
+   "citation": "Morales-Cano, D.; Calviño, E.; Rubio, V.; Herráez, A.; Sancho, P.; Tejedor, M.C.; Diez, J.C. Apoptosis induced by paclitaxel via Bcl-2, Bax and caspases 3 and 9 activation in NB4 human leukaemia cells is not modulated by ERK inhibition. Exp. Toxicol. Pathol. 2013, 65, 1101–1108. 19 of 19",
+   "url": "https://doi.org/10.1016/j.etp.2013.04.006",
+   "link": "doi"
+  },
+  {
+   "n": 46,
+   "citation": "Ogura, T.; Tanaka, Y.; Tamaki, H.; Harada, M. Docetaxel induces Bcl-2- and pro-apoptotic caspase-independent death of human prostate cancer DU145 cells. Int. J. Oncol. 2016, 48, 2330–2338.",
+   "url": "https://doi.org/10.3892/ijo.2016.3482",
+   "link": "doi"
+  },
+  {
+   "n": 47,
+   "citation": "Sharifi, S.; Barar, J.; Hejazi, M.S.; Samadi, N. Doxorubicin Changes Bax/Bcl-xL Ratio, Caspase-8 and 9 in Breast Cancer Cells. Adv. Pharm. Bull. 2015, 5, 351–359. author(s) and contributor(s) and not of MDPI and/or the editor(s). MDPI and/or the editor(s) disclaim responsibility for any injury to people or property resulting from any ideas, methods, instructions or products referred to in the content.",
+   "url": "https://doi.org/10.15171/apb.2015.049",
+   "link": "doi"
+  }
+ ]
 }

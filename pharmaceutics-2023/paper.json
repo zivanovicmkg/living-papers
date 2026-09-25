@@ -1,0 +1,353 @@
+{
+ "schema": "living-paper/1.0",
+ "paper": {
+  "title": "Combined Biological and Numerical Modeling Approach for Better Understanding of the Cancer Viability and Apoptosis",
+  "displayTitle": "Combined biological and numerical modeling of cancer viability and apoptosis",
+  "authors": [
+   "Marko Živanović",
+   "Marina Gazdić Janković",
+   "Amra Ramović Hamzagić",
+   "Katarina Virijević",
+   "Nevena Milivojević",
+   "Katarina Pecić",
+   "Dragana Šeklić",
+   "Milena Jovanović",
+   "Nikolina Kastratović",
+   "Ana Mirić",
+   "Tijana Đukić",
+   "Ivica Petrović",
+   "Vladimir Jurišić",
+   "Biljana Ljujić",
+   "Nenad Filipović"
+  ],
+  "authorsShort": "Marko Živanović, M. Gazdić Janković, A. Ramović Hamzagić, K. Virijević, N. Milivojević, … B. Ljujić, N. Filipović",
+  "affiliation": "University of Kragujevac, Serbia",
+  "correspondingAuthor": "Marko Živanović",
+  "journal": "Pharmaceutics",
+  "year": 2023,
+  "volume": "15",
+  "article": "1628",
+  "doi": "10.3390/pharmaceutics15061628",
+  "license": "CC BY 4.0",
+  "status": "Published"
+ },
+ "question": "When clinical chemotherapeutics hit cancer and healthy cells, how do the cells die, and can a growth–death model capture the whole time course?",
+ "mainFinding": {
+  "label": "as reported",
+  "text": "All eight drugs lowered viability in a dose- and time-dependent way, mostly through late apoptosis along the intrinsic pathway. A growth–death model fitted per condition reproduces the viability curves.",
+  "emphasis": [
+   "late apoptosis",
+   "intrinsic pathway"
+  ]
+ },
+ "cellLines": {
+  "HCT-116": {
+   "tissue": "colorectal carcinoma",
+   "kind": "cancer",
+   "drugs": [
+    "5-FU",
+    "Leucovorin",
+    "Irinotecan",
+    "Oxaliplatin"
+   ],
+   "rtcaFigure": "S1",
+   "flowFigure": "S5"
+  },
+  "MDA-MB-231": {
+   "tissue": "breast adenocarcinoma",
+   "kind": "cancer",
+   "drugs": [
+    "Doxorubicin",
+    "Endoxan",
+    "Paclitaxel",
+    "Docetaxel"
+   ],
+   "rtcaFigure": "S2",
+   "flowFigure": "S6"
+  },
+  "MRC-5": {
+   "tissue": "healthy lung fibroblast",
+   "kind": "healthy",
+   "drugs": [
+    "5-FU",
+    "Leucovorin",
+    "Irinotecan",
+    "Oxaliplatin",
+    "Doxorubicin",
+    "Endoxan",
+    "Paclitaxel",
+    "Docetaxel"
+   ],
+   "rtcaFigure": "S3–S4",
+   "flowFigure": "S7–S8"
+  }
+ },
+ "drugs": {
+  "5-FU": {
+   "name": "5-fluorouracil",
+   "regimen": "colorectal"
+  },
+  "Leucovorin": {
+   "name": "leucovorin",
+   "regimen": "colorectal"
+  },
+  "Irinotecan": {
+   "name": "irinotecan",
+   "regimen": "colorectal"
+  },
+  "Oxaliplatin": {
+   "name": "oxaliplatin (Ox-Pt)",
+   "regimen": "colorectal"
+  },
+  "Doxorubicin": {
+   "name": "doxorubicin",
+   "regimen": "breast"
+  },
+  "Endoxan": {
+   "name": "endoxan (cyclophosphamide)",
+   "regimen": "breast"
+  },
+  "Paclitaxel": {
+   "name": "paclitaxel",
+   "regimen": "breast"
+  },
+  "Docetaxel": {
+   "name": "docetaxel",
+   "regimen": "breast"
+  }
+ },
+ "genes": [
+  {
+   "key": "Bcl2",
+   "name": "Bcl-2",
+   "role": "anti-apoptotic"
+  },
+  {
+   "key": "Bax",
+   "name": "Bax",
+   "role": "pro-apoptotic, mitochondrial"
+  },
+  {
+   "key": "Cas9",
+   "name": "Caspase 9",
+   "role": "initiator, intrinsic pathway"
+  },
+  {
+   "key": "Cas3",
+   "name": "Caspase 3",
+   "role": "executioner"
+  },
+  {
+   "key": "Fas",
+   "name": "Fas",
+   "role": "death receptor, extrinsic pathway"
+  }
+ ],
+ "assays": {
+  "rtca": {
+   "name": "Real-time cell analysis (xCELLigence)",
+   "unit": "normalized cell index (NCI)",
+   "observed": true
+  },
+  "flow": {
+   "name": "Annexin V / PI flow cytometry",
+   "unit": "% of cells",
+   "states": [
+    "Viable",
+    "Early apoptosis",
+    "Late apoptosis",
+    "Necrosis"
+   ],
+   "timepoints_h": [
+    24,
+    72
+   ],
+   "observed": true
+  },
+  "qpcr": {
+   "name": "qPCR, 2^−ΔΔCt",
+   "unit": "fold change vs untreated",
+   "timepoints_h": [
+    24,
+    72
+   ],
+   "observed": true
+  },
+  "params": {
+   "name": "Growth–death model parameters s1–s4",
+   "unit": "dimensionless",
+   "fits": {
+    "rtca": "RTCA only",
+    "rtcaB": "RTCA values at flow time points",
+    "joint": "RTCA and flow together"
+   },
+   "observed": false
+  }
+ },
+ "methods": [
+  {
+   "id": "m-culture",
+   "title": "Cell lines and treatment",
+   "section": "§2.1–2.2",
+   "paragraphs": [
+    "HCT-116 (colorectal carcinoma), MDA-MB-231 (breast adenocarcinoma) and MRC-5 (lung fibroblast, healthy reference), all from ECACC, grown in DMEM with 10% FBS at 37 °C, 5% CO₂.",
+    "Colorectal regimen drugs (5-FU, leucovorin, irinotecan, oxaliplatin) on HCT-116 and MRC-5; breast regimen drugs (doxorubicin, endoxan, paclitaxel, docetaxel) on MDA-MB-231 and MRC-5. Flow cytometry and qPCR used two doses per drug; RTCA used up to five."
+   ]
+  },
+  {
+   "id": "m-rtca",
+   "title": "Real-time viability (RTCA)",
+   "section": "§2.3",
+   "paragraphs": [
+    "xCELLigence RTCA DP, E-plate 16, 10,000 cells per well, impedance read every 15 min for 96 h. Chemotherapeutics were added about 24 h after seeding; results are expressed as normalized cell index (NCI)."
+   ],
+   "equations": [
+    "CI = (R_tn − R_t0) / F,  F = 15 Ω"
+   ],
+   "notes": [
+    "Curves are shown as in Supplementary Figs. S1–S4: time since seeding, resampled to 1 h. The dashed vertical line marks drug addition. Error bars are shown at selected time points, as in the Supplementary, so the curves stay readable."
+   ]
+  },
+  {
+   "id": "m-flow",
+   "title": "Cell death type (Annexin V / PI flow cytometry)",
+   "section": "§2.4",
+   "paragraphs": [
+    "2 × 10⁵ cells per sample, BD FACSVerse, 24 h and 72 h after treatment. Viable: Annexin V⁻ PI⁻. Early apoptosis: Annexin V⁺ PI⁻. Late apoptosis: Annexin V⁺ PI⁺. Necrosis: Annexin V⁻ PI⁺. Means of three independent experiments."
+   ]
+  },
+  {
+   "id": "m-qpcr",
+   "title": "Apoptosis genes (qPCR)",
+   "section": "§2.5",
+   "paragraphs": [
+    "TRIzol RNA, oligo(dT) cDNA, qPCR against β-actin. Targets Bcl-2, Bax, Cas3 (caspase 3), Cas9 (caspase 9) and Fas. Relative expression by 2^−ΔΔCt [ref:24], reported as fold change against untreated cells. No error estimates are given in Fig. S9."
+   ]
+  },
+  {
+   "id": "m-model",
+   "title": "Numerical model and fitting",
+   "section": "§2.7, §3.4",
+   "paragraphs": [
+    "Two-phase avascular tumour model [ref:25], cell migration switched off. α is the cell fraction, C the oxygen concentration, held constant outside the cells."
+   ],
+   "equations": [
+    "∂α/∂t = (1+s₁)α(1−α)C / (1+s₁C) − (s₂+s₃C)α / (1+s₄C)",
+    "∂²C/∂x² = QαC / (1+Q₁C)"
+   ],
+   "notes": [
+    "FEM in 2D (in-house), 1 h step, 72 h. Q and Q₁ were fitted on controls only (HCT-116 5.32 / 4.97; MDA-MB-231 5.31 / 4.29; MRC-5 4.69 / 3.98). s₁–s₄ were fitted per condition to viable-cell percentages at 24, 36, 48, 60 and 72 h by SQP followed by Nelder–Mead [ref:29], first to RTCA alone, then to RTCA and flow together.",
+    "The logistic fit shown in chapter 4 is a separate re-analysis made for this page, not the paper's model."
+   ]
+  },
+  {
+   "id": "m-stats",
+   "title": "Statistics",
+   "section": "§2.6",
+   "paragraphs": [
+    "Three independent experiments, at least three replicates each. Mean ± SD (RTCA) or ± SEM (flow). Mann–Whitney test and one-way ANOVA."
+   ]
+  }
+ ],
+ "limitations": [
+  {
+   "title": "Monolayers in a dish",
+   "text": "2D cultures in normoxia, one cell line per tumour type, as stated in the paper."
+  },
+  {
+   "title": "RTCA measures adhesion",
+   "text": "Impedance reflects attached cells; flow cytometry is needed to tell how cells die."
+  },
+  {
+   "title": "Transcripts, not proteins",
+   "text": "Pathway activity is inferred from mRNA levels of five genes."
+  },
+  {
+   "title": "Model scope",
+   "text": "Parameters are fitted per condition; predicting other concentrations is named in the paper as the next step."
+  }
+ ],
+ "quotes": {
+  "rtca": {
+   "source": "Section 3.1 · Cell Viability Study",
+   "text": [
+    "In the treatment of HCT-116 cells with 5-FU, we obtained a significant response from the treated cells in terms of a decrease in cell viability in a dose-dependent manner.",
+    "Perhaps the most significant result was obtained with the use of oxaliplatin, where an exceptional result of selectivity towards HCT-116 cells was obtained."
+   ]
+  },
+  "flow": {
+   "source": "Section 3.2 · Apoptosis Rate Analyses",
+   "text": [
+    "In HCT-116 cells, all 4 applied drugs show a significant effect, especially in the form of induction of late apoptosis in the treatments.",
+    "In MDA-MB-231 cells, all four selected drugs show a similar effect: an increase in the proportion of late apoptosis and necrosis with an increase in the dose and time of exposure."
+   ]
+  },
+  "qpcr": {
+   "source": "Section 3.3 · Apoptosis Pathway Investigation",
+   "text": [
+    "In HCT-116 cells (Figure S9) Bcl and Bax genes show increased expression indicating that these drugs induce apoptosis in a dose- and time-dependent manner.",
+    "The results on all three cell lines indicate a dominant reduction or slight fluctuation of Fas gene expression, which indicates that the extrinsic apoptosis pathway is not favored in these treatments."
+   ]
+  },
+  "model": {
+   "source": "Section 3.4 · Numerical Simulations",
+   "text": [
+    "As can be concluded from the sensitivity analysis, smaller values of parameters s2 and s3 and higher values of parameter s4 indicate that the cytotoxicity of the applied chemotherapeutic is higher.",
+    "The next step in the process of future improvements of the presented model will be to use the values of estimated parameters for considered concentrations of pharmacological treatments as a basis to predict the values of parameters for other concentrations."
+   ]
+  }
+ },
+ "references": [
+  {
+   "n": 25,
+   "authors": "Breward CJW, Byrne HM, Lewis CE",
+   "title": "The role of cell–cell interactions in a two-phase model for avascular tumour growth",
+   "journal": "J Math Biol",
+   "year": 2002,
+   "doi": "10.1007/s002850200149"
+  },
+  {
+   "n": 24,
+   "authors": "Livak KJ, Schmittgen TD",
+   "title": "Analysis of relative gene expression data using real-time quantitative PCR and the 2^−ΔΔCT method",
+   "journal": "Methods",
+   "year": 2001,
+   "doi": "10.1006/meth.2001.1262"
+  },
+  {
+   "n": 29,
+   "authors": "Nelder JA, Mead R",
+   "title": "A simplex method for function minimization",
+   "journal": "Comput J",
+   "year": 1965,
+   "doi": "10.1093/comjnl/7.4.308"
+  }
+ ],
+ "provenance": [
+  {
+   "item": "Viability curves",
+   "source": "Authors' RTCA workbooks: 3 cell lines, 16 files, 80 series, resampled to 1 h"
+  },
+  {
+   "item": "Flow cytometry",
+   "source": "Supplementary Figs S5–S8, table values under each panel"
+  },
+  {
+   "item": "Gene expression",
+   "source": "Supplementary Fig S9, fold change"
+  },
+  {
+   "item": "Model parameters",
+   "source": "Supplementary Tables S1–S4 (HCT-116, MRC-5); modeller's workbooks for MDA-MB-231, fit errors and sensitivity analysis; Q, Q₁ from §3.4"
+  },
+  {
+   "item": "Logistic re-fit",
+   "source": "scipy curve_fit, from 3 h after the addition spike to end of recording"
+  },
+  {
+   "item": "Pending",
+   "source": "Simulated model curves (FEM output), for a model-over-data view"
+  }
+ ],
+ "relatedPapers": []
+}

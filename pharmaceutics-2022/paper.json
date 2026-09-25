@@ -1,0 +1,334 @@
+{
+ "schema": "living-paper/1.0",
+ "paper": {
+  "title": "Interrogating and Quantifying In Vitro Cancer Drug Pharmacodynamics via Agent-Based and Bayesian Monte Carlo Modelling",
+  "displayTitle": "Cancer drug pharmacodynamics from MTT data and an agent-based model",
+  "authors": [
+   "Marios Demetriades",
+   "Marko Zivanovic",
+   "Myrianthi Hadjicharalambous",
+   "Eleftherios Ioannou",
+   "Biljana Ljujic",
+   "Ksenija Vucicevic",
+   "Zeljko Ivosevic",
+   "Aleksandar Dagovic",
+   "Nevena Milivojevic",
+   "Odysseas Kokkinos",
+   "Roman Bauer",
+   "Vasileios Vavourakis"
+  ],
+  "authorsShort": "Marios Demetriades, Marko Zivanovic, M. Hadjicharalambous, E. Ioannou, B. Ljujic, K. Vucicevic, Z. Ivosevic, A. Dagovic, N. Milivojevic, O. Kokkinos, R. Bauer, V. Vavourakis",
+  "affiliation": "University of Cyprus · University of Kragujevac · University of Surrey",
+  "journal": "Pharmaceutics",
+  "year": 2022,
+  "volume": "14",
+  "article": "749",
+  "doi": "10.3390/pharmaceutics14040749",
+  "license": "CC BY 4.0",
+  "status": "Living paper"
+ },
+ "question": "How do eight common cytostatics act on colorectal and breast cancer cells, measured by MTT and reproduced by an agent-based model?",
+ "mainFinding": {
+  "label": "as reported",
+  "text": "Combining in vitro drug screening with an in silico agent-based model reproduces the impact of chemotherapeutic drugs on cancer growth, and characterises each drug through model-derived probabilities of cell apoptosis and division.",
+  "emphasis": [
+   "reproduces the impact of chemotherapeutic drugs",
+   "probabilities of cell apoptosis and division"
+  ]
+ },
+ "cellLines": {
+  "HCT-116": {
+   "tissue": "colorectal carcinoma",
+   "drugs": [
+    "5-FU",
+    "Irinotecan",
+    "Leucovorin",
+    "Oxaliplatin"
+   ],
+   "figure": "3",
+   "suppFigure": "S1"
+  },
+  "MDA-MB-231": {
+   "tissue": "breast adenocarcinoma",
+   "drugs": [
+    "Docetaxel",
+    "Doxorubicin",
+    "Endoxan",
+    "Paclitaxel"
+   ],
+   "figure": "4",
+   "suppFigure": "S2"
+  }
+ },
+ "methods": [
+  {
+   "id": "m-mtt",
+   "title": "MTT cytotoxicity assay",
+   "section": "§2.1.2",
+   "paragraphs": [
+    "About 10,000 cells per well were seeded in 96-well plates and left 24 h to adhere, then treated with each cytostatic dissolved in DMEM. The concentration range was standardised from 0.1 to 500 µM. Viability was measured 24 and 72 h after treatment.",
+    "MTT was reduced to formazan, dissolved in DMSO and read at 550 nm (Rayto 2100C). Viability is the absorbance of treated wells divided by the absorbance of untreated wells, times 100 [ref:20]."
+   ]
+  },
+  {
+   "id": "m-stat",
+   "title": "Statistics and IC50",
+   "section": "§2.1.3",
+   "paragraphs": [
+    "Six wells per dose. One-way ANOVA in SPSS 17. IC50 values were calculated from the dose curves with CalcuSyn."
+   ]
+  },
+  {
+   "id": "m-abm",
+   "title": "Agent-based model",
+   "section": "§2.2.1",
+   "paragraphs": [
+    "Off-lattice, two-dimensional agent-based model of one well (disk, 2.4 mm diameter), built on BioDynaMo [ref:16]. Each cell grows, migrates, divides and can die by apoptosis. Only division and apoptosis respond to the drug; growth (90%) and migration (99%) probabilities are fixed.",
+    "The drug concentration is uniform and constant in time."
+   ],
+   "equations": [
+    "each step: if r ≤ P_apoptose → remove cell",
+    "if r ≤ P_migrate → move · if r ≤ P_grow → grow",
+    "if r ≤ P_divide → divide"
+   ]
+  },
+  {
+   "id": "m-vbmc",
+   "title": "Parameter estimation",
+   "section": "§2.2.2",
+   "paragraphs": [
+    "P_apoptose and P_divide were estimated for every treatment scenario with Variational Bayesian Monte Carlo [ref:21], fitting model viability to the MTT viability. Gaussian priors with means 0.2 and 0.15."
+   ],
+   "notes": [
+    "Survival probability ratio = (P_divide treated / P_divide control) ÷ (P_apoptose treated / P_apoptose control), §3.3."
+   ]
+  }
+ ],
+ "limitations": [
+  {
+   "title": "Two model parameters are coupled",
+   "text": "The authors report that P_apoptose and P_divide trade off against each other, so their ratio is estimated reliably but not each value alone (§3.2, Fig 5)."
+  },
+  {
+   "title": "Two-dimensional, constant drug",
+   "text": "The model is 2D and holds drug concentration constant, with no uptake, diffusion or decay (§2.2.1)."
+  },
+  {
+   "title": "Single drugs only",
+   "text": "Combinations used in clinical protocols (FOLFOX, FOLFIRI, AC) were not tested here; the authors describe them as ongoing work (§4)."
+  },
+  {
+   "title": "Endpoint assay",
+   "text": "MTT reads metabolic activity at 24 and 72 h only. The follow-up paper tracks the same drugs in real time with impedance."
+  }
+ ],
+ "quotes": {
+  "mtt": {
+   "source": "§3.1",
+   "text": [
+    "Calculation of the IC50 values (Figure 2a) revealed that 5-FU, Ox-Pt, and Irinotecan exerted significant effects 72 h after treatment (IC50 5-FU = 86.9 µM, IC50 Ox-Pt = 89.3 µM, IC50 Irinotecan = 143.9 µM).",
+    "In MDA-MB-231 cells treatment, Doxorubicin exerted predominant anticancer activity in both treatment periods."
+   ]
+  },
+  "model": {
+   "source": "§3.2",
+   "text": [
+    "Comparing the in vitro, blue lines, to the in silico results, red lines, the model demonstrates its capacity to capture the experimentally measured cell viability very well.",
+    "In rare cases, the model fails to match exactly the in vitro results, particularly when significant fluctuations are present, as can be seen in Figure 4a."
+   ]
+  },
+  "ratio": {
+   "source": "§3.3",
+   "text": [
+    "Although the absolute values of the probabilities cannot be retrieved, their ratio can be reliably estimated.",
+    "Values of cancer cell survival below 1 denote a stronger anti-tumoural effect."
+   ]
+  }
+ },
+ "provenance": [
+  {
+   "item": "MTT viability",
+   "source": "Authors' MTT workbook: 2 cell lines, 8 drugs, 24 and 72 h, six wells per dose (Figs 3–4, S1–S2)"
+  },
+  {
+   "item": "IC50",
+   "source": "Fig 2, values printed on the bars"
+  },
+  {
+   "item": "In silico viability, 72 h",
+   "source": "Supplementary Tables S3–S4"
+  },
+  {
+   "item": "Apoptosis and division probabilities",
+   "source": "Supplementary Tables S1–S2; survival ratio derived from them (§3.3)"
+  },
+  {
+   "item": "Model agreement",
+   "source": "Table 1"
+  },
+  {
+   "item": "Code and animations",
+   "source": "Figshare doi:10.6084/m9.figshare.19387094"
+  }
+ ],
+ "referenceList": [
+  {
+   "n": 1,
+   "citation": "Imamura, Y.; Mukohara, T.; Shimono, Y.; Funakoshi, Y.; Chayahara, N.; Toyoda, M.; Kiyota, N.; Takao, S.; Kono, S.; Nakat- sura, T.; et al. Comparison of 2D- and 3D-culture models as drug-testing platforms in breast cancer. Oncol. Rep. 2015, 33, 1837–1843.",
+   "url": "https://doi.org/10.3892/or.2015.3767",
+   "link": "doi"
+  },
+  {
+   "n": 2,
+   "citation": "Popova, A.; Levkin, P. Precision Medicine in Oncology: In Vitro Drug Sensitivity and Resistance Test (DSRT) for Selection of Personalized Anticancer Therapy. Adv. Ther. 2020, 3, 1900100.",
+   "url": "https://doi.org/10.1002/adtp.201900100",
+   "link": "doi"
+  },
+  {
+   "n": 3,
+   "citation": "Pauli, C.; Hopkins, B.; Prandi, D.; Shaw, R.; Fedrizzi, T.; Sboner, A.; Sailer, V.; Augello, M.; Puca, L.; Rosati, R.; et al. Personalized In Vitro and In Vivo Cancer Models to Guide Precision Medicine. Cancer Discov. 2017, 7, 462–477.",
+   "url": "https://doi.org/10.1158/2159-8290.CD-16-1154",
+   "link": "doi"
+  },
+  {
+   "n": 4,
+   "citation": "Katt, M.; Placone, A.; Wong, A.; Xu, Z.; Searson, P. In Vitro Tumor Models: Advantages, Disadvantages, Variables, and Selecting the Right Platform. Front. Bioeng. Biotechnol. 2016, 4, 12.",
+   "url": "https://doi.org/10.3389/fbioe.2016.00012",
+   "link": "doi"
+  },
+  {
+   "n": 5,
+   "citation": "Frost, J.; Pienta, K.; Coffey, D. Symmetry and symmetry breaking in cancer: A foundational approach to the cancer problem. Oncotarget 2018, 9, 11429.",
+   "url": "https://doi.org/10.18632/oncotarget.22939",
+   "link": "doi"
+  },
+  {
+   "n": 6,
+   "citation": "Axenie, C.; Bauer, R.; Martínez, M. The Multiple Dimensions of Networks in Cancer: A Perspective. Symmetry 2021, 13, 1559.",
+   "url": "https://doi.org/10.3390/sym13091559",
+   "link": "doi"
+  },
+  {
+   "n": 7,
+   "citation": "Yankeelov, T.; An, G.; Saut, O.; Luebeck, E.; Popel, A.; Ribba, B.; Vicini, P.; Zhou, X.; Weis, J.; Ye, K.; et al. Multi-scale Modeling in Clinical Oncology: Opportunities and Barriers to Success. Ann. Biomed. Eng. 2016, 44, 2626–2641.",
+   "url": "https://doi.org/10.1007/s10439-016-1691-6",
+   "link": "doi"
+  },
+  {
+   "n": 8,
+   "citation": "Metzcar, J.; Wang, Y.; Heiland, R.; Macklin, P. A Review of Cell-Based Computational Modeling in Cancer Biology. JCO Clin. Cancer Inform. 2019, 2, 1–13. 15 of 15",
+   "url": "https://doi.org/10.1200/CCI.18.00069",
+   "link": "doi"
+  },
+  {
+   "n": 9,
+   "citation": "Hamis, S.; Powathil, G.; Chaplain, M. Blackboard to Bedside: A Mathematical Modeling Bottom-Up Approach Toward Personalized Cancer Treatments. JCO Clin. Cancer Inform. 2019, 3, 1–11.",
+   "url": "https://doi.org/10.1200/CCI.18.00068",
+   "link": "doi"
+  },
+  {
+   "n": 10,
+   "citation": "Dogra, P.; Butner, J.; Chuang, Y.L.; Caserta, S.; Goel, S.; Brinker, C.; Cristini, V.; Wang, Z. Mathematical modeling in cancer nanomedicine: A review. Biomed. Microdev. 2019, 21, 40.",
+   "url": "https://doi.org/10.1007/s10544-019-0380-2",
+   "link": "doi"
+  },
+  {
+   "n": 11,
+   "citation": "Hadjicharalambous, M.; Wijeratne, P.; Vavourakis, V. From tumour perfusion to drug delivery and clinical translation of in silico cancer models. Methods 2021, 185, 82–93.",
+   "url": "https://doi.org/10.1016/j.ymeth.2020.02.010",
+   "link": "doi"
+  },
+  {
+   "n": 12,
+   "citation": "Zhan, W.; Alamer, M.; Xu, X.Y. Computational modelling of drug delivery to solid tumour: Understanding the interplay between chemotherapeutics and biological system for optimised delivery systems. Adv. Drug Deliv. Rev. 2018, 132, 81–103.",
+   "url": "https://doi.org/10.1016/j.addr.2018.07.013",
+   "link": "doi"
+  },
+  {
+   "n": 13,
+   "citation": "Norton, K.A.; Gong, C.; Jamalian, S.; Popel, A. Multiscale Agent-Based and Hybrid Modeling of the Tumor Immune Microenvi- ronment. Processes 2019, 7, 37.",
+   "url": "https://doi.org/10.3390/pr7010037",
+   "link": "doi"
+  },
+  {
+   "n": 14,
+   "citation": "Ghaffarizadeh, A.; Heiland, R.; Friedman, S.; Mumenthaler, S.; Macklin, P. PhysiCell: An open source physics-based cell simulator for 3D multicellular systems. PLoS Comput. Biol. 2018, 14, 1–31.",
+   "url": "https://doi.org/10.1371/journal.pcbi.1005991",
+   "link": "doi"
+  },
+  {
+   "n": 15,
+   "citation": "de Montigny, J.; Iosif, A.; Breitwieser, L.; Manca, M.; Bauer, R.; Vavourakis, V. An in silico hybrid continuum-/agent-based procedure to modelling cancer development: Interrogating the interplay amongst glioma invasion, vascularity and necrosis. Methods 2021, 185, 94–104.",
+   "url": "https://doi.org/10.1016/j.ymeth.2020.01.006",
+   "link": "doi"
+  },
+  {
+   "n": 16,
+   "citation": "Breitwieser, L.; Hesam, A.; de Montigny, J.; Vavourakis, V.; Iosif, A.; Jennings, J.; Kaiser, M.; Manca, M.; Di Meglio, A.; Al- Ars, Z.; et al. BioDynaMo: A modular platform for high-performance agent-based simulation. Bioinformatics 2022, 38, 453–460.",
+   "url": "https://doi.org/10.1093/bioinformatics/btab649",
+   "link": "doi"
+  },
+  {
+   "n": 17,
+   "citation": "Cogno, N.; Bauer, R.; Durante, M. A 3D Agent-Based Model of Lung Fibrosis. Symmetry 2022, 14, 90.",
+   "url": "https://doi.org/10.3390/sym14010090",
+   "link": "doi"
+  },
+  {
+   "n": 18,
+   "citation": "Macal, C.; North, M. Tutorial on agent-based modelling and simulation. J. Simul. 2010, 4, 151–162.",
+   "url": "https://doi.org/10.1057/jos.2010.3",
+   "link": "doi"
+  },
+  {
+   "n": 19,
+   "citation": "Van Liedekerke, P.; Palm, M.; Jagiella, N.; Drasdo, D. Simulating tissue mechanics with agent-based models: Concepts, perspectives and some novel results. Comput. Part. Mech. 2015, 2, 401–444.",
+   "url": "https://doi.org/10.1007/s40571-015-0082-3",
+   "link": "doi"
+  },
+  {
+   "n": 20,
+   "citation": "Petrović, A.; Ćoćić, D.; Bockfeld, D.; Živanović, M.; Milivojević, N.; Virijević, K.; Janković, N.; Scheurer, A.; Vraneš, M.; Bogojeski, J. Biological activity of bis (pyrazolylpyridine) and terpiridine Os (ii) complexes in the presence of biocompatible ionic liquids. Inorg. Chem. Front. 2021, 8, 2749–2770.",
+   "url": "https://doi.org/10.1039/D0QI01540G",
+   "link": "doi"
+  },
+  {
+   "n": 21,
+   "citation": "Acerbi, L. Variational Bayesian Monte Carlo with Noisy Likelihoods. In Proceedings of the Advances in Neural Information Processing Systems; Larochelle, H., Ranzato, M., Hadsell, R., Balcan, M., Lin, H., Eds.; Curran Associates, Inc.: Red Hook, NY, USA, 2020; Volume 33, pp. 8211–8222.",
+   "url": "https://scholar.google.com/scholar?q=Variational%20Bayesian%20Monte%20Carlo%20with%20Noisy%20Likelihoods%20Acerbi",
+   "link": "search"
+  },
+  {
+   "n": 22,
+   "citation": "Lucia, U.; Grisolia, G.; Deisboeck, T. A non-equilibrium thermodynamic approach to symmetry breaking in cancer. Atti Accad. Peloritana Pericolanti-Cl. Sci. Fis. Mat. Nat. 2021, 99, 1.",
+   "url": "https://doi.org/10.1478/AAPP.991A1",
+   "link": "doi"
+  },
+  {
+   "n": 23,
+   "citation": "Yuki, K.; Cheng, N.; Nakano, M.; Kuo, C.J. Organoid models of tumor immunology. Trends Immunol. 2020, 41, 652–664.",
+   "url": "https://doi.org/10.1016/j.it.2020.06.010",
+   "link": "doi"
+  },
+  {
+   "n": 24,
+   "citation": "Arneth, B. Tumor microenvironment. Medicina 2019, 56, 15.",
+   "url": "https://doi.org/10.3390/medicina56010015",
+   "link": "doi"
+  },
+  {
+   "n": 25,
+   "citation": "Shang, M.; Soon, R.H.; Lim, C.T.; Khoo, B.L.; Han, J. Microfluidic modelling of the tumor microenvironment for anti-cancer drug development. Lab A Chip 2019, 19, 369–386.",
+   "url": "https://doi.org/10.1039/C8LC00970H",
+   "link": "doi"
+  }
+ ],
+ "citedBy": [
+  {
+   "slug": "pharmaceutics-2023",
+   "label": "Živanović et al., Pharmaceutics 2023",
+   "ref": 31,
+   "page": "../pharmaceutics-2023/"
+  }
+ ]
+}

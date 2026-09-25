@@ -1,0 +1,627 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Living Paper: Pharmaceutics 2022</title>
+<meta name="description" content="Cancer drug pharmacodynamics, rebuilt from its own MTT data. Every dose and well, IC50, the agent-based model, and where a later paper cites it as evidence.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Living Paper: Pharmaceutics 2022">
+<meta property="og:description" content="Cancer drug pharmacodynamics, rebuilt from its own MTT data. Every dose and well, IC50, the agent-based model, and where a later paper cites it as evidence.">
+<meta property="og:url" content="https://papers.biology2.net/pharmaceutics-2022/">
+<meta property="og:image" content="https://papers.biology2.net/pharmaceutics-2022/og.png">
+<meta property="og:image:width" content="2400">
+<meta property="og:image:height" content="1260">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Living Paper: Pharmaceutics 2022">
+<meta name="twitter:description" content="Cancer drug pharmacodynamics, rebuilt from its own MTT data. Every dose and well, IC50, the agent-based model, and where a later paper cites it as evidence.">
+<meta name="twitter:image" content="https://papers.biology2.net/pharmaceutics-2022/og.png">
+<link rel="canonical" href="https://papers.biology2.net/pharmaceutics-2022/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=Literata:opsz,wght@7..72,400;7..72,500;7..72,600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>body{margin:0}[hidden]{display:none!important}
+:root{
+  --bg:#F4F5F2; --surface:#FFFFFF; --sunk:#ECEEEA; --ink:#15191C; --muted:#5B6468; --faint:#8A9397; --line:#D8DCD7;
+  --accent:#A2761B; --accent-soft:#F1E6CC; --accent-ink:#6E4F0E;
+  --control:#7A858A; --viable:#46698C; --early:#C99A2E; --late:#B0443A; --nec:#5A4C70; --healthy:#3F8A6E;
+  --up:#B0443A; --down:#46698C;
+  --c1:#3E6A96; --c2:#C2562F; --c3:#2F8A6B; --c4:#8A5BA8; --c5:#B08A22; --c6:#3F93AD; --c7:#A34466; --c8:#646B72;
+  --shadow:0 1px 2px rgba(20,25,28,.05),0 8px 24px -12px rgba(20,25,28,.18);
+  --display:"Familjen Grotesk","Helvetica Neue",Arial,sans-serif;
+  --body:"Literata",Georgia,"Times New Roman",serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#0E1113; --surface:#161A1D; --sunk:#1C2124; --ink:#E7EAE8; --muted:#9AA3A7; --faint:#6F787C; --line:#2A3135;
+    --accent:#D6A844; --accent-soft:#3A2F17; --accent-ink:#EACB85;
+    --control:#8B969B; --viable:#7FA3C9; --early:#E2B85A; --late:#E2735F; --nec:#A091C4; --healthy:#6CC39F;
+    --up:#E2735F; --down:#7FA3C9;
+    --c1:#7FA6D1; --c2:#E9825F; --c3:#5FC39B; --c4:#B58FD3; --c5:#E0BC5A; --c6:#7CC5DC; --c7:#D9789A; --c8:#A3A9AF;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px -14px rgba(0,0,0,.6);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0E1113; --surface:#161A1D; --sunk:#1C2124; --ink:#E7EAE8; --muted:#9AA3A7; --faint:#6F787C; --line:#2A3135;
+  --accent:#D6A844; --accent-soft:#3A2F17; --accent-ink:#EACB85;
+  --control:#8B969B; --viable:#7FA3C9; --early:#E2B85A; --late:#E2735F; --nec:#A091C4; --healthy:#6CC39F;
+  --up:#E2735F; --down:#7FA3C9;
+  --c1:#7FA6D1; --c2:#E9825F; --c3:#5FC39B; --c4:#B58FD3; --c5:#E0BC5A; --c6:#7CC5DC; --c7:#D9789A; --c8:#A3A9AF;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px -14px rgba(0,0,0,.6);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;padding-inline:16px}
+.wrap{max-width:1120px;margin:0 auto}
+a{color:var(--accent-ink)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+h1,h2,h3,h4{font-family:var(--display);line-height:1.12;margin:0;text-wrap:balance;letter-spacing:-.01em}
+.eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+button{font:inherit;color:inherit}
+
+/* demo strip */
+.demo{margin:16px auto 0;max-width:1120px;display:flex;gap:10px;align-items:center;font-family:var(--mono);font-size:12px;color:var(--accent-ink);background:var(--accent-soft);border-radius:6px;padding:8px 12px}
+.demo b{font-weight:500}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.05fr 1fr;gap:48px;padding-block:44px 36px;align-items:start}
+@media (max-width:860px){.hero{grid-template-columns:1fr;gap:28px;padding-block:28px}}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.chip{font-family:var(--mono);font-size:11.5px;border:1px solid var(--line);border-radius:999px;padding:3px 10px;color:var(--muted);background:var(--surface)}
+.chip.solid{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.hero h1{font-size:clamp(30px,4.2vw,48px);font-weight:600}
+.authors{margin-top:14px;font-size:14px;color:var(--muted)}
+.authors b{color:var(--ink);font-weight:500}
+.claim{margin-top:26px;display:grid;gap:18px}
+.claim .q{font-size:19px;line-height:1.5}
+.claim .f{border-left:3px solid var(--accent);padding-left:16px;font-size:17px}
+.actions{margin-top:26px;display:flex;flex-wrap:wrap;gap:10px}
+.btn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:10px 16px;font-family:var(--display);font-weight:600;font-size:15px;cursor:pointer;text-decoration:none;color:var(--ink);min-height:44px}
+.btn:hover{border-color:var(--ink)}
+.btn.primary{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn.primary:hover{opacity:.9}
+
+.stage{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 18px 14px;box-shadow:var(--shadow)}
+.stage-head{display:flex;justify-content:space-between;gap:12px;align-items:baseline;flex-wrap:wrap}
+.stage-head h3{font-size:16px}
+.legend{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.lg{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:11.5px;border:1px solid var(--line);border-radius:999px;padding:4px 10px;cursor:pointer;background:var(--surface);min-height:30px}
+.lg i{width:14px;height:3px;border-radius:2px;display:inline-block}
+.lg[aria-pressed="true"]{border-color:var(--ink)}
+.lg:hover{border-color:var(--muted)}
+.hint{font-size:13px;color:var(--muted);margin-top:8px}
+svg text{font-family:var(--mono);font-size:10.5px;fill:var(--muted)}
+svg .axis{stroke:var(--line)}
+svg .grid{stroke:var(--line);stroke-dasharray:2 4}
+.draw{stroke-dasharray:1400;stroke-dashoffset:1400;animation:draw 1.8s .2s cubic-bezier(.4,0,.2,1) forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+
+/* nav */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);margin-inline:-16px;padding-inline:16px}
+.nav .wrap{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding-block:8px}
+.nav .wrap::-webkit-scrollbar{display:none}
+.nav a{font-family:var(--display);font-weight:600;font-size:14px;text-decoration:none;color:var(--muted);padding:8px 12px;border-radius:6px;white-space:nowrap}
+.nav a:hover,.nav a.on{color:var(--ink);background:var(--sunk)}
+
+section.block{padding-block:56px 12px}
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap;margin-bottom:22px}
+.sec-head h2{font-size:clamp(24px,3vw,32px);font-weight:600;margin-top:6px}
+.sec-head p{margin:6px 0 0;color:var(--muted);max-width:60ch}
+
+/* selector */
+.picker{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px}
+@media (max-width:760px){.picker{grid-template-columns:1fr}}
+.pick-label{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.seg button{border:1px solid var(--line);background:var(--bg);border-radius:7px;padding:8px 12px;cursor:pointer;font-family:var(--display);font-weight:600;font-size:14px;min-height:40px}
+.seg button small{font-family:var(--mono);font-weight:400;font-size:10.5px;color:var(--muted);margin-left:4px}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.seg button[aria-pressed="true"] small{color:inherit;opacity:.7}
+
+/* story */
+.story{margin-top:18px;display:grid;grid-template-columns:230px 1fr;gap:22px}
+@media (max-width:860px){.story{grid-template-columns:1fr}}
+.steps{display:flex;flex-direction:column;gap:4px;position:sticky;top:72px;align-self:start}
+@media (max-width:860px){.steps{position:static;flex-direction:row;overflow-x:auto;scrollbar-width:none}}
+.step{text-align:left;border:0;background:none;border-radius:8px;padding:10px 12px;cursor:pointer;display:grid;grid-template-columns:22px 1fr;gap:10px;align-items:start;color:var(--muted);min-width:0}
+@media (max-width:860px){.step{min-width:170px;border:1px solid var(--line)}}
+.step .n{font-family:var(--mono);font-size:11px;width:22px;height:22px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center}
+.step b{display:block;font-family:var(--display);font-weight:600;font-size:14.5px;color:inherit;line-height:1.25}
+.step span{font-size:12.5px;line-height:1.35;display:block;margin-top:2px}
+.step[aria-selected="true"]{background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
+.step[aria-selected="true"] .n{background:var(--accent);border-color:var(--accent);color:#fff}
+.step.done .n{border-color:var(--accent);color:var(--accent-ink)}
+
+.chapter{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px;box-shadow:var(--shadow);min-width:0}
+.chapter[data-enter]{animation:rise .45s cubic-bezier(.2,.7,.2,1)}
+@keyframes rise{from{transform:translateY(8px);opacity:.4}to{transform:none;opacity:1}}
+.ch-top{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center}
+.tag{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:4px 9px;border-radius:5px;border:1px solid var(--line)}
+.tag::before{content:"";width:8px;height:8px;border-radius:50%}
+.tag.obs::before{background:var(--ink)}
+.tag.der::before{border:1.5px solid var(--ink)}
+.tag.int::before{background:repeating-linear-gradient(45deg,var(--ink) 0 1.5px,transparent 1.5px 3px);border:1px solid var(--ink)}
+.chapter h3{font-size:clamp(20px,2.4vw,26px);font-weight:600;margin-top:14px}
+.chapter .lead{color:var(--muted);margin:8px 0 0;max-width:62ch}
+.fig{margin-top:18px;overflow-x:auto}
+.fig svg{width:100%;height:auto;display:block;min-width:0}
+.row-links{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.link{border:1px dashed var(--line);background:none;border-radius:7px;padding:7px 12px;font-family:var(--mono);font-size:12px;cursor:pointer;color:var(--ink);min-height:36px;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+.link:hover{border-style:solid;border-color:var(--accent)}
+.link.on{border-style:solid;border-color:var(--healthy);color:var(--healthy)}
+.inspect{margin-top:16px;border-top:1px solid var(--line);padding-top:14px;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px}
+.kv .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.kv .v{font-family:var(--display);font-weight:600;font-size:20px;font-variant-numeric:tabular-nums;margin-top:2px}
+.kv .v small{font-family:var(--mono);font-size:11px;font-weight:400;color:var(--muted)}
+.note{font-size:14px;color:var(--muted);margin-top:12px;max-width:66ch}
+.ch-foot{display:flex;justify-content:space-between;gap:10px;margin-top:22px;flex-wrap:wrap}
+.pdfmap{font-family:var(--mono);font-size:11.5px;color:var(--muted);display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.pdfmap s{text-decoration:none;border:1px solid var(--line);border-radius:4px;padding:2px 6px}
+
+/* sliders */
+.model{display:grid;grid-template-columns:1fr 260px;gap:20px;margin-top:18px}
+@media (max-width:760px){.model{grid-template-columns:1fr}}
+.sl{display:grid;gap:4px;margin-bottom:14px}
+.sl label{display:flex;justify-content:space-between;font-family:var(--mono);font-size:12px}
+.sl label span{color:var(--muted)}
+.sl input{width:100%;accent-color:var(--accent)}
+.fitbox{background:var(--sunk);border-radius:8px;padding:12px;font-family:var(--mono);font-size:12px}
+.fitbox b{font-family:var(--display);font-size:22px;display:block}
+.eq{font-family:var(--mono);font-size:13px;background:var(--sunk);border-radius:8px;padding:12px 14px;overflow-x:auto;white-space:nowrap}
+
+/* compare */
+.cmp{display:grid;grid-template-columns:300px 1fr;gap:18px;align-items:start}
+@media (max-width:900px){.cmp{grid-template-columns:1fr}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px}
+.panel + .panel{margin-top:12px}
+.adder{display:grid;gap:8px}
+.adder select{width:100%;font:inherit;font-family:var(--display);font-weight:600;font-size:14px;padding:8px 10px;border:1px solid var(--line);border-radius:7px;background:var(--bg);color:var(--ink);min-height:40px}
+.conds{display:flex;flex-direction:column;gap:6px;margin-top:12px}
+.cond{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:8px;padding:6px 6px 6px 10px;font-size:13.5px;background:var(--bg)}
+.cond i{width:12px;height:12px;border-radius:3px;flex:none}
+.cond span{flex:1;min-width:0;font-family:var(--display);font-weight:600;line-height:1.25}
+.cond span small{display:block;font-family:var(--mono);font-weight:400;font-size:10.5px;color:var(--muted)}
+.cond button{border:0;background:none;cursor:pointer;width:32px;height:32px;border-radius:6px;color:var(--muted);font-size:17px}
+.cond button:hover{background:var(--sunk);color:var(--ink)}
+.presets{display:flex;flex-wrap:wrap;gap:6px}
+.metrics{display:flex;flex-wrap:wrap;gap:6px}
+.cmp-out{min-width:0}
+.cmp-out .panel{padding:20px}
+.cmp-title{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:baseline;margin-bottom:6px}
+.cmp-title h3{font-size:clamp(18px,2.2vw,22px);font-weight:600}
+.cmp-legend{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 4px}
+.mults{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:12px}
+@media (max-width:620px){.mults{grid-template-columns:1fr}}
+.mults h4{font-family:var(--mono);font-size:12px;font-weight:500;margin-bottom:4px}
+.heat{overflow-x:auto;margin-top:14px}
+.heat table{border-collapse:separate;border-spacing:3px;width:100%;min-width:480px}
+.heat th{font-family:var(--mono);font-size:11px;font-weight:500;color:var(--muted);text-align:left;padding:4px 6px;white-space:nowrap}
+.heat td{font-family:var(--mono);font-size:12px;text-align:center;padding:10px 6px;border-radius:5px;font-variant-numeric:tabular-nums;cursor:pointer;color:var(--ink)}
+.heat th.rowh{color:var(--ink);font-family:var(--display);font-weight:600;font-size:13px;cursor:pointer}
+.heat th.rowh i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:6px}
+.scale{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:10px}
+.scale b{height:10px;width:160px;border-radius:3px;background:linear-gradient(90deg,var(--down),var(--surface),var(--up));border:1px solid var(--line)}
+.empty{padding:40px 12px;text-align:center;color:var(--muted)}
+
+/* evidence cards */
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:860px){.cards{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px;text-align:left;cursor:pointer;display:flex;flex-direction:column;gap:10px}
+.card:hover{border-color:var(--ink)}
+.card .big{font-family:var(--display);font-weight:700;font-size:34px;line-height:1;font-variant-numeric:tabular-nums}
+.card h4{font-size:16px;font-weight:600}
+.card p{margin:0;font-size:14px;color:var(--muted)}
+.card .go{font-family:var(--mono);font-size:11.5px;color:var(--accent-ink);margin-top:auto}
+
+/* methods / limitations */
+details.m{background:var(--surface);border:1px solid var(--line);border-radius:10px;margin-bottom:8px}
+details.m summary{cursor:pointer;list-style:none;padding:14px 16px;display:flex;justify-content:space-between;gap:12px;align-items:center;font-family:var(--display);font-weight:600;font-size:16px}
+details.m summary::-webkit-details-marker{display:none}
+details.m summary::after{content:"+";font-family:var(--mono);color:var(--muted);font-size:18px}
+details.m[open] summary::after{content:"−"}
+details.m summary small{font-family:var(--mono);font-weight:400;font-size:11px;color:var(--muted);margin-left:auto;margin-right:8px}
+details.m .in{padding:0 16px 16px;max-width:72ch}
+details.m .in p{margin:0 0 10px}
+details.m.flash{animation:flash 1.6s}
+@keyframes flash{0%,40%{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}}
+.lim{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media (max-width:760px){.lim{grid-template-columns:1fr}}
+.lim div{border:1px solid var(--line);border-left:3px solid var(--late);border-radius:8px;padding:14px 16px;background:var(--surface)}
+.lim b{font-family:var(--display);font-weight:600;display:block;margin-bottom:4px}
+.lim p{margin:0;font-size:14.5px;color:var(--muted)}
+.repro{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.repro div{background:var(--surface);padding:14px 16px}
+.repro .k{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.repro .v{font-family:var(--mono);font-size:13px;margin-top:4px;overflow-wrap:anywhere}
+ol.refs{padding-left:22px;margin:0}
+ol.refs li{margin-bottom:10px;font-size:14.5px}
+.cite{border:0;background:var(--accent-soft);color:var(--accent-ink);font-family:var(--mono);font-size:11px;border-radius:4px;padding:0 5px;cursor:pointer;vertical-align:1px}
+footer{border-top:1px solid var(--line);margin-top:64px;padding-block:28px 40px;font-size:13px;color:var(--muted);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+/* drawer */
+.scrim{position:fixed;inset:0;background:rgba(10,12,14,.45);z-index:40;opacity:0;pointer-events:none;transition:opacity .25s}
+.scrim.on{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(520px,100%);background:var(--surface);z-index:41;transform:translateX(100%);transition:transform .32s cubic-bezier(.2,.7,.2,1);display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);box-shadow:-20px 0 40px -20px rgba(0,0,0,.35)}
+.drawer.on{transform:none}
+.dr-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid var(--line)}
+.dr-head h4{font-size:17px}
+.dr-body{padding:20px;overflow-y:auto;font-size:15.5px}
+.dr-body blockquote{margin:0 0 16px;padding-left:14px;border-left:2px solid var(--line)}
+.dr-src{font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+.x{border:1px solid var(--line);background:none;border-radius:8px;width:40px;height:40px;cursor:pointer;font-size:18px}
+.tooltip{position:fixed;z-index:30;pointer-events:none;background:var(--ink);color:var(--bg);font-family:var(--mono);font-size:11.5px;padding:6px 9px;border-radius:6px;opacity:0;transition:opacity .12s;max-width:240px}
+
+/* v2 additions */
+.demo{background:var(--sunk);color:var(--muted)}
+.demo b{color:var(--ink)}
+.pending{border:1px dashed var(--line);border-radius:10px;padding:18px;margin-top:16px;background:var(--bg)}
+.pending b{font-family:var(--display);display:block;margin-bottom:4px}
+.pending p{margin:0 0 10px;color:var(--muted);font-size:14.5px}
+.audit{display:grid;gap:10px}
+.aud{display:grid;grid-template-columns:140px 1fr;gap:16px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px}
+@media (max-width:640px){.aud{grid-template-columns:1fr;gap:8px}}
+.aud .kind{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;align-self:start;border-radius:5px;padding:4px 8px;width:max-content}
+.aud .kind.corr{background:color-mix(in srgb,var(--late) 16%,var(--surface));color:var(--late)}
+.aud .kind.inc{background:var(--accent-soft);color:var(--accent-ink)}
+.aud .kind.open{background:color-mix(in srgb,var(--viable) 16%,var(--surface));color:var(--viable)}
+.aud h4{font-size:16.5px;font-weight:600;margin-bottom:4px}
+.aud p{margin:0;font-size:14.5px;color:var(--muted);max-width:74ch}
+.aud .row-links{margin-top:10px}
+.tension{margin-top:14px;border-left:3px solid var(--accent);background:var(--accent-soft);border-radius:0 8px 8px 0;padding:12px 14px;font-size:14.5px;color:var(--ink)}
+.tension b{font-family:var(--display)}
+.pgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:10px}
+@media (max-width:700px){.pgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.pgrid h4{font-family:var(--mono);font-size:11.5px;font-weight:500;margin-bottom:2px}
+.src{font-family:var(--mono);font-size:11px;color:var(--muted)}
+.fitlabel{display:inline-flex;gap:14px;flex-wrap:wrap;font-family:var(--mono);font-size:11.5px;color:var(--muted);margin-top:6px}
+.fitlabel i{display:inline-block;width:14px;height:3px;border-radius:2px;margin-right:6px;vertical-align:middle}
+.seg button i.dz{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px;vertical-align:1px;box-shadow:0 0 0 1.5px var(--bg)}
+
+.agent-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+@media (max-width:860px){.agent-grid{grid-template-columns:1fr}}
+.urlrow{display:flex;gap:8px;align-items:stretch;flex-wrap:wrap}
+.urlrow code{flex:1 1 260px;min-width:0;font-family:var(--mono);font-size:13px;background:var(--sunk);border-radius:8px;padding:10px 12px;overflow-wrap:anywhere;user-select:all}
+.howto{margin:6px 0 0;padding-left:20px;font-size:15px}
+.howto li{margin-bottom:6px}
+.asks{display:flex;flex-direction:column;gap:8px}
+.ask{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:8px;padding:10px 12px;background:var(--bg);font-size:14.5px}
+.ask span{flex:1}
+.ask button{border:1px solid var(--line);background:var(--surface);border-radius:6px;font-family:var(--mono);font-size:11px;padding:4px 8px;cursor:pointer;color:var(--ink);min-height:28px}
+.ask button:hover{border-color:var(--ink)}
+.toolchips{display:flex;flex-wrap:wrap;gap:6px}
+.toolchips span{font-family:var(--mono);font-size:11.5px;border:1px solid var(--line);border-radius:5px;padding:3px 7px;color:var(--muted);background:var(--bg)}
+.agent-grid .panel + .panel{margin-top:0}
+
+.drop{border:1.5px dashed var(--line);border-radius:10px;padding:26px 18px;text-align:center;background:var(--bg);display:flex;flex-direction:column;align-items:center;gap:6px;transition:border-color .15s,background .15s;cursor:default}
+.drop b{font-family:var(--display);font-size:17px}
+.drop.on{border-color:var(--accent);background:var(--accent-soft)}
+.drop:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.drop .link{font-size:15px}
+.ycfg{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr) minmax(0,.8fr) auto;gap:14px;align-items:end}
+@media (max-width:860px){.ycfg{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.ycfg{grid-template-columns:1fr}}
+.ycfg label{display:flex;flex-direction:column}
+.ycfg select,.ycfg input{font:inherit;font-size:15px;border:1px solid var(--line);border-radius:8px;padding:9px 10px;background:var(--surface);color:var(--ink);min-height:44px;width:100%;box-sizing:border-box}
+.yfile{display:flex;flex-direction:column;gap:2px;overflow-wrap:anywhere}
+.yfile b{font-family:var(--display);font-size:15.5px}
+#yOut .tension{margin-top:12px}
+#yOut .seg button:disabled{opacity:.4;cursor:not-allowed}
+#yOut .adder{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:560px){#yOut .adder{grid-template-columns:1fr}}
+
+.refopen{display:flex;align-items:baseline;gap:14px;width:100%;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px;cursor:pointer;color:var(--ink);font:inherit}
+.refopen:hover{border-color:var(--ink)}
+.refopen:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.refopen .rt{font-family:var(--display);font-weight:600;font-size:22px}
+.refopen .rn{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.refopen .ra{margin-left:auto;font-size:20px}
+.reflist li{font-size:14px;line-height:1.5;overflow-wrap:anywhere;padding:4px 6px;border-radius:6px}
+.reflist li a{font-family:var(--mono);font-size:12px}
+.reflist li.hit{background:var(--accent-soft)}
+blockquote.citeq{margin:0 0 12px;padding:10px 14px;border-left:3px solid var(--accent);background:var(--bg);border-radius:0 8px 8px 0;font-size:15px;max-width:78ch}
+blockquote.citeq .src{font-family:var(--mono);font-size:11px}
+
+.reflist .livelink{font-family:var(--display);font-weight:600;font-size:12.5px;background:var(--accent-soft);color:var(--accent-ink);border-radius:5px;padding:1px 7px;text-decoration:none}
+.link.evlink{border-style:solid;border-color:var(--accent);color:var(--accent-ink)}
+</style></head><body><div class="wrap">
+  <header class="hero" id="overview">
+    <div>
+      <div class="meta" id="heroMeta"></div>
+      <h1 id="heroTitle"></h1>
+      <div class="authors" id="heroAuthors"></div>
+      <div class="claim">
+        <div>
+          <div class="eyebrow">Question</div>
+          <div class="q" id="heroQuestion"></div>
+        </div>
+        <div class="f" id="heroFinding"></div>
+      </div>
+      <div class="actions">
+        <a class="btn primary" href="#explore">Explore the results</a>
+        <a class="btn" href="#cited">Cited as evidence</a>
+        <a class="btn" data-doi href="#" target="_blank" rel="noopener">Original paper ↗</a>
+      </div>
+    </div>
+    <div class="stage" aria-label="Hero figure">
+      <div class="stage-head">
+        <h3>Six wells per dose, two time points</h3>
+        <span class="eyebrow" id="heroTag"></span>
+      </div>
+      <div id="heroFig"></div>
+      <div class="legend" id="heroLegend"></div>
+      <div class="hint">Measured MTT viability, % of untreated wells. Tap to open this drug below.</div>
+    </div>
+  </header>
+</div>
+
+<nav class="nav" aria-label="Sections">
+  <div class="wrap" id="navLinks">
+    <a href="#overview">Overview</a>
+    <a href="#explore">Explore</a>
+    <a href="#ic50">IC50</a>
+    <a href="#model">Model</a>
+    <a href="#cited">Cited as evidence</a>
+    <a href="#methods">Methods</a>
+    <a href="#limitations">Limitations</a>
+    <a href="#code">Data</a>
+    <a href="#references">References</a>
+  </div>
+</nav>
+
+<main class="wrap">
+  <section class="block" id="explore">
+    <div class="sec-head"><div><div class="eyebrow">Results</div><h2>Pick a cell line and a drug</h2><p>Every dose, both time points, all six wells, and the model's reproduction of the 72 h curve.</p></div></div>
+    <div class="picker p2">
+      <div><div class="pick-label">Cell line</div><div class="seg" id="pLine"></div></div>
+      <div><div class="pick-label">Drug</div><div class="seg" id="pDrug"></div></div>
+      <div><div class="pick-label">Show</div><div class="seg" id="pShow"></div></div>
+    </div>
+    <article class="chapter" id="chapter" style="margin-top:18px"></article>
+  </section>
+
+  <section class="block" id="ic50">
+    <div class="sec-head"><div><div class="eyebrow">IC50</div><h2>Concentration that halves viability</h2><p>From the dose curves, calculated in CalcuSyn. Bars capped at 500 µM mean the highest tested dose did not reach 50%.</p></div></div>
+    <div class="mults" id="ic50Out"></div>
+    <div class="ch-foot"><div class="pdfmap">This view replaces <s>Fig 2</s></div></div>
+  </section>
+
+  <section class="block" id="model">
+    <div class="sec-head"><div><div class="eyebrow">Agent-based model</div><h2>How well the model follows the wells</h2><p>Agreement between measured and simulated 72 h viability, per drug, as reported in Table 1.</p></div></div>
+    <div class="panel"><div id="regOut"></div><div class="ch-foot"><button class="link" data-text="model">What the authors say</button><div class="pdfmap">This view replaces <s>Table 1</s><s>Figs S5–S7</s></div></div></div>
+  </section>
+
+  <section class="block" id="cited">
+    <div class="sec-head"><div><div class="eyebrow">Cited as evidence</div><h2>Where the next paper leans on this one</h2><p id="citedLead"></p></div></div>
+    <div class="panel" id="citedOut"></div>
+  </section>
+
+  <section class="block" id="methods">
+    <div class="sec-head"><div><div class="eyebrow">Methods</div><h2>How each number was made</h2></div></div>
+    <div id="methodsList"></div>
+  </section>
+
+  <section class="block" id="limitations">
+    <div class="sec-head"><div><div class="eyebrow">Limitations</div><h2>Where the interpretation stops</h2></div></div>
+    <div class="lim" id="limList"></div>
+  </section>
+
+  <section class="block" id="code">
+    <div class="sec-head"><div><div class="eyebrow">Data provenance</div><h2>Where every number on this page comes from</h2></div></div>
+    <div class="repro" id="provList"></div>
+  </section>
+
+  <section class="block" id="references">
+    <button class="refopen" id="refOpen" type="button"><span class="rt">References</span><span class="rn" id="refCount"></span><span class="ra" aria-hidden="true">→</span></button>
+  </section>
+
+  <footer>
+    <span id="footCite"></span>
+    <span><a href="https://biology2.net" target="_blank" rel="noopener">Biology 2.0</a> · <a href="../">all living papers</a></span>
+  </footer>
+</main>
+
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" aria-hidden="true" aria-labelledby="drTitle">
+  <div class="dr-head"><h4 id="drTitle">From the paper</h4><button class="x" id="drClose" aria-label="Close">×</button></div>
+  <div class="dr-body" id="drBody"></div>
+</aside>
+<div class="tooltip" id="tip"></div>
+<script>(function(){
+const $=s=>document.querySelector(s);
+const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"})[c])}
+async function boot(){
+  try{const [D,P]=await Promise.all(["data.json","paper.json"].map(f=>fetch(f,{cache:"no-cache"}).then(r=>{if(!r.ok)throw new Error(f+" "+r.status);return r.json()})));main(D,P)}
+  catch(e){$("#chapter").innerHTML=`<div class="pending"><b>Data could not be loaded</b><p>${esc(e.message)}</p></div>`}
+}
+const CITES=[
+ {where:"§3.1, cell viability",text:"In our earlier research, in a similar study, we relied on the processing of cell viability results obtained by a standard biochemical method, where we monitored the reduction of yellow MTT to purple formazan crystals for tracking the metabolic activity of viable cells to estimate the number of cells that survived after drug treatment [31]."},
+ {where:"§4, choice of doses",text:"Our previous results [31] on the cytotoxicity of these chemotherapeutics enabled us to choose these two concentrations. For example, doxorubicin treatment concentrations were significantly lower because of extreme toxicity on MDA-MB-231 cells—IC50 24h = 37.9 µM, IC50 72h = 0.2 µM [31]."},
+ {where:"§4, agreement of methods",text:"The results obtained by the RTCA method significantly coincide with the results obtained by the MTT method [31] with an even stronger correlation in relation to the trend of the influence of selected chemotherapeutics."}];
+
+function main(D,P){
+const p=P.paper,DOI="https://doi.org/"+p.doi,LINES=P.cellLines;
+const S={line:"HCT-116",drug:"Oxaliplatin",show:{t24:true,t72:true,sim:true,reps:false}};
+const dk=z=>String(+z);
+const fmt=(x,d=0)=>(+x).toFixed(d);
+const fx=v=>v>=100?v.toFixed(0):v>=10?v.toFixed(1):v>=1?v.toFixed(2):v.toFixed(3);
+const COL=()=>({t24:css("--c6"),t72:css("--c1"),sim:css("--late"),ctrl:css("--control")});
+
+/* static */
+document.title="Living Paper: "+p.journal+" "+p.year;
+$("#heroMeta").innerHTML=`<span class="chip solid">${esc(p.status)}</span><span class="chip">${esc(p.journal)} · ${p.year} · ${esc(p.volume)}, ${esc(p.article)}</span><span class="chip">${esc(p.license)}</span>`;
+$("#heroTitle").textContent=p.displayTitle||p.title;
+$("#heroAuthors").innerHTML=esc(p.authorsShort).replace("Marko Zivanovic","<b>Marko Zivanovic</b>")+" · "+esc(p.affiliation);
+$("#heroQuestion").textContent=P.question;
+let mf=esc(P.mainFinding.text);(P.mainFinding.emphasis||[]).forEach(w=>{mf=mf.replace(esc(w),`<b>${esc(w)}</b>`)});
+$("#heroFinding").innerHTML=`<div class="eyebrow">Main finding, ${esc(P.mainFinding.label)}</div>${mf}`;
+document.querySelectorAll("[data-doi]").forEach(a=>a.href=DOI);
+const refN=n=>(P.referenceList||[]).find(r=>r.n===n);
+const rich=s=>esc(s).replace(/\[ref:(\d+)\]/g,(m,n)=>`<button class="cite" data-n="${n}">${n}</button>`);
+$("#methodsList").innerHTML=P.methods.map(m=>`<details class="m" id="${m.id}"><summary>${esc(m.title)} <small>${esc(m.section)}</small></summary><div class="in">${m.paragraphs.map(t=>`<p>${rich(t)}</p>`).join("")}${m.equations?`<div class="eq">${m.equations.map(esc).join("<br>")}</div>`:""}${(m.notes||[]).map(t=>`<p style="margin-top:10px">${rich(t)}</p>`).join("")}</div></details>`).join("");
+$("#limList").innerHTML=P.limitations.map(l=>`<div><b>${esc(l.title)}</b><p>${esc(l.text)}</p></div>`).join("");
+$("#provList").innerHTML=P.provenance.map(r=>`<div><div class="k">${esc(r.item)}</div><div class="v">${esc(r.source)}</div></div>`).join("");
+$("#footCite").innerHTML=`Demetriades M., Zivanovic M. et al. <i>${esc(p.journal)}</i> ${p.year}, ${esc(p.volume)}, ${esc(p.article)} · <a href="${DOI}" target="_blank" rel="noopener">doi:${p.doi}</a>`;
+
+/* tooltip + drawer */
+const tip=$("#tip");
+function bindTips(root){root.querySelectorAll("[data-tt]").forEach(el=>{el.addEventListener("pointermove",e=>{tip.innerHTML=el.dataset.tt;tip.style.opacity=1;const x=Math.min(e.clientX+12,innerWidth-tip.offsetWidth-8);tip.style.left=Math.max(8,x)+"px";tip.style.top=Math.max(8,e.clientY-tip.offsetHeight-10)+"px"});el.addEventListener("pointerleave",()=>tip.style.opacity=0)})}
+const drawer=$("#drawer"),scrim=$("#scrim");
+function openDrawer(title,html){$("#drTitle").textContent=title;$("#drBody").innerHTML=html;drawer.classList.add("on");scrim.classList.add("on");drawer.setAttribute("aria-hidden","false");$("#drClose").focus()}
+function closeDrawer(){drawer.classList.remove("on");scrim.classList.remove("on");drawer.setAttribute("aria-hidden","true")}
+$("#drClose").onclick=closeDrawer;scrim.onclick=closeDrawer;addEventListener("keydown",e=>{if(e.key==="Escape")closeDrawer()});
+function openText(k){const t=P.quotes[k];openDrawer("From the paper",`<div class="dr-src">${esc(t.source)}</div><div style="margin-top:14px">${t.text.map(q=>`<blockquote>${esc(q)}</blockquote>`).join("")}</div><p class="dr-src">Verbatim from the published article (${esc(p.license)}).</p><a class="btn" href="${DOI}" target="_blank" rel="noopener">Open the full article ↗</a>`)}
+
+/* references */
+const RL=(P.referenceList||[]).slice().sort((a,b)=>a.n-b.n);
+const host=u=>{try{const U=new URL(u),h=U.host.replace(/^www\./,"");return h==="doi.org"?"doi:"+decodeURIComponent(U.pathname.slice(1)):h==="scholar.google.com"?"search Google Scholar":h}catch(e){return u}};
+const openAll=n=>{openDrawer(`References · ${RL.length}`,`<p class="dr-src">From the published article, with a link to each source.</p><ol class="refs reflist">${RL.map(r=>`<li value="${r.n}">${esc(r.citation)} <a href="${esc(r.url)}" target="_blank" rel="noopener">${esc(host(r.url))} ↗</a></li>`).join("")}</ol>`);if(n){const li=document.querySelector(`#drBody li[value="${n}"]`);if(li){li.classList.add("hit");li.scrollIntoView({block:"center"})}}};
+$("#refCount").textContent=RL.length+" cited works";$("#refOpen").onclick=()=>openAll();
+document.querySelectorAll('#navLinks a[href="#references"]').forEach(a=>a.addEventListener("click",e=>{e.preventDefault();document.getElementById("references").scrollIntoView();openAll()}));
+document.querySelectorAll(".cite").forEach(b=>b.addEventListener("click",()=>{const r=refN(+b.dataset.n);if(!r)return;openDrawer(`Reference ${r.n}`,`<p style="font-size:16px">${esc(r.citation)}</p><div class="row-links"><a class="btn" href="${esc(r.url)}" target="_blank" rel="noopener">Open source ↗</a><button class="btn" id="refAll" type="button">All references</button></div>`);$("#refAll").onclick=()=>openAll(r.n)}));
+
+/* data access */
+const mtt=(l,d)=>D.mtt[l]&&D.mtt[l][d];
+const sim=(l,d)=>D.insilico[l]&&D.insilico[l][d];
+const probs=(l,d)=>D.probs[l]&&D.probs[l][d];
+const ratio=(l,d,z)=>{const P=probs(l,d);if(!P||!P[dk(z)]||!P["0"])return null;const [a,b]=P[dk(z)],[a0,b0]=P["0"];return (b/b0)/(a/a0)};
+const doseLabel=z=>(+z<1?String(+z):String(+z));
+
+/* dose-response chart, categorical x like the paper's figures */
+function doseChart(l,d,{w=640,h=320,show=S.show,compact=false}={}){
+  const M=mtt(l,d),Si=sim(l,d),C=COL();if(!M)return "";
+  const zs=M.doses,m={l:44,r:14,t:24,b:compact?30:40},iw=w-m.l-m.r,ih=h-m.t-m.b;
+  const vals=[];["24","72"].forEach(t=>zs.forEach(z=>{const o=M[t][dk(z)];if(o){vals.push(o.mean+o.se);if(show.reps)o.reps.forEach(v=>vals.push(v))}}));if(Si&&show.sim)Object.values(Si).forEach(o=>vals.push(o.mean+o.sd));
+  const Y=Math.max(120,Math.ceil(Math.max(...vals)/20)*20);
+  const x=i=>m.l+(zs.length<2?iw/2:i*iw/(zs.length-1)),y=v=>m.t+ih-Math.max(0,v)/Y*ih;
+  let g=`<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="Viability by dose, ${esc(l)} ${esc(d)}">`;
+  for(let v=0;v<=Y;v+=Y>200?50:20)g+=`<line class="grid" x1="${m.l}" x2="${m.l+iw}" y1="${y(v)}" y2="${y(v)}"/><text x="${m.l-8}" y="${y(v)+3.5}" text-anchor="end">${v}</text>`;
+  g+=`<line x1="${m.l}" x2="${m.l+iw}" y1="${y(100)}" y2="${y(100)}" stroke="${css("--ink")}" stroke-opacity=".35" stroke-dasharray="3 3"/><line x1="${m.l}" x2="${m.l+iw}" y1="${y(50)}" y2="${y(50)}" stroke="${css("--ink")}" stroke-opacity=".2" stroke-dasharray="1 4"/>`;
+  g+=`<text x="${m.l+iw}" y="${y(100)-5}" text-anchor="end">untreated = 100%</text>`;
+  zs.forEach((z,i)=>{g+=`<text x="${x(i)}" y="${m.t+ih+16}" text-anchor="middle">${doseLabel(z)}</text>`});
+  if(!compact)g+=`<text x="${m.l+iw}" y="${h-4}" text-anchor="end">µM, not to scale</text>`;
+  g+=`<text x="4" y="10">% viable</text>`;
+  const series=[];
+  if(show.t24)series.push({k:"24",c:C.t24,lab:"24 h",fill:false});
+  if(show.t72)series.push({k:"72",c:C.t72,lab:"72 h",fill:true});
+  if(show.reps)series.forEach((s,si)=>zs.forEach((z,i)=>{const o=M[s.k][dk(z)];if(!o)return;o.reps.forEach((v,j)=>{g+=`<circle cx="${x(i)+(si?5:-5)+(j-2.5)*1.6}" cy="${y(v)}" r="2.2" fill="${s.c}" opacity=".35"/>`})}));
+  if(Si&&show.sim){const pts=zs.map((z,i)=>[i,Si[dk(z)]]).filter(q=>q[1]);
+    pts.forEach(([i,o])=>{g+=`<line x1="${x(i)+3}" x2="${x(i)+3}" y1="${y(o.mean-o.sd)}" y2="${y(o.mean+o.sd)}" stroke="${C.sim}" opacity=".6"/>`});
+    g+=`<path d="${pts.map(([i,o],k)=>(k?"L":"M")+(x(i)+3).toFixed(1)+","+y(o.mean).toFixed(1)).join("")}" fill="none" stroke="${C.sim}" stroke-width="2" stroke-dasharray="6 4"/>`;
+    pts.forEach(([i,o])=>{g+=`<rect x="${x(i)}" y="${y(o.mean)-3}" width="6" height="6" fill="${C.sim}" data-tt="${esc(d)} ${doseLabel(zs[i])} µM · model, 72 h<br>${fmt(o.mean,1)}% ± ${fmt(o.sd,1)}"/>`})}
+  series.forEach(s=>{const pts=zs.map((z,i)=>[i,M[s.k][dk(z)]]).filter(q=>q[1]);
+    pts.forEach(([i,o])=>{g+=`<line x1="${x(i)}" x2="${x(i)}" y1="${y(o.mean-o.se)}" y2="${y(o.mean+o.se)}" stroke="${s.c}" stroke-width="1.4"/>`});
+    g+=`<path d="${pts.map(([i,o],k)=>(k?"L":"M")+x(i).toFixed(1)+","+y(o.mean).toFixed(1)).join("")}" fill="none" stroke="${s.c}" stroke-width="2.4" stroke-linejoin="round"/>`;
+    pts.forEach(([i,o])=>{g+=`<circle cx="${x(i)}" cy="${y(o.mean)}" r="4.2" fill="${s.fill?s.c:css("--surface")}" stroke="${s.c}" stroke-width="2"/><circle cx="${x(i)}" cy="${y(o.mean)}" r="11" fill="transparent" data-tt="${esc(d)} ${doseLabel(zs[i])} µM · MTT, ${s.lab}<br>${fmt(o.mean,1)}% ± ${fmt(o.se,1)} SE · 6 wells"/>`})});
+  return g+"</svg>";
+}
+const swatch=(c,kind)=>kind==="sim"?`<svg width="24" height="8" viewBox="0 0 24 8" aria-hidden="true"><line x1="0" y1="4" x2="24" y2="4" stroke="${c}" stroke-width="2" stroke-dasharray="6 4"/></svg>`:`<svg width="24" height="10" viewBox="0 0 24 10" aria-hidden="true"><line x1="0" y1="5" x2="24" y2="5" stroke="${c}" stroke-width="2.4"/><circle cx="12" cy="5" r="3.6" fill="${kind==="24"?css("--surface"):c}" stroke="${c}" stroke-width="2"/></svg>`;
+function legend(show,hasSim){const C=COL();return[show.t24?`<span class="lg">${swatch(C.t24,"24")}MTT, 24 h</span>`:"",show.t72?`<span class="lg">${swatch(C.t72,"72")}MTT, 72 h</span>`:"",hasSim&&show.sim?`<span class="lg">${swatch(C.sim,"sim")}Model, 72 h</span>`:""].join("")}
+
+/* hero */
+function hero(){const l="HCT-116",d="Oxaliplatin";$("#heroTag").textContent=`${l} · ${d}`;
+  $("#heroFig").innerHTML=`<div class="fig" style="margin-top:8px">${doseChart(l,d,{w:560,h:280,show:{t24:true,t72:true,sim:false,reps:false},compact:true})}</div>`;
+  $("#heroLegend").innerHTML=legend({t24:true,t72:true},false);bindTips($("#heroFig"));
+  $("#heroFig").style.cursor="pointer";$("#heroFig").onclick=()=>{S.line=l;S.drug=d;render();document.getElementById("explore").scrollIntoView()}}
+
+/* explore */
+function picker(){
+  $("#pLine").innerHTML=Object.keys(LINES).map(l=>`<button aria-pressed="${l===S.line}" data-v="${esc(l)}">${esc(l)}<small>${esc(LINES[l].tissue)}</small></button>`).join("");
+  $("#pDrug").innerHTML=LINES[S.line].drugs.map(d=>`<button aria-pressed="${d===S.drug}" data-v="${esc(d)}">${esc(d)}</button>`).join("");
+  const SH=[["t24","24 h"],["t72","72 h"],["sim","Model"],["reps","Wells"]];
+  $("#pShow").innerHTML=SH.map(([k,n])=>`<button aria-pressed="${!!S.show[k]}" data-k="${k}">${n}</button>`).join("");
+}
+$("#pLine").onclick=e=>{const b=e.target.closest("button");if(!b)return;S.line=b.dataset.v;if(!LINES[S.line].drugs.includes(S.drug))S.drug=LINES[S.line].drugs[0];render()};
+$("#pDrug").onclick=e=>{const b=e.target.closest("button");if(!b)return;S.drug=b.dataset.v;render()};
+$("#pShow").onclick=e=>{const b=e.target.closest("button");if(!b)return;const k=b.dataset.k;S.show[k]=!S.show[k];if(!S.show.t24&&!S.show.t72)S.show[k==="t24"?"t72":"t24"]=true;render()};
+function chapter(){
+  const l=S.line,d=S.drug,M=mtt(l,d),Si=sim(l,d),Pr=probs(l,d),IC=D.ic50[l][d],fig=LINES[l].figure,sfig=LINES[l].suppFigure;
+  const icTxt=v=>v==null?">500 µM":String(v)+" µM";
+  const rows=M.doses.map(z=>{const a=M["24"][dk(z)],b=M["72"][dk(z)],s=Si&&Si[dk(z)],pr=Pr&&Pr[dk(z)];
+    return`<tr><th class="rowh">${doseLabel(z)} µM</th><td>${a?fmt(a.mean,1)+"%":"–"}</td><td>${b?fmt(b.mean,1)+"%":"–"}</td><td>${s?fmt(s.mean,1)+"%":'<span class="src">not simulated</span>'}</td><td>${pr?pr[0].toFixed(3):"–"}</td><td>${pr?pr[1].toFixed(3):"–"}</td></tr>`}).join("");
+  const ctrl=Pr&&Pr["0"]?`<tr><th class="rowh">untreated</th><td class="src">100%</td><td class="src">100%</td><td class="src">–</td><td>${Pr["0"][0].toFixed(3)}</td><td>${Pr["0"][1].toFixed(3)}</td></tr>`:"";
+  $("#chapter").innerHTML=`<div class="ch-top"><span class="eyebrow">${esc(l)} · ${esc(LINES[l].tissue)} · ${esc(d)}</span><span class="tag obs">Observed</span></div>
+    <h3>${esc(d)} on ${esc(l)}: IC50 ${icTxt(IC[0])} at 24 h, ${icTxt(IC[1])} at 72 h</h3>
+    <p class="lead">MTT viability as % of untreated wells, mean ± standard error of six wells. The dashed line is the agent-based model fitted to the 72 h wells.</p>
+    <div class="cmp-legend">${legend(S.show,!!Si)}</div>
+    <div class="fig">${doseChart(l,d)}</div>
+    <div class="heat" style="margin-top:14px"><table><thead><tr><th>Dose</th><th>MTT 24 h</th><th>MTT 72 h</th><th>Model 72 h</th><th>P apoptose</th><th>P divide</th></tr></thead><tbody>${ctrl}${rows}</tbody></table></div>
+    <p class="note">P apoptose and P divide are the model's per-step probabilities fitted to each scenario (Tables S1–S2). The authors compare drugs through the ratio of the two, normalised to untreated, shown as distributions in Fig 6.</p>
+    <div class="ch-foot"><div class="row-links" style="margin-top:0"><button class="link" data-text="mtt">What the authors say</button><button class="link" data-method="m-mtt">MTT method</button><button class="link" data-method="m-vbmc">Model fit</button></div><div class="pdfmap">This view replaces <s>Fig ${fig}</s><s>Fig ${sfig}</s><s>Tables S${l==="HCT-116"?"1, S3":"2, S4"}</s></div></div>`;
+  bindTips($("#chapter"));
+  $("#chapter").querySelector("[data-text]").onclick=e=>openText(e.currentTarget.dataset.text);
+  $("#chapter").querySelectorAll("[data-method]").forEach(b=>b.onclick=()=>{const el=document.getElementById(b.dataset.method);el.open=true;el.scrollIntoView({block:"center"})});
+}
+
+/* IC50 */
+function ic50(){
+  const C=COL();$("#ic50Out").innerHTML=Object.keys(LINES).map(l=>{
+    const ds=LINES[l].drugs,w=320,h=230,m={l:44,r:8,t:18,b:40},iw=w-m.l-m.r,ih=h-m.t-m.b,lo=Math.log10(0.01),hi=Math.log10(1000);
+    const y=v=>m.t+ih-(Math.log10(v)-lo)/(hi-lo)*ih,gw=iw/ds.length,bw=Math.min(22,gw/2-6);
+    let g=`<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="IC50 ${esc(l)}">`;
+    [0.01,0.1,1,10,100,1000].forEach(v=>{g+=`<line class="grid" x1="${m.l}" x2="${w-m.r}" y1="${y(v)}" y2="${y(v)}"/><text x="${m.l-6}" y="${y(v)+3.5}" text-anchor="end">${v}</text>`});
+    g+=`<line x1="${m.l}" x2="${w-m.r}" y1="${y(500)}" y2="${y(500)}" stroke="${css("--ink")}" stroke-opacity=".35" stroke-dasharray="3 3"/>`;
+    ds.forEach((d,i)=>{const cx=m.l+gw*i+gw/2;[0,1].forEach(k=>{const v=D.ic50[l][d][k],cap=v==null,vv=cap?500:v,x0=cx+(k?3:-bw-3);
+      g+=`<rect x="${x0}" y="${y(vv)}" width="${bw}" height="${m.t+ih-y(vv)}" rx="2" fill="${k?C.t72:C.t24}" ${cap?'fill-opacity=".25" stroke-dasharray="3 2" stroke="'+(k?C.t72:C.t24)+'"':""} data-tt="${esc(l)} · ${esc(d)}, ${k?72:24} h<br>IC50 ${cap?"> 500 µM (not reached)":String(v)+" µM"}"/><text x="${x0+bw/2}" y="${y(vv)-4}" text-anchor="middle" style="font-size:9.5px">${cap?">500":String(v)}</text>`});
+      g+=`<text x="${cx}" y="${h-22}" text-anchor="middle" style="fill:var(--ink)">${esc(d.length>9?d.slice(0,8)+"…":d)}</text>`});
+    g+=`<text x="4" y="10">µM, log</text></svg>`;
+    return`<div><h4>${esc(l)} · ${esc(LINES[l].tissue)}</h4>${g}</div>`}).join("")+`<div class="cmp-legend" style="grid-column:1/-1"><span class="lg"><i style="background:${C.t24}"></i>24 h</span><span class="lg"><i style="background:${C.t72}"></i>72 h</span><span class="lg"><i style="background:transparent;border:1px dashed var(--muted)"></i>not reached at 500 µM</span></div>`;
+  bindTips($("#ic50Out"));
+}
+
+/* model agreement */
+function reg(){
+  const C=COL(),rows=Object.keys(LINES).flatMap(l=>LINES[l].drugs.map(d=>({l,d,r:D.regression[d]})));
+  const w=640,rh=30,L=190,h=rows.length*rh+30,sx=v=>L+v*(w-L-70);
+  let g=`<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="Model agreement R squared">`;
+  [0,0.25,0.5,0.75,1].forEach(v=>{g+=`<line class="${v?"grid":"axis"}" x1="${sx(v)}" x2="${sx(v)}" y1="4" y2="${h-22}"/><text x="${sx(v)}" y="${h-8}" text-anchor="middle">${v}</text>`});
+  rows.forEach((o,k)=>{const y=6+k*rh;g+=`<text x="${L-10}" y="${y+15}" text-anchor="end" style="fill:var(--ink);font-weight:500">${esc(o.d)}</text><text x="${L-10}" y="${y+25}" text-anchor="end" style="font-size:9px">${esc(o.l)}</text>
+    <rect x="${L}" y="${y+4}" width="${Math.max(2,sx(o.r[0])-L)}" height="18" rx="3" fill="${o.l==="HCT-116"?C.t72:css("--c4")}" data-tt="${esc(o.l)} · ${esc(o.d)}<br>R² ${o.r[0].toFixed(3)} · SEE ${o.r[1]} · p ${o.r[2]}" style="cursor:pointer" data-go="${esc(o.l)}|${esc(o.d)}"/>
+    <text x="${sx(o.r[0])+6}" y="${y+17}">R² ${o.r[0].toFixed(2)}</text>`});
+  $("#regOut").innerHTML=`<div class="cmp-title"><h3>Measured vs simulated viability at 72 h, R²</h3><span class="eyebrow">Derived · Table 1</span></div><div class="fig">${g}</svg></div><p class="note">Linear regression of model on MTT viability across doses. Tap a bar to open that drug above.</p>`;
+  bindTips($("#regOut"));
+  $("#regOut").querySelectorAll("[data-go]").forEach(el=>el.addEventListener("click",()=>{const [l,d]=el.dataset.go.split("|");S.line=l;S.drug=d;render();document.getElementById("explore").scrollIntoView()}));
+}
+document.querySelector('#model [data-text]').onclick=()=>openText("model");
+
+/* cited as evidence: RTCA from the 2023 living paper */
+let D23=null,D23err=null;
+const cb=(P.citedBy||[])[0];
+$("#citedLead").textContent=cb?`${cb.label} cites this paper as reference [${cb.ref}] in three places. Here are those sentences, and the MTT values from this paper next to the real-time impedance values from that one, for the same cell line, drug and dose.`:"";
+async function loadD23(){if(D23||D23err||!cb)return;try{D23=await fetch(cb.page+"data.json",{cache:"no-cache"}).then(r=>{if(!r.ok)throw new Error(r.status);return r.json()})}catch(e){D23err=e}}
+function atS(s,t){const a=s.nci;if(t<0||t>s.tmax+2)return null;t=Math.min(t,a.length-1);const i=Math.floor(t),f=t-i;if(i+1>=a.length)return a[a.length-1];return a[i]*(1-f)+a[i+1]*f}
+function rtcaPct(l,d,z,h){if(!D23)return null;const r=D23.rtca&&D23.rtca[l]&&D23.rtca[l][d];if(!r)return null;const s=r.series[dk(z)],c=r.series["0"];if(!s||!c)return null;const a=atS(s,r.treat+h),b=atS(c,r.treat+h);return a==null||b==null||b<=0?null:a/b*100}
+function cited(){
+  if(!cb){$("#cited").hidden=true;return}
+  const l=S.line,d=S.drug,M=mtt(l,d);
+  const quotes=`<div class="pick-label">The three sentences in ${esc(cb.label)}</div>${CITES.map(c=>`<blockquote class="citeq"><span class="src">${esc(c.where)}</span><br>${esc(c.text).split("[31]").join(`<b>[${cb.ref}]</b>`)}</blockquote>`).join("")}`;
+  let table="";
+  if(D23err)table=`<p class="note">The ${esc(cb.label)} data could not be loaded.</p>`;
+  else if(!D23)table=`<p class="note">Loading the real-time data…</p>`;
+  else{const zs=M.doses.filter(z=>rtcaPct(l,d,z,24)!=null||rtcaPct(l,d,z,72)!=null);
+    table=zs.length?`<div class="heat"><table><thead><tr><th>Dose</th><th>MTT 24 h</th><th>RTCA +24 h</th><th>MTT 72 h</th><th>RTCA +72 h</th></tr></thead><tbody>${zs.map(z=>{const a=M["24"][dk(z)],b=M["72"][dk(z)],r24=rtcaPct(l,d,z,24),r72=rtcaPct(l,d,z,72);return`<tr><th class="rowh">${doseLabel(z)} µM</th><td>${a?fmt(a.mean,1)+"%":"–"}</td><td>${r24!=null?fmt(r24,1)+"%":"–"}</td><td>${b?fmt(b.mean,1)+"%":"–"}</td><td>${r72!=null?fmt(r72,1)+"%":"–"}</td></tr>`}).join("")}</tbody></table></div>
+      <p class="note">MTT: this paper, % of untreated wells after 24 and 72 h of treatment. RTCA: ${esc(cb.label)}, normalized cell index as % of the untreated curve, 24 and 72 h after the drug was added. Only doses used in both papers are listed.</p>`
+      :`<p class="note">No dose of ${esc(d)} on ${esc(l)} was used in both papers.</p>`}
+  $("#citedOut").innerHTML=`<div class="cmp-title"><h3>${esc(d)} on ${esc(l)}, both methods</h3><span class="eyebrow">Observed · two papers</span></div>${table}
+    <div class="row-links"><a class="btn" href="${esc(cb.page)}#explore">Open ${esc(cb.label)} ↗</a></div>
+    <div style="margin-top:22px">${quotes}</div>`;
+}
+
+function render(){picker();chapter();cited()}
+hero();render();ic50();reg();
+loadD23().then(cited);
+const links=[...document.querySelectorAll("#navLinks a")];
+const io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting)links.forEach(a=>a.classList.toggle("on",a.getAttribute("href")==="#"+en.target.id))}),{rootMargin:"-40% 0px -55% 0px"});
+["overview","explore","ic50","model","cited","methods","limitations","code","references"].forEach(id=>io.observe(document.getElementById(id)));
+const rerender=()=>{hero();render();ic50();reg()};
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change",rerender);
+new MutationObserver(rerender).observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]});
+}
+boot();
+})();
+</script></body></html>

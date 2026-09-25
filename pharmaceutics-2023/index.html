@@ -3,20 +3,20 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Living Paper: Pharmaceutics 2023</title>
-<meta name="description" content="Cancer viability and apoptosis, rebuilt from its own data. Explore every curve, cell-death state and gene, or ask your own AI through MCP.">
+<title>Living Paper: Pharmaceutics 2022</title>
+<meta name="description" content="Cancer drug pharmacodynamics, rebuilt from its own MTT data. Every dose and well, IC50, the agent-based model, and where a later paper cites it as evidence.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Living Paper: Pharmaceutics 2023">
-<meta property="og:description" content="Cancer viability and apoptosis, rebuilt from its own data. Explore every curve, cell-death state and gene, or ask your own AI through MCP.">
-<meta property="og:url" content="https://papers.biology2.net/pharmaceutics-2023/">
-<meta property="og:image" content="https://papers.biology2.net/pharmaceutics-2023/og-v2.png">
+<meta property="og:title" content="Living Paper: Pharmaceutics 2022">
+<meta property="og:description" content="Cancer drug pharmacodynamics, rebuilt from its own MTT data. Every dose and well, IC50, the agent-based model, and where a later paper cites it as evidence.">
+<meta property="og:url" content="https://papers.biology2.net/pharmaceutics-2022/">
+<meta property="og:image" content="https://papers.biology2.net/pharmaceutics-2022/og.png">
 <meta property="og:image:width" content="2400">
 <meta property="og:image:height" content="1260">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Living Paper: Pharmaceutics 2023">
-<meta name="twitter:description" content="Cancer viability and apoptosis, rebuilt from its own data. Explore every curve, cell-death state and gene, or ask your own AI through MCP.">
-<meta name="twitter:image" content="https://papers.biology2.net/pharmaceutics-2023/og-v2.png">
-<link rel="canonical" href="https://papers.biology2.net/pharmaceutics-2023/">
+<meta name="twitter:title" content="Living Paper: Pharmaceutics 2022">
+<meta name="twitter:description" content="Cancer drug pharmacodynamics, rebuilt from its own MTT data. Every dose and well, IC50, the agent-based model, and where a later paper cites it as evidence.">
+<meta name="twitter:image" content="https://papers.biology2.net/pharmaceutics-2022/og.png">
+<link rel="canonical" href="https://papers.biology2.net/pharmaceutics-2022/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=Literata:opsz,wght@7..72,400;7..72,500;7..72,600&family=JetBrains+Mono:wght@400;500&display=swap">
@@ -323,6 +323,11 @@ footer{border-top:1px solid var(--line);margin-top:64px;padding-block:28px 40px;
 .reflist li{font-size:14px;line-height:1.5;overflow-wrap:anywhere;padding:4px 6px;border-radius:6px}
 .reflist li a{font-family:var(--mono);font-size:12px}
 .reflist li.hit{background:var(--accent-soft)}
+blockquote.citeq{margin:0 0 12px;padding:10px 14px;border-left:3px solid var(--accent);background:var(--bg);border-radius:0 8px 8px 0;font-size:15px;max-width:78ch}
+blockquote.citeq .src{font-family:var(--mono);font-size:11px}
+
+.reflist .livelink{font-family:var(--display);font-weight:600;font-size:12.5px;background:var(--accent-soft);color:var(--accent-ink);border-radius:5px;padding:1px 7px;text-decoration:none}
+.link.evlink{border-style:solid;border-color:var(--accent);color:var(--accent-ink)}
 </style></head><body><div class="wrap">
   <header class="hero" id="overview">
     <div>
@@ -338,19 +343,18 @@ footer{border-top:1px solid var(--line);margin-top:64px;padding-block:28px 40px;
       </div>
       <div class="actions">
         <a class="btn primary" href="#explore">Explore the results</a>
-        <a class="btn" href="#agent">Ask your AI</a>
+        <a class="btn" href="#cited">Cited as evidence</a>
         <a class="btn" data-doi href="#" target="_blank" rel="noopener">Original paper ↗</a>
       </div>
     </div>
-
     <div class="stage" aria-label="Hero figure">
       <div class="stage-head">
-        <h3>96 hours on a gold electrode</h3>
-        <span class="eyebrow">HCT-116 · irinotecan</span>
+        <h3>Six wells per dose, two time points</h3>
+        <span class="eyebrow" id="heroTag"></span>
       </div>
       <div id="heroFig"></div>
       <div class="legend" id="heroLegend"></div>
-      <div class="hint">Measured curves. Tap one to open its full story below.</div>
+      <div class="hint">Measured MTT viability, % of untreated wells. Tap to open this drug below.</div>
     </div>
   </header>
 </div>
@@ -359,10 +363,9 @@ footer{border-top:1px solid var(--line);margin-top:64px;padding-block:28px 40px;
   <div class="wrap" id="navLinks">
     <a href="#overview">Overview</a>
     <a href="#explore">Explore</a>
-    <a href="#agent">AI agent</a>
-    <a href="#compare">Compare</a>
-    <a href="#yours">Your data</a>
-    <a href="#evidence">Evidence</a>
+    <a href="#ic50">IC50</a>
+    <a href="#model">Model</a>
+    <a href="#cited">Cited as evidence</a>
     <a href="#methods">Methods</a>
     <a href="#limitations">Limitations</a>
     <a href="#code">Data</a>
@@ -372,106 +375,33 @@ footer{border-top:1px solid var(--line);margin-top:64px;padding-block:28px 40px;
 
 <main class="wrap">
   <section class="block" id="explore">
-    <div class="sec-head">
-      <div>
-        <div class="eyebrow">Results, as a conversation</div>
-        <h2>Pick a condition. The paper answers.</h2>
-        <p>One choice of cell line, drug and dose pulls together what the PDF spreads across four main figures, thirteen supplementary figures and four tables.</p>
-      </div>
-    </div>
-    <div class="picker">
+    <div class="sec-head"><div><div class="eyebrow">Results</div><h2>Pick a cell line and a drug</h2><p>Every dose, both time points, all six wells, and the model's reproduction of the 72 h curve.</p></div></div>
+    <div class="picker p2">
       <div><div class="pick-label">Cell line</div><div class="seg" id="pLine"></div></div>
       <div><div class="pick-label">Drug</div><div class="seg" id="pDrug"></div></div>
-      <div><div class="pick-label">Dose</div><div class="seg" id="pDose"></div></div>
+      <div><div class="pick-label">Show</div><div class="seg" id="pShow"></div></div>
     </div>
-    <div class="story">
-      <div class="steps" role="tablist" id="steps"></div>
-      <article class="chapter" id="chapter" role="tabpanel" aria-live="polite"></article>
-    </div>
+    <article class="chapter" id="chapter" style="margin-top:18px"></article>
   </section>
 
-  <section class="block" id="agent">
-    <div class="sec-head"><div><div class="eyebrow">For AI agents</div><h2>Ask your own AI about this paper</h2><p>The same data behind this page is served to AI agents through MCP (Model Context Protocol). Connect your agent once and ask in plain language. Your agent, your tokens: this page makes no AI calls.</p></div></div>
-    <div class="agent-grid">
-      <div class="panel">
-        <div class="pick-label">Server address</div>
-        <div class="urlrow"><code id="mcpUrl"></code><button class="btn" id="mcpCopy">Copy</button></div>
-        <div class="pick-label" style="margin-top:18px">Connect in Claude</div>
-        <ol class="howto">
-          <li>Settings → Connectors → <b>Add custom connector</b>.</li>
-          <li>Name it <b>Living Papers</b> and paste the address above.</li>
-          <li>Authentication: <b>No sign-in</b>. Click <b>Add</b>.</li>
-          <li>In a new chat, switch the connector on and ask.</li>
-        </ol>
-        <p class="note">Any other MCP client works with the same address. <span id="mcpTransport"></span>.</p>
-      </div>
-      <div class="panel">
-        <div class="pick-label">Try asking</div>
-        <div class="asks" id="mcpAsks"></div>
-        <div class="pick-label" style="margin-top:18px">What your agent can call</div>
-        <div class="toolchips" id="mcpTools"></div>
-        <p class="note">Every answer carries its source figure or table and is marked observed or derived.</p>
-      </div>
-    </div>
+  <section class="block" id="ic50">
+    <div class="sec-head"><div><div class="eyebrow">IC50</div><h2>Concentration that halves viability</h2><p>From the dose curves, calculated in CalcuSyn. Bars capped at 500 µM mean the highest tested dose did not reach 50%.</p></div></div>
+    <div class="mults" id="ic50Out"></div>
+    <div class="ch-foot"><div class="pdfmap">This view replaces <s>Fig 2</s></div></div>
   </section>
 
-  <section class="block" id="compare">
-    <div class="sec-head">
-      <div>
-        <div class="eyebrow">Compare</div>
-        <h2>Put any conditions side by side</h2>
-        <p>Add up to eight conditions and choose what to measure. Tap any condition in a chart to open its story above.</p>
-      </div>
-    </div>
-    <div class="cmp">
-      <div>
-        <div class="panel">
-          <div class="pick-label">Add a condition</div>
-          <div class="adder">
-            <select id="aLine" aria-label="Cell line"></select>
-            <select id="aDrug" aria-label="Drug"></select>
-            <select id="aDose" aria-label="Dose"></select>
-            <button class="btn primary" id="aAdd">Add to comparison</button>
-          </div>
-          <div class="conds" id="conds"></div>
-        </div>
-        <div class="panel">
-          <div class="pick-label">Quick comparisons</div>
-          <div class="presets" id="presets"></div>
-        </div>
-      </div>
-      <div class="cmp-out">
-        <div class="panel">
-          <div class="pick-label">Measure</div>
-          <div class="metrics seg" id="metrics"></div>
-          <div class="seg" id="cmpT" style="margin-top:10px"></div>
-          <div id="cmpOut" style="margin-top:18px"></div>
-        </div>
-      </div>
-    </div>
+  <section class="block" id="model">
+    <div class="sec-head"><div><div class="eyebrow">Agent-based model</div><h2>How well the model follows the wells</h2><p>Agreement between measured and simulated 72 h viability, per drug, as reported in Table 1.</p></div></div>
+    <div class="panel"><div id="regOut"></div><div class="ch-foot"><button class="link" data-text="model">What the authors say</button><div class="pdfmap">This view replaces <s>Table 1</s><s>Figs S5–S7</s></div></div></div>
   </section>
 
-  <section class="block" id="yours">
-    <div class="sec-head"><div><div class="eyebrow">Your data</div><h2>Analyze your own RTCA run</h2><p>Drop an xCELLigence export or a CSV. You get normalized curves, % of control and the same logistic re-fit used on this page, next to any curve from the paper.</p></div></div>
-    <div class="panel">
-      <div class="drop" id="yDrop" tabindex="0" role="button" aria-label="Choose a file to analyze">
-        <input type="file" id="yFile" accept=".xls,.xlsx,.csv,.txt,.tsv" hidden>
-        <b>Drop a file here</b> or <button class="link" id="yPick" type="button">choose one</button>
-        <span class="src">.xls or .xlsx exported from the RTCA software (Plot and Layout sheets), or a CSV in the template format</span>
-      </div>
-      <div class="row-links"><button class="btn" id="yDemo" type="button">Try it with this paper's data</button><button class="btn" id="yTpl" type="button">Download CSV template</button></div>
-      <p class="note"><b>Your file stays on your computer.</b> It is read and analyzed inside this browser tab. Nothing is uploaded, stored or sent anywhere, and closing the tab removes it.</p>
-    </div>
-    <div id="yOut"></div>
-  </section>
-
-  <section class="block" id="evidence">
-    <div class="sec-head"><div><div class="eyebrow">Key evidence</div><h2>Three claims, each one tap from its data</h2></div></div>
-    <div class="cards" id="cards"></div>
+  <section class="block" id="cited">
+    <div class="sec-head"><div><div class="eyebrow">Cited as evidence</div><h2>Where the next paper leans on this one</h2><p id="citedLead"></p></div></div>
+    <div class="panel" id="citedOut"></div>
   </section>
 
   <section class="block" id="methods">
-    <div class="sec-head"><div><div class="eyebrow">Methods</div><h2>How each number was made</h2><p>Closed by default. Every chapter above links straight to the section it relies on.</p></div></div>
+    <div class="sec-head"><div><div class="eyebrow">Methods</div><h2>How each number was made</h2></div></div>
     <div id="methodsList"></div>
   </section>
 
@@ -502,681 +432,196 @@ footer{border-top:1px solid var(--line);margin-top:64px;padding-block:28px 40px;
 </aside>
 <div class="tooltip" id="tip"></div>
 <script>(function(){
-async function boot(){
-  try{
-    const [D,P]=await Promise.all(["data.json","paper.json"].map(f=>fetch(f).then(r=>{if(!r.ok)throw new Error(f+" "+r.status);return r.json()})));
-    main(D,P);
-  }catch(e){document.getElementById("chapter").innerHTML=`<div class="pending"><b>Data could not be loaded</b><p>${e.message}</p></div>`}
-}
-function main(D,P){
-const DOI="https://doi.org/"+P.paper.doi;
-const TEXT=Object.fromEntries(Object.entries(P.quotes).map(([k,v])=>[k,{src:v.source,q:v.text}]));
-const LINES=Object.fromEntries(Object.entries(P.cellLines).map(([k,v])=>[k,{tissue:v.tissue,kind:v.kind,drugs:v.drugs,rtcaFig:v.rtcaFigure}]));
-const FLOWFIG=Object.fromEntries(Object.entries(P.cellLines).map(([k,v])=>[k,v.flowFigure]));
-const GENES=P.genes.map(g=>[g.key,g.name,g.role]);
-renderStatic(P);
-const CRC=["5-FU","Leucovorin","Irinotecan","Oxaliplatin"];
-const STATE=["Viable","Early apoptosis","Late apoptosis","Necrosis"];
-const dkey=d=>String(+d);
-const num=s=>+s;
 const $=s=>document.querySelector(s);
 const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"})[c])}
+async function boot(){
+  try{const [D,P]=await Promise.all(["data.json","paper.json"].map(f=>fetch(f,{cache:"no-cache"}).then(r=>{if(!r.ok)throw new Error(f+" "+r.status);return r.json()})));main(D,P)}
+  catch(e){$("#chapter").innerHTML=`<div class="pending"><b>Data could not be loaded</b><p>${esc(e.message)}</p></div>`}
+}
+const CITES=[
+ {where:"§3.1, cell viability",text:"In our earlier research, in a similar study, we relied on the processing of cell viability results obtained by a standard biochemical method, where we monitored the reduction of yellow MTT to purple formazan crystals for tracking the metabolic activity of viable cells to estimate the number of cells that survived after drug treatment [31]."},
+ {where:"§4, choice of doses",text:"Our previous results [31] on the cytotoxicity of these chemotherapeutics enabled us to choose these two concentrations. For example, doxorubicin treatment concentrations were significantly lower because of extreme toxicity on MDA-MB-231 cells—IC50 24h = 37.9 µM, IC50 72h = 0.2 µM [31]."},
+ {where:"§4, agreement of methods",text:"The results obtained by the RTCA method significantly coincide with the results obtained by the MTT method [31] with an even stronger correlation in relation to the trend of the influence of selected chemotherapeutics."}];
+
+function main(D,P){
+const p=P.paper,DOI="https://doi.org/"+p.doi,LINES=P.cellLines;
+const S={line:"HCT-116",drug:"Oxaliplatin",show:{t24:true,t72:true,sim:true,reps:false}};
+const dk=z=>String(+z);
 const fmt=(x,d=0)=>(+x).toFixed(d);
-const fx=v=>v>=100?v.toFixed(0):v>=10?v.toFixed(1):v.toFixed(2);
+const fx=v=>v>=100?v.toFixed(0):v>=10?v.toFixed(1):v>=1?v.toFixed(2):v.toFixed(3);
+const COL=()=>({t24:css("--c6"),t72:css("--c1"),sim:css("--late"),ctrl:css("--control")});
 
-/* ---------- data access ---------- */
-const rtcaOf=(l,d)=>D.rtca[l]&&D.rtca[l][d]||null;
-const flowOf=(l,d,z)=>d?(D.flow[l][d]&&D.flow[l][d][dkey(z)])||null:D.flow[l].Control;
-const qOf=(l,d,z)=>(D.qpcr[l]&&D.qpcr[l][d]&&D.qpcr[l][d][dkey(z)])||null;
-const pOf=(l,d,z)=>{const P=D.params[l];if(!P)return null;return d?P[`${d} ${dkey(z)}`]||null:P.Control};
-function dosesFor(l,d){const s=new Set(paramDoses(l,d));const f=D.flow[l][d];if(f)Object.keys(f).forEach(k=>s.add(+k));const r=rtcaOf(l,d);if(r)Object.keys(r.series).filter(k=>k!=="0").forEach(k=>s.add(+k));return[...s].sort((a,b)=>a-b)}
-function paramDoses(l,d){const P=D.params[l]||{};return Object.keys(P).filter(k=>k.startsWith(d+" ")).map(k=>+k.slice(d.length+1)).sort((a,b)=>a-b)}
-function flowDoses(l,d){return Object.keys(D.flow[l][d]||{}).map(Number).sort((a,b)=>a-b)}
-function at(series,t){const a=series.nci;if(t<0||t>series.tmax+2)return null;t=Math.min(t,a.length-1);const i=Math.floor(t),f=t-i;if(i+1>=a.length)return a[a.length-1];return a[i]*(1-f)+a[i+1]*f}
-function viabAt(l,d,z,h){const r=rtcaOf(l,d);if(!r)return null;const s=r.series[dkey(z)],c=r.series["0"];if(!s||!c)return null;const t=r.treat+h;const a=at(s,t),b=at(c,t);if(a==null||b==null||b<=0)return null;return a/b*100}
+/* static */
+document.title="Living Paper: "+p.journal+" "+p.year;
+$("#heroMeta").innerHTML=`<span class="chip solid">${esc(p.status)}</span><span class="chip">${esc(p.journal)} · ${p.year} · ${esc(p.volume)}, ${esc(p.article)}</span><span class="chip">${esc(p.license)}</span>`;
+$("#heroTitle").textContent=p.displayTitle||p.title;
+$("#heroAuthors").innerHTML=esc(p.authorsShort).replace("Marko Zivanovic","<b>Marko Zivanovic</b>")+" · "+esc(p.affiliation);
+$("#heroQuestion").textContent=P.question;
+let mf=esc(P.mainFinding.text);(P.mainFinding.emphasis||[]).forEach(w=>{mf=mf.replace(esc(w),`<b>${esc(w)}</b>`)});
+$("#heroFinding").innerHTML=`<div class="eyebrow">Main finding, ${esc(P.mainFinding.label)}</div>${mf}`;
+document.querySelectorAll("[data-doi]").forEach(a=>a.href=DOI);
+const refN=n=>(P.referenceList||[]).find(r=>r.n===n);
+const rich=s=>esc(s).replace(/\[ref:(\d+)\]/g,(m,n)=>`<button class="cite" data-n="${n}">${n}</button>`);
+$("#methodsList").innerHTML=P.methods.map(m=>`<details class="m" id="${m.id}"><summary>${esc(m.title)} <small>${esc(m.section)}</small></summary><div class="in">${m.paragraphs.map(t=>`<p>${rich(t)}</p>`).join("")}${m.equations?`<div class="eq">${m.equations.map(esc).join("<br>")}</div>`:""}${(m.notes||[]).map(t=>`<p style="margin-top:10px">${rich(t)}</p>`).join("")}</div></details>`).join("");
+$("#limList").innerHTML=P.limitations.map(l=>`<div><b>${esc(l.title)}</b><p>${esc(l.text)}</p></div>`).join("");
+$("#provList").innerHTML=P.provenance.map(r=>`<div><div class="k">${esc(r.item)}</div><div class="v">${esc(r.source)}</div></div>`).join("");
+$("#footCite").innerHTML=`Demetriades M., Zivanovic M. et al. <i>${esc(p.journal)}</i> ${p.year}, ${esc(p.volume)}, ${esc(p.article)} · <a href="${DOI}" target="_blank" rel="noopener">doi:${p.doi}</a>`;
 
-/* ---------- state ---------- */
-const S={line:"HCT-116",drug:"Irinotecan",dose:50,doses:null,step:0,flowT:72,qT:24,sel:null,healthy:false,fit:null,pfit:"rtca"};
-
-/* ---------- tooltip ---------- */
+/* tooltip + drawer */
 const tip=$("#tip");
-function showTip(ev,html){tip.innerHTML=html;tip.style.opacity=1;const x=Math.min(ev.clientX+12,innerWidth-tip.offsetWidth-8);tip.style.left=Math.max(8,x)+"px";tip.style.top=Math.max(8,ev.clientY-tip.offsetHeight-10)+"px"}
-function hideTip(){tip.style.opacity=0}
-function bindTips(root){root.querySelectorAll("[data-tt]").forEach(el=>{el.addEventListener("pointermove",e=>showTip(e,el.dataset.tt));el.addEventListener("pointerleave",hideTip)})}
-
-/* ---------- time-course chart (time since seeding) ---------- */
-function curveChart(series,{w=640,h=300,ymax,xmin=0,xmax=96,treat=null,animate=false,clickable=false,endLabels=true,yfit=false,ylab="NCI",xlab="hours since seeding"}={}){
-  const m={l:yfit?48:40,r:endLabels?92:16,t:yfit?24:14,b:34};const iw=w-m.l-m.r,ih=h-m.t-m.b;
-  const all=series.flatMap(s=>(s.pts||[]).map(p=>p[1]).concat((s.err||[]).map(e=>e[1]+e[2])));
-  let Y=ymax||Math.max(1,Math.ceil(Math.max(...all)*1.05)),Y0=0,st=Y>8?2:1,dec=0;
-  if(yfit){const hi=Math.max(...all),lo=Math.min(0,...all),raw=(hi-lo)/5||0.1,p=Math.pow(10,Math.floor(Math.log10(raw))),f=raw/p;st=(f<=1?1:f<=2?2:f<=5?5:10)*p;Y=Math.ceil(hi*1.04/st)*st||st;Y0=lo< -0.03*hi?Math.floor(lo/st)*st:0;dec=Math.max(0,-Math.floor(Math.log10(st)+1e-9))}
-  const x=t=>m.l+(t-xmin)/(xmax-xmin)*iw,y=v=>m.t+ih-(Math.max(Y0-0.3*(Y-Y0)/Math.max(1,Y-Y0),v)-Y0)/(Y-Y0)*ih;
-  let g=`<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="${ylab} over time">`;
-  for(let k=0,v=Y0;v<=Y+st/1e3;k++,v=Y0+k*st)g+=`<line class="grid" x1="${m.l}" x2="${m.l+iw}" y1="${y(v)}" y2="${y(v)}"/><text x="${m.l-8}" y="${y(v)+3.5}" text-anchor="end">${v.toFixed(dec)}</text>`;
-  for(let t=Math.ceil(xmin/12)*12;t<=xmax;t+=12)g+=`<text x="${x(t)}" y="${h-14}" text-anchor="middle">${t}</text>`;
-  g+=`<line class="axis" x1="${m.l}" x2="${m.l+iw}" y1="${y(0)}" y2="${y(0)}"/>`;
-  g+=`<text x="${m.l+iw}" y="${h-1}" text-anchor="end">${xlab}</text><text x="4" y="${m.t-2}">${ylab}</text>`;
-  if(treat!=null){g+=`<line x1="${x(treat)}" x2="${x(treat)}" y1="${m.t}" y2="${m.t+ih}" stroke="${css("--accent")}" stroke-dasharray="4 4" stroke-width="1.2"/><text x="${x(treat)+5}" y="${m.t+10}" style="fill:${css("--accent-ink")}">drug added</text>`}
-  const ends=[];
-  series.forEach((s,i)=>{
-    if(s.err)s.err.forEach(e=>{if(e[0]<xmin||e[0]>xmax)return;g+=`<line x1="${x(e[0])}" x2="${x(e[0])}" y1="${y(e[1]-e[2])}" y2="${y(e[1]+e[2])}" stroke="${s.color}" stroke-width="1" opacity=".55"/>`});
-    if(s.pts&&s.pts.length){const d=s.pts.filter(p=>p[0]>=xmin&&p[0]<=xmax).map((p,k)=>(k?"L":"M")+x(p[0]).toFixed(1)+","+y(p[1]).toFixed(1)).join("");
-      g+=`<path d="${d}" fill="none" stroke="${s.color}" stroke-width="${s.w||2.2}" stroke-linejoin="round" stroke-linecap="round" ${s.dash?`stroke-dasharray="${s.dash}"`:""} class="${animate&&!s.dash?"draw":""}" style="${animate?`animation-delay:${0.15+i*0.3}s`:""}"/>`;
-      if(clickable)g+=`<path d="${d}" fill="none" stroke="transparent" stroke-width="18" style="cursor:pointer" data-key="${s.key}" data-tt="${s.label} · open story →"/>`;
-      if(s.dots)s.pts.forEach(p=>{if(p[0]%s.dots===0&&p[0]>=xmin)g+=`<circle cx="${x(p[0])}" cy="${y(p[1])}" r="6" fill="transparent" data-tt="${s.label}<br>${p[0]} h · ${ylab} ${p[1].toFixed(Math.abs(p[1])<0.1?3:2)}" style="cursor:crosshair"/>`});
-      const last=s.pts.filter(p=>p[0]<=xmax).slice(-1)[0];if(last&&!s.noEnd)ends.push({y:y(last[1]),yy:y(last[1]),x:x(last[0]),c:s.color,l:s.label})}
-  });
-  if(endLabels){ends.sort((a,b)=>a.y-b.y);for(let k=1;k<ends.length;k++)if(ends[k].y-ends[k-1].y<13)ends[k].y=ends[k-1].y+13;
-    ends.forEach(e=>{g+=`<circle cx="${e.x}" cy="${e.yy}" r="3.5" fill="${e.c}"/><text x="${e.x+8}" y="${e.y+3.5}" style="fill:${e.c};font-weight:500">${e.l}</text>`})}
-  return g+"</svg>";
-}
-const ptsOf=s=>s.nci.map((v,i)=>[i,v]);
-const errOf=s=>s.sd.map(e=>[e[0],e[1],e[2]]);
-const doseColors=()=>[css("--control"),css("--c1"),css("--c6"),css("--c2"),css("--late")];
-function zColor(z,l=S.line,d=S.drug){if(!+z)return css("--control");const zs=dosesFor(l,d),ramp=[css("--c1"),css("--c6"),css("--c4"),css("--c2"),css("--late")],i=zs.indexOf(+z),n=zs.length;return ramp[n<2?4:n>=5?Math.min(i,4):Math.round(i*4/(n-1))]||ramp[4]}
-const selDoses=()=>S.doses.slice().sort((a,b)=>a-b);
-
-/* ---------- hero ---------- */
-function hero(){
-  const r=rtcaOf("HCT-116","Irinotecan");const cs=doseColors();
-  const series=[["0","Control",cs[0]],["10","10 µM",cs[2]],["50","50 µM",cs[3]]].map(([k,l,c])=>({key:k,label:l,color:c,pts:ptsOf(r.series[k])}));
-  $("#heroFig").innerHTML=curveChart(series,{h:280,treat:r.treat,animate:true,clickable:true});
-  $("#heroLegend").innerHTML=series.map(s=>`<button class="lg" data-key="${s.key}"><i style="background:${s.color}"></i>${s.key==="0"?"Untreated":"Irinotecan "+s.label}</button>`).join("");
-  const go=k=>{S.line="HCT-116";S.drug="Irinotecan";S.dose=k==="0"?50:+k;S.doses=k==="0"?"all":null;S.step=0;S.fit=null;renderAll();document.getElementById("explore").scrollIntoView()};
-  document.querySelectorAll("#heroFig [data-key],#heroLegend [data-key]").forEach(el=>el.addEventListener("click",()=>go(el.dataset.key)));
-  bindTips($("#heroFig"));
-}
-
-/* ---------- picker ---------- */
-function picker(){
-  $("#pLine").innerHTML=Object.keys(LINES).map(l=>`<button aria-pressed="${l===S.line}" data-v="${l}">${l}<small>${LINES[l].kind}</small></button>`).join("");
-  const ds=LINES[S.line].drugs;if(!ds.includes(S.drug))S.drug=ds[0];
-  $("#pDrug").innerHTML=ds.map(d=>`<button aria-pressed="${d===S.drug}" data-v="${d}">${d}</button>`).join("");
-  const zs=dosesFor(S.line,S.drug);if(!zs.includes(S.dose))S.dose=flowDoses(S.line,S.drug).slice(-1)[0]||zs[0];
-  if(S.doses==="all")S.doses=zs.slice();
-  S.doses=(S.doses||[S.dose]).filter(z=>zs.includes(z));if(!S.doses.length)S.doses=[S.dose];if(!S.doses.includes(S.dose))S.dose=S.doses[S.doses.length-1];
-  const fz=flowDoses(S.line,S.drug),allOn=S.doses.length===zs.length,rr=rtcaOf(S.line,S.drug);
-  $("#pDose").innerHTML=zs.map(z=>{const on=S.doses.includes(z);return`<button aria-pressed="${on}" data-v="${z}">${on?`<i class="dz" style="background:${zColor(z)}"></i>`:""}${z} µM${!fz.includes(z)?"<small>RTCA only</small>":rr&&!rr.series[dkey(z)]?"<small>no RTCA</small>":""}</button>`}).join("")+(zs.length>1?`<button aria-pressed="${allOn}" data-v="all">All</button>`:"");
-  $("#pLine").onclick=e=>{const b=e.target.closest("button");if(b){S.line=b.dataset.v;S.fit=null;S.healthy=false;S.doses=null;renderAll()}};
-  $("#pDrug").onclick=e=>{const b=e.target.closest("button");if(b){S.drug=b.dataset.v;S.fit=null;S.doses=null;renderAll()}};
-  $("#pDose").onclick=e=>{const b=e.target.closest("button");if(!b)return;
-    if(b.dataset.v==="all"){S.doses=S.doses.length===zs.length?[S.dose]:zs.slice()}
-    else{const z=+b.dataset.v,i=S.doses.indexOf(z);
-      if(i<0){S.doses.push(z);S.dose=z}
-      else if(S.doses.length>1){S.doses.splice(i,1);if(S.dose===z)S.dose=S.doses[S.doses.length-1]}
-      else return}
-    S.fit=null;picker();renderChapter()};
-}
-
-/* ---------- chapters ---------- */
-const STEPS=[{t:"Viability falls",s:"Real-time impedance",tag:"obs"},{t:"How cells die",s:"Annexin V / PI",tag:"obs"},{t:"Which pathway",s:"Apoptosis genes",tag:"int"},{t:"What the model can say",s:"Fits and parameters",tag:"der"}];
-const TAGTXT={obs:"Observed",der:"Derived",int:"Interpretation"};
-function steps(){$("#steps").innerHTML=STEPS.map((s,i)=>`<button class="step ${i<S.step?"done":""}" role="tab" aria-selected="${i===S.step}" data-i="${i}"><span class="n">${i+1}</span><span><b>${s.t}</b><span>${s.s}</span></span></button>`).join("");
-  $("#steps").onclick=e=>{const b=e.target.closest(".step");if(b){S.step=+b.dataset.i;renderChapter(true);steps()}}}
-const cond=()=>`${S.drug} ${selDoses().join(", ")} µM`;
-function foot(key,pdf){const next=S.step<3?`<button class="btn primary" data-next>Next: ${STEPS[S.step+1].t} →</button>`:`<a class="btn primary" href="#compare">Compare conditions →</a>`;
-  return`<div class="row-links"><button class="link" data-text="${key}">¶ Read the paper's own words</button><button class="link" data-method="${{rtca:"m-rtca",flow:"m-flow",qpcr:"m-qpcr",model:"m-model"}[key]}">⚙ How this was measured</button></div>
-  <div class="ch-foot"><div class="pdfmap">In the PDF this lives in ${pdf.map(p=>`<s>${p}</s>`).join("")}</div>${next}</div>`}
-function doseJump(zs,label){return`<div class="row-links">${zs.map(z=>`<button class="link" data-dose="${z}">${label} ${z} µM</button>`).join("")}</div>`}
-
-function chRTCA(){
-  const r=rtcaOf(S.line,S.drug);
-  if(!r)return`<h3>Impedance curves for ${S.line} are not loaded yet.</h3><p class="lead">They exist in the paper as Supplementary Fig. ${LINES[S.line].rtcaFig}, as images only. The chapters on cell death, genes and model parameters for this condition already use real values.</p>
-    <div class="pending"><b>Waiting for the RTCA workbooks</b><p>Once the ${S.line} files arrive, this chapter shows the same interactive curves as for HCT-116.</p><button class="btn" data-goto="1">Go to cell death for ${cond()} →</button></div>${foot("rtca",["Fig "+LINES[S.line].rtcaFig])}`;
-  const zs=selDoses().filter(z=>r.series[dkey(z)]),noR=selDoses().filter(z=>!r.series[dkey(z)]);
-  if(!zs.length)return`<h3>No impedance curve at ${noR.join(", ")} µM.</h3><p class="lead">RTCA for ${S.drug} on ${S.line} was run at ${Object.keys(r.series).filter(k=>k!=="0").join(", ")} µM.</p>${doseJump(Object.keys(r.series).filter(k=>k!=="0").map(Number),"Switch to")}${foot("rtca",["Fig "+LINES[S.line].rtcaFig])}`;
-  const series=[0].concat(zs).map(z=>({label:z?`${z} µM`:"Control",color:zColor(z),pts:ptsOf(r.series[dkey(z)]),err:errOf(r.series[dkey(z)]),dots:6,w:z?2.6:1.8}));
-  const V=zs.map(z=>({z,v24:viabAt(S.line,S.drug,z,24),v48:viabAt(S.line,S.drug,z,48),v72:viabAt(S.line,S.drug,z,72),tmax:r.series[dkey(z)].tmax}));
-  const H=V.every(o=>o.v72!=null)?72:48,k="v"+H;
-  const hl=V.length===1?`${S.drug} ${V[0].z} µM held ${S.line} at ${fmt(V[0][k])}% of untreated impedance, ${H} h after treatment.`:
-    `${H} h after ${S.drug}, ${S.line} impedance was ${fmt(V[0][k])}% of untreated at ${V[0].z} µM and ${fmt(V[V.length-1][k])}% at ${V[V.length-1].z} µM.`;
-  const mr=LINES[S.line].kind==="cancer"?rtcaOf("MRC-5",S.drug):null;
-  const mv=z=>mr&&mr.series[dkey(z)]?viabAt("MRC-5",S.drug,z,72):null;
-  const tbl=`<div class="heat" style="margin-top:14px"><table><thead><tr><th>Dose</th><th style="text-align:center">+24 h</th><th style="text-align:center">+48 h</th><th style="text-align:center">+72 h</th>${mr?`<th style="text-align:center;color:var(--healthy)">MRC-5, +72 h</th>`:""}</tr></thead><tbody>${V.map(o=>`<tr><th class="rowh"><i style="background:${zColor(o.z)}"></i>${o.z} µM</th>${["v24","v48","v72"].map(q=>`<td>${o[q]==null?`<span class="src">ends ${o.tmax} h</span>`:fmt(o[q])+"%"}</td>`).join("")}${mr?`<td style="color:var(--healthy)">${mv(o.z)==null?`<span class="src">${mr.series[dkey(o.z)]?"n/a":"not tested"}</span>`:fmt(mv(o.z))+"%"}</td>`:""}</tr>`).join("")}</tbody></table></div>`;
-  let sel="";
-  const fzs=zs.filter(z=>flowDoses(S.line,S.drug).includes(z));
-  if(LINES[S.line].kind==="cancer"&&fzs.length&&D.flow["MRC-5"][S.drug]){
-    sel=`<div class="inspect">${fzs.map(z=>{const a=flowOf(S.line,S.drug,z)["72"][0],b=flowOf("MRC-5",S.drug,z)["72"][0];return`<div class="kv"><div class="k">Flow, viable at 72 h · ${z} µM</div><div class="v">${fmt(a,1)}<small> % ${S.line}</small></div><div class="v" style="color:var(--healthy);font-size:16px">${fmt(b,1)}<small> % MRC-5</small></div></div>`}).join("")}</div>`}
-  return`<h3>${hl}</h3>
-    <p class="lead">Cells sit on gold microelectrodes; the more cells attached, the higher the impedance. Curves are the recorded normalized cell index, from seeding to the end of recording.</p>
-    <div class="fig">${curveChart(series,{treat:r.treat})}</div>
-    <p class="note">Tap more doses above to add them to the graph. Impedance as % of untreated wells on the same plate:</p>
-    ${tbl}
-    ${noR.length?`<p class="note">No impedance curve at ${noR.join(", ")} µM; that dose was used only in flow cytometry and qPCR.</p>`:""}
-    ${sel}
-    <p class="note">Drug added at about ${Math.round(r.treat)} h after seeding (dashed line). Error bars at selected time points. Hover a curve for values.</p>
-    ${foot("rtca",["Fig "+LINES[S.line].rtcaFig].concat(S.line==="MDA-MB-231"?["Fig 4"]:[]))}`;
-}
-function chFlow(){
-  const fz=flowDoses(S.line,S.drug),zs=selDoses().filter(z=>fz.includes(z));
-  if(!zs.length)return`<h3>Flow cytometry was run at ${fz.join(" and ")} µM only.</h3><p class="lead">The selected dose exists in the impedance series but not in the cell-death assay.</p>${doseJump(fz,"Switch to")}${foot("flow",["Fig "+FLOWFIG[S.line]])}`;
-  const t=String(S.flowT),c=flowOf(S.line,null)[t],top=zs[zs.length-1],f=flowOf(S.line,S.drug,top)[t];
-  const canH=LINES[S.line].kind==="cancer"&&D.flow["MRC-5"][S.drug];
-  const rows=[["Untreated",c]].concat(zs.map(z=>[`${z} µM`,flowOf(S.line,S.drug,z)[t]]));
-  if(S.healthy&&canH)zs.forEach(z=>rows.push([`MRC-5 ${z} µM`,flowOf("MRC-5",S.drug,z)[t]]));
-  const di=[1,2,3].reduce((a,b)=>f[b]>f[a]?b:a),k=S.sel!=null?S.sel:di;
-  const skip=selDoses().filter(z=>!fz.includes(z));
-  return`<h3>${STATE[di]}: ${fmt(f[di],1)}% of cells at ${t} h after ${top} µM (untreated ${fmt(c[di],1)}%).</h3>
-    <p class="lead">Annexin V marks exposed phosphatidylserine, propidium iodide marks a broken membrane. Together they split cells into four states. Tap a segment.</p>
-    <div class="seg" style="margin-top:14px" id="flowT">${[24,72].map(x=>`<button aria-pressed="${x===S.flowT}" data-v="${x}">${x} h</button>`).join("")}</div>
-    <div class="fig">${stackChart(rows,k)}</div>
-    ${skip.length?`<p class="note">Not measured by flow: ${skip.join(", ")} µM.</p>`:""}
-    ${canH?`<div class="row-links"><button class="link ${S.healthy?"on":""}" data-healthy>${S.healthy?"✓ Healthy fibroblasts shown":"＋ Same doses on healthy fibroblasts (MRC-5)"}</button></div>`:""}
-    <div class="inspect">${flowPanel(k,c,f,top)}</div>
-    ${foot("flow",["Fig "+FLOWFIG[S.line]])}`;
-}
-function stackChart(rows,selK){
-  const w=640,rh=44,l=110,h=rows.length*rh+34,iw=w-l-12;const col=[css("--viable"),css("--early"),css("--late"),css("--nec")];
-  let g=`<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="Cell state proportions">`;
-  rows.forEach(([lab,d],i)=>{const y0=6+i*rh;let x=l;const s=d.reduce((a,b)=>a+b,0);
-    g+=`<text x="${l-10}" y="${y0+20}" text-anchor="end" style="fill:var(--ink)">${lab}</text>`;
-    d.forEach((v,k)=>{const ww=v/Math.max(100,s)*iw;g+=`<rect x="${x}" y="${y0}" width="${Math.max(0,ww-1.5)}" height="30" rx="3" fill="${col[k]}" opacity="${selK!=null&&selK!==k?0.35:1}" data-seg="${k}" data-tt="${lab} · ${STATE[k]} ${v}%" style="cursor:pointer"/>`;
-      if(ww>30)g+=`<text x="${x+ww/2}" y="${y0+19}" text-anchor="middle" style="fill:#fff;pointer-events:none">${Math.round(v)}</text>`;x+=ww})});
-  let lx=l;STATE.forEach((n,k)=>{g+=`<rect x="${lx}" y="${h-16}" width="10" height="10" rx="2" fill="${col[k]}"/><text x="${lx+15}" y="${h-7}">${n}</text>`;lx+=n.length*6.6+34});
-  return g+"</svg>";
-}
-function flowPanel(k,c,f,z){const def=["Annexin V⁻ PI⁻ · intact membrane, no PS exposure","Annexin V⁺ PI⁻ · PS exposed, membrane still closed; still attaches to the RTCA electrode","Annexin V⁺ PI⁺ · PS exposed and membrane broken","Annexin V⁻ PI⁺ · membrane broken without PS exposure"][k];
-  return`<div class="kv"><div class="k">Selected state</div><div class="v">${STATE[k]}</div></div>
-  <div class="kv"><div class="k">Treated, ${z} µM</div><div class="v">${fmt(f[k],1)}<small> %</small></div></div>
-  <div class="kv"><div class="k">Untreated</div><div class="v">${fmt(c[k],1)}<small> %</small></div></div>
-  <div class="kv"><div class="k">Change</div><div class="v">${(f[k]-c[k]>0?"+":"")+fmt(f[k]-c[k],1)}<small> pp</small></div></div>
-  <div class="kv" style="grid-column:1/-1"><div class="k">Gate</div><div style="font-size:14.5px;margin-top:2px">${def}</div></div>`}
-function chQ(){
-  const fz=flowDoses(S.line,S.drug),zs=selDoses().filter(z=>fz.includes(z));
-  if(!zs.length)return`<h3>Gene expression was measured at ${fz.join(" and ")} µM only.</h3>${doseJump(fz,"Switch to")}${foot("qpcr",["Fig S9"])}`;
-  const ti=S.qT===24?0:1,top=zs[zs.length-1],Q=qOf(S.line,S.drug,top);
-  return`<h3>At ${S.qT} h after ${top} µM: caspase 9 ×${fx(Q.Cas9[ti])}, Fas ×${fx(Q.Fas[ti])}.</h3>
-    <p class="lead">Fold change in mRNA against untreated cells, drawn on a log scale. Right of the line means up-regulated.</p>
-    <div class="seg" style="margin-top:14px" id="qT">${[24,72].map(x=>`<button aria-pressed="${x===S.qT}" data-v="${x}">${x} h</button>`).join("")}</div>
-    <div class="fig">${geneChart(zs,ti)}</div>
-    <p class="note"><span class="tag int" style="margin-right:6px">Interpretation</span>The authors read caspase 9 up with Fas flat or down as apoptosis through the intrinsic pathway.</p>
-    ${foot("qpcr",["Fig S9"])}`;
-}
-function geneChart(zs,ti){const n=zs.length,bh=Math.max(8,Math.min(20,26/n)),gap=3,rh=Math.max(36,n*(bh+gap)+14),w=640,l=150,h=GENES.length*rh+40,iw=w-l-60,X=10,zx=l+iw/2,sx=v=>zx+Math.max(-X,Math.min(X,v))/X*iw/2;
-  let g=`<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="Fold change of apoptosis genes, log scale">`;
-  [-8,-4,0,4,8].forEach(v=>{g+=`<line class="${v?"grid":"axis"}" x1="${sx(v)}" x2="${sx(v)}" y1="8" y2="${h-26}"/><text x="${sx(v)}" y="${h-10}" text-anchor="middle">${v===0?"×1":(v>0?"×":"×1/")+Math.pow(2,Math.abs(v))}</text>`});
-  GENES.forEach(([k,nm,role],i)=>{const y=12+i*rh;
-    g+=`<text x="${l-12}" y="${y+13}" text-anchor="end" style="fill:var(--ink);font-weight:500">${nm}</text><text x="${l-12}" y="${y+25}" text-anchor="end" style="font-size:9.5px">${role.split(",")[0]}</text>`;
-    zs.forEach((z,j)=>{const fc=qOf(S.line,S.drug,z)[k][ti],lv=Math.log2(fc),yy=y+2+j*(bh+gap),x0=Math.min(zx,sx(lv)),ww=Math.abs(sx(lv)-zx),col=n>1?zColor(z):(lv>=0?css("--up"):css("--down"));
-      g+=`<rect x="${x0}" y="${yy}" width="${Math.max(1.5,ww)}" height="${bh}" rx="2" fill="${col}" data-tt="${nm} · ${z} µM<br>fold change ×${fx(fc)} (log₂ ${lv.toFixed(2)})" style="cursor:pointer"/>`;
-      g+=`<text x="${lv>=0?sx(lv)+6:sx(lv)-6}" y="${yy+bh/2+3.5}" text-anchor="${lv>=0?"start":"end"}" style="font-size:${n>1?9.5:10.5}px">×${fx(fc)}</text>`})});
-  return g+"</svg>"}
-function chModel(){
-  const r=rtcaOf(S.line,S.drug),s=r&&r.series[dkey(S.dose)];let fitHtml="";
-  const P=pOf(S.line,S.drug,S.dose),P0=pOf(S.line,null);
-  if(s&&s.fit.r2<0.5)fitHtml=`<h4 style="font-size:15px;margin-top:18px">A. Re-fit of the measured curve</h4><div class="pending"><b>No simple re-fit for this curve</b><p>The two-parameter logistic used on this page does not describe this curve shape. The paper's own fitted parameters are shown below.</p></div>`;
-  else if(s){const f=s.fit;if(!S.fit)S.fit={g:f.g,K:f.K};
-    fitHtml=`<h4 style="font-size:15px;margin-top:18px">A. Re-fit of the measured curve <span class="tag der" style="margin-left:6px">Derived · this page</span></h4>
-      <p class="note" style="margin-top:4px">From 3 h after drug addition, the curve is fitted with a logistic: growth rate g and plateau K. Move them and watch the fit leave the data.</p>
-      <div class="model"><div class="fig" id="modelFig" style="margin-top:0"></div><div>
-        <div class="sl"><label for="sl-g">g, growth rate <span id="v-g"></span></label><input type="range" id="sl-g" data-k="g" min="-0.05" max="0.3" step="0.001" value="${S.fit.g}"></div>
-        <div class="sl"><label for="sl-K">K, plateau NCI <span id="v-K"></span></label><input type="range" id="sl-K" data-k="K" min="0.1" max="50" step="0.01" value="${S.fit.K}"></div>
-        <div class="fitbox"><span>Sum of squared errors</span><b id="sse"></b><span id="sseNote"></span></div>
-        <div class="row-links"><button class="link" id="resetFit">↺ Reset to fitted values</button></div>
-      </div></div>
-      <div class="fitlabel"><span><i style="background:${css("--late")}"></i>measured</span><span><i style="background:${css("--faint")}"></i>best fit</span><span><i style="background:${css("--accent")}"></i>your curve</span></div>
-`}
-  else if(!s)fitHtml=`<div class="pending"><b>No impedance curve at ${S.dose} µM</b><p>This dose was used only in flow cytometry and qPCR.</p></div>`;
-  let parHtml="";
-  if(!P)parHtml=`<div class="pending"><b>No fitted parameters at ${S.dose} µM</b><p>Parameters were fitted at ${paramDoses(S.line,S.drug).join(" and ")} µM.</p>${doseJump(paramDoses(S.line,S.drug),"Switch to")}</div>`;
-  else parHtml=paramBars(P,P0);
-  const multi=S.doses.length>1?`<p class="note">The model view follows one dose: ${S.dose} µM, the last one you added.</p>`:"";
-  return`<h3>A growth–death model, fitted per condition, replays the curves.</h3>${multi}
-    <p class="lead">The paper fits four parameters, s₁ to s₄, per condition: s₁ for growth, s₂ to s₄ for death. Here you can move a simple fit yourself and see the published values.</p>
-    ${fitHtml}
-    <h4 style="font-size:15px;margin-top:22px">B. Published parameters, % of the untreated fit <span class="tag der" style="margin-left:6px">Derived · paper</span></h4>
-    ${parHtml}
-    ${sensPanel()}
-    <div class="eq" style="margin-top:16px">∂α/∂t = (1+s₁)α(1−α)C/(1+s₁C) − (s₂+s₃C)α/(1+s₄C)</div>
-    ${foot("model",["Table S1–S4","Figs S10–S13","Figs 1–3"])}`;
-}
-function paramBars(P,P0){
-  const mda=S.line==="MDA-MB-231";
-  const sets=[["rtca","RTCA fit",css("--c1"),mda?"modeller's workbook":"Table S1/S2","err"],["joint","RTCA + flow fit",css("--c2"),mda?"modeller's workbook":"Table S3/S4","errJ"]].filter(s=>P[s[0]]);
-  const vals=k=>sets.map(s=>P[s[0]][k]/P0.rtca[k]*100);
-  const mini=k=>{const V=vals(k),w=150,h=150,l=34,b=18,Y=Math.max(150,Math.ceil(Math.max(...V)/100)*100),y=v=>h-b-v/Y*(h-b-8),bw=24;
-    let g=`<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="s${k+1} percent of control">`;
-    const st=Y>600?Y/3:Y>300?100:50;for(let v=0;v<=Y;v+=st)g+=`<line class="${v?"grid":"axis"}" x1="${l}" x2="${w-4}" y1="${y(v)}" y2="${y(v)}"/><text x="${l-5}" y="${y(v)+3.5}" text-anchor="end">${Math.round(v)}</text>`;
-    g+=`<line x1="${l}" x2="${w-4}" y1="${y(100)}" y2="${y(100)}" stroke="${css("--ink")}" stroke-dasharray="3 3" opacity=".45"/>`;
-    sets.forEach((s,i)=>{const x=l+14+i*(bw+14);g+=`<rect x="${x}" y="${y(V[i])}" width="${bw}" height="${Math.max(1,h-b-y(V[i]))}" rx="2" fill="${s[2]}" data-tt="${s[1]} (${s[3]})<br>s${k+1} = ${P[s[0]][k]} · ${Math.round(V[i])}% of control"/>`});
-    return g+"</svg>"};
-  return`<div class="fitlabel">${sets.map(s=>`<span><i style="background:${s[2]}"></i>${s[1]} · ${s[3]}${P[s[4]]!=null?` · fit error ${P[s[4]]}`:""}</span>`).join("")}<span>dashed = untreated fit</span></div>
-    <div class="pgrid">${[0,1,2,3].map(k=>`<div><h4>s${k+1} · ${["growth","death","death, O₂","death saturation"][k]}</h4>${mini(k)}</div>`).join("")}</div>
-`;
-}
-
-const SENSN={s1:"s₁ growth",s2:"s₂ death",s3:"s₃ death, O₂",s4:"s₄ death saturation",q:"Q oxygen use",q1:"Q₁ oxygen use"};
-function sensPanel(){const Sd=D.sens["HCT-116"];if(!Sd)return"";const t=String(S.sensT||72),keys=Object.keys(Sd.par),col=[css("--c1"),css("--c2"),css("--c3"),css("--c4"),css("--c5"),css("--c8")];
-  const w=640,h=280,m={l:46,r:130,t:12,b:36},iw=w-m.l-m.r,ih=h-m.t-m.b,X0=25,X1=175,Y1=Math.max(220,...keys.flatMap(k=>Sd.par[k][t])),x=v=>m.l+(v-X0)/(X1-X0)*iw,y=v=>m.t+ih-v/Y1*ih;
-  let g=`<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="Sensitivity of viability to each model parameter">`;
-  for(let v=0;v<=Y1;v+=50)g+=`<line class="grid" x1="${m.l}" x2="${m.l+iw}" y1="${y(v)}" y2="${y(v)}"/><text x="${m.l-8}" y="${y(v)+3.5}" text-anchor="end">${v}</text>`;
-  Sd.x.forEach(v=>g+=`<text x="${x(v)}" y="${h-18}" text-anchor="middle">${v}</text>`);
-  g+=`<text x="${m.l+iw}" y="${h-2}" text-anchor="end">parameter, % of fitted value</text><text x="4" y="${m.t+2}">viability, % of baseline</text>`;
-  g+=`<line x1="${x(100)}" x2="${x(100)}" y1="${m.t}" y2="${m.t+ih}" stroke="${css("--ink")}" stroke-dasharray="3 3" opacity=".4"/>`;
-  const sel=S.sensK;const ends=[];
-  keys.forEach((k,i)=>{const v=Sd.par[k][t],on=!sel||sel===k;const d=v.map((q,j)=>(j?"L":"M")+x(Sd.x[j]).toFixed(1)+","+y(q).toFixed(1)).join("");
-    g+=`<path d="${d}" fill="none" stroke="${col[i]}" stroke-width="${sel===k?3:2}" opacity="${on?1:0.2}"/>`;
-    v.forEach((q,j)=>g+=`<circle cx="${x(Sd.x[j])}" cy="${y(q)}" r="${on?3:2}" fill="${col[i]}" opacity="${on?1:0.2}" data-tt="${SENSN[k]}<br>${Sd.x[j]}% of ${Sd.par[k].base} → viability ${q}%"/>`);
-    ends.push({y:y(v[v.length-1]),c:col[i],l:SENSN[k],on})});
-  ends.sort((a,b)=>a.y-b.y);for(let k=1;k<ends.length;k++)if(ends[k].y-ends[k-1].y<13)ends[k].y=ends[k-1].y+13;
-  ends.forEach(e=>g+=`<text x="${m.l+iw+8}" y="${e.y+3.5}" style="fill:${e.c};opacity:${e.on?1:.3}">${e.l}</text>`);
-  return`<h4 style="font-size:15px;margin-top:22px">C. Sensitivity of the model <span class="tag der" style="margin-left:6px">Derived · modeller's workbook</span></h4>
-    <p class="note" style="margin-top:4px">Each parameter moved from 25% to 175% of its fitted value while the others stay fixed. HCT-116 control; Fig. 1 in the paper shows the same analysis for MDA-MB-231.</p>
-    <div class="seg" style="margin-top:10px" id="sensT">${[24,72].map(x=>`<button aria-pressed="${String(x)===t}" data-v="${x}">${x} h</button>`).join("")}</div>
-    <div class="seg" style="margin-top:8px" id="sensK"><button aria-pressed="${!sel}" data-v="">All</button>${keys.map((k,i)=>`<button aria-pressed="${sel===k}" data-v="${k}"><i class="dz" style="background:${col[i]}"></i>${SENSN[k]}</button>`).join("")}</div>
-    <div class="fig">${g}</svg></div>`}
-function renderChapter(anim){
-  const ch=$("#chapter"),st=STEPS[S.step];
-  let html=`<div class="ch-top"><span class="eyebrow">${S.line} · ${LINES[S.line].tissue} · ${cond()}</span><span class="tag ${st.tag}">${TAGTXT[st.tag]}</span></div>`;
-  html+=[chRTCA,chFlow,chQ,chModel][S.step]();
-  ch.innerHTML=html;
-  if(anim){ch.removeAttribute("data-enter");void ch.offsetWidth;ch.setAttribute("data-enter","")}
-  bindTips(ch);
-  ch.querySelector("[data-next]")?.addEventListener("click",()=>{S.step++;renderChapter(true);steps()});
-  ch.querySelector("[data-goto]")?.addEventListener("click",b=>{S.step=+b.currentTarget.dataset.goto;renderChapter(true);steps()});
-  ch.querySelector("[data-healthy]")?.addEventListener("click",()=>{S.healthy=!S.healthy;renderChapter()});
-  ch.querySelector("[data-text]")?.addEventListener("click",b=>openText(b.currentTarget.dataset.text));
-  ch.querySelector("[data-method]")?.addEventListener("click",b=>openMethod(b.currentTarget.dataset.method));
-  ch.querySelectorAll("[data-dose]").forEach(b=>b.addEventListener("click",()=>{S.dose=+b.dataset.dose;S.doses=null;S.fit=null;picker();renderChapter(true)}));
-  ch.querySelector("#flowT")?.addEventListener("click",e=>{const b=e.target.closest("button");if(b){S.flowT=+b.dataset.v;renderChapter()}});
-  ch.querySelector("#qT")?.addEventListener("click",e=>{const b=e.target.closest("button");if(b){S.qT=+b.dataset.v;renderChapter()}});
-  ch.querySelectorAll("[data-seg]").forEach(r=>r.addEventListener("click",()=>{S.sel=+r.dataset.seg;renderChapter()}));
-  ch.querySelector("#sensT")?.addEventListener("click",e=>{const b=e.target.closest("button");if(b){S.sensT=+b.dataset.v;renderChapter()}});
-  ch.querySelector("#sensK")?.addEventListener("click",e=>{const b=e.target.closest("button");if(b){S.sensK=b.dataset.v||null;renderChapter()}});
-  if(S.step===3&&$("#modelFig"))bindModel();
-}
-function bindModel(){
-  const r=rtcaOf(S.line,S.drug),s=r.series[dkey(S.dose)],f=s.fit;
-  const meas=ptsOf(s).filter(p=>p[0]>=Math.ceil(f.t0));
-  const L=(t,g,K)=>K/(1+(K/f.N0-1)*Math.exp(-g*(t-f.t0)));
-  const curve=(g,K)=>{const o=[];for(let t=Math.ceil(f.t0);t<=Math.floor(s.tmax);t++)o.push([t,L(t,g,K)]);return o};
-  const sse=(g,K)=>meas.reduce((a,p)=>a+Math.pow(L(p[0],g,K)-p[1],2),0);
-  const best=sse(f.g,f.K);
-  const draw=()=>{const cu=curve(S.fit.g,S.fit.K);const ym=Math.max(1,Math.ceil(Math.max(...meas.map(p=>p[1]))*1.25));
-    $("#modelFig").innerHTML=curveChart([{label:"measured",color:css("--late"),pts:meas,dots:6},{label:"best fit",color:css("--faint"),pts:curve(f.g,f.K),dash:"4 4",w:1.6},{label:"your curve",color:css("--accent"),pts:cu.map(p=>[p[0],Math.min(p[1],ym*1.2)]),w:2.6}],{ymax:ym,xmin:Math.floor(r.treat/12)*12,treat:r.treat,endLabels:false});
-    bindTips($("#modelFig"));
-    const e=sse(S.fit.g,S.fit.K);$("#sse").textContent=e.toFixed(2);$("#sseNote").textContent=e<=best*1.02?`at the best fit · R² ${f.r2}`:`${(e/best).toFixed(1)}× the best fit`;
-    $("#v-g").textContent=S.fit.g.toFixed(3)+" /h"+(Math.abs(S.fit.g-f.g)>0.0005?` · fit ${f.g.toFixed(3)}`:"");
-    $("#v-K").textContent=S.fit.K.toFixed(2)+(Math.abs(S.fit.K-f.K)>0.005?` · fit ${f.K.toFixed(2)}`:"")};
-  document.querySelectorAll(".sl input").forEach(inp=>inp.addEventListener("input",()=>{S.fit[inp.dataset.k]=+inp.value;draw()}));
-  $("#resetFit").onclick=()=>{S.fit={g:f.g,K:f.K};$("#sl-g").value=f.g;$("#sl-K").value=f.K;draw()};
-  draw();
-}
-
-/* ---------- drawer ---------- */
+function bindTips(root){root.querySelectorAll("[data-tt]").forEach(el=>{el.addEventListener("pointermove",e=>{tip.innerHTML=el.dataset.tt;tip.style.opacity=1;const x=Math.min(e.clientX+12,innerWidth-tip.offsetWidth-8);tip.style.left=Math.max(8,x)+"px";tip.style.top=Math.max(8,e.clientY-tip.offsetHeight-10)+"px"});el.addEventListener("pointerleave",()=>tip.style.opacity=0)})}
 const drawer=$("#drawer"),scrim=$("#scrim");
 function openDrawer(title,html){$("#drTitle").textContent=title;$("#drBody").innerHTML=html;drawer.classList.add("on");scrim.classList.add("on");drawer.setAttribute("aria-hidden","false");$("#drClose").focus()}
 function closeDrawer(){drawer.classList.remove("on");scrim.classList.remove("on");drawer.setAttribute("aria-hidden","true")}
 $("#drClose").onclick=closeDrawer;scrim.onclick=closeDrawer;addEventListener("keydown",e=>{if(e.key==="Escape")closeDrawer()});
-function openText(k){const t=TEXT[k];openDrawer("From the paper",`<div class="dr-src">${t.src}</div><div style="margin-top:14px">${t.q.map(q=>`<blockquote>${q}</blockquote>`).join("")}</div><p class="dr-src">Verbatim from the published article (CC BY 4.0).</p><a class="btn" href="${DOI}" target="_blank" rel="noopener">Open the full article ↗</a>`)}
-function openMethod(id){const d=document.getElementById(id);d.open=true;d.scrollIntoView({block:"center"});d.classList.remove("flash");void d.offsetWidth;d.classList.add("flash")}
-function refs(){const RL=(P.referenceList||[]).slice().sort((a,b)=>a.n-b.n),byN=Object.fromEntries(RL.map(r=>[r.n,r]));
-  const host=u=>{try{const h=new URL(u).host.replace(/^www\./,"");return h==="doi.org"?"doi:"+decodeURIComponent(new URL(u).pathname.slice(1)):h==="pubmed.ncbi.nlm.nih.gov"?"search PubMed":h}catch(e){return u}};
-  const item=r=>`<li value="${r.n}">${esc(r.citation)} <a href="${esc(r.url)}" target="_blank" rel="noopener">${esc(host(r.url))} ↗</a></li>`;
-  $("#refCount").textContent=RL.length+" cited works";
-  const openAll=n=>{openDrawer(`References · ${RL.length}`,`<p class="dr-src">From the published article, with a link to each source.</p><ol class="refs reflist">${RL.map(item).join("")}</ol>`);if(n){const li=document.querySelector(`#drBody li[value="${n}"]`);if(li){li.classList.add("hit");li.scrollIntoView({block:"center"})}}};
-  $("#refOpen").onclick=()=>openAll();
-  document.querySelectorAll('#navLinks a[href="#references"]').forEach(a=>a.addEventListener("click",e=>{e.preventDefault();document.getElementById("references").scrollIntoView();openAll()}));
-  document.querySelectorAll(".cite").forEach(b=>b.addEventListener("click",()=>{const r=byN[+b.dataset.n];if(!r)return;openDrawer(`Reference ${r.n}`,`<p style="font-size:16px">${esc(r.citation)}</p><div class="row-links"><a class="btn" href="${esc(r.url)}" target="_blank" rel="noopener">Open source ↗</a><button class="btn" id="refAll" type="button">All references</button></div>`);$("#refAll").onclick=()=>openAll(r.n)}))}
+function openText(k){const t=P.quotes[k];openDrawer("From the paper",`<div class="dr-src">${esc(t.source)}</div><div style="margin-top:14px">${t.text.map(q=>`<blockquote>${esc(q)}</blockquote>`).join("")}</div><p class="dr-src">Verbatim from the published article (${esc(p.license)}).</p><a class="btn" href="${DOI}" target="_blank" rel="noopener">Open the full article ↗</a>`)}
 
-/* ---------- audit ---------- */
-function jump(o){Object.assign(S,{doses:null,healthy:false,sel:null,fit:null},o);renderAll();document.getElementById("explore").scrollIntoView()}
+/* references */
+const RL=(P.referenceList||[]).slice().sort((a,b)=>a.n-b.n);
+const host=u=>{try{const U=new URL(u),h=U.host.replace(/^www\./,"");return h==="doi.org"?"doi:"+decodeURIComponent(U.pathname.slice(1)):h==="scholar.google.com"?"search Google Scholar":h}catch(e){return u}};
+const openAll=n=>{openDrawer(`References · ${RL.length}`,`<p class="dr-src">From the published article, with a link to each source.</p><ol class="refs reflist">${RL.map(r=>`<li value="${r.n}">${esc(r.citation)} <a href="${esc(r.url)}" target="_blank" rel="noopener">${esc(host(r.url))} ↗</a></li>`).join("")}</ol>`);if(n){const li=document.querySelector(`#drBody li[value="${n}"]`);if(li){li.classList.add("hit");li.scrollIntoView({block:"center"})}}};
+$("#refCount").textContent=RL.length+" cited works";$("#refOpen").onclick=()=>openAll();
+document.querySelectorAll('#navLinks a[href="#references"]').forEach(a=>a.addEventListener("click",e=>{e.preventDefault();document.getElementById("references").scrollIntoView();openAll()}));
+document.querySelectorAll(".cite").forEach(b=>b.addEventListener("click",()=>{const r=refN(+b.dataset.n);if(!r)return;openDrawer(`Reference ${r.n}`,`<p style="font-size:16px">${esc(r.citation)}</p><div class="row-links"><a class="btn" href="${esc(r.url)}" target="_blank" rel="noopener">Open source ↗</a><button class="btn" id="refAll" type="button">All references</button></div>`);$("#refAll").onclick=()=>openAll(r.n)}));
 
-/* ---------- evidence ---------- */
-function cards(){
-  const a=flowOf("HCT-116","Irinotecan",50)["72"][2],a0=flowOf("HCT-116",null)["72"][2];
-  const h=flowOf("HCT-116","Oxaliplatin",100)["72"][0],m=flowOf("MRC-5","Oxaliplatin",100)["72"][0];
-  const v=viabAt("HCT-116","5-FU",100,72);
-  const C=[
-    {big:fmt(a,0)+"%",h:"Death is mostly late apoptosis",p:`HCT-116 after irinotecan 50 µM, 72 h (untreated ${a0}%).`,go:{line:"HCT-116",drug:"Irinotecan",dose:50,step:1,flowT:72,sel:2}},
-    {big:fmt(m,0)+" vs "+fmt(h,0),h:"Same dose, two cell types",p:"Viable cells at 72 h after oxaliplatin 100 µM: MRC-5 against HCT-116.",go:{line:"HCT-116",drug:"Oxaliplatin",dose:100,step:1,flowT:72,healthy:true}},
-    {big:fmt(v,0)+"%",h:"Impedance tracks the dose",p:"HCT-116 impedance 72 h after 5-FU 100 µM, relative to untreated wells.",go:{line:"HCT-116",drug:"5-FU",dose:100,step:0,doses:"all"}}
-  ];
-  $("#cards").innerHTML=C.map((c,i)=>`<button class="card" data-i="${i}"><span class="big">${c.big}</span><h4>${c.h}</h4><p>${c.p}</p><span class="go">Open the evidence →</span></button>`).join("");
-  $("#cards").onclick=e=>{const b=e.target.closest(".card");if(!b)return;const g=C[+b.dataset.i].go;Object.assign(S,{doses:null,healthy:false,sel:null,fit:null});Object.assign(S,g);renderAll();document.getElementById("explore").scrollIntoView()};
+/* data access */
+const mtt=(l,d)=>D.mtt[l]&&D.mtt[l][d];
+const sim=(l,d)=>D.insilico[l]&&D.insilico[l][d];
+const probs=(l,d)=>D.probs[l]&&D.probs[l][d];
+const ratio=(l,d,z)=>{const P=probs(l,d);if(!P||!P[dk(z)]||!P["0"])return null;const [a,b]=P[dk(z)],[a0,b0]=P["0"];return (b/b0)/(a/a0)};
+const doseLabel=z=>(+z<1?String(+z):String(+z));
+
+/* dose-response chart, categorical x like the paper's figures */
+function doseChart(l,d,{w=640,h=320,show=S.show,compact=false}={}){
+  const M=mtt(l,d),Si=sim(l,d),C=COL();if(!M)return "";
+  const zs=M.doses,m={l:44,r:14,t:24,b:compact?30:40},iw=w-m.l-m.r,ih=h-m.t-m.b;
+  const vals=[];["24","72"].forEach(t=>zs.forEach(z=>{const o=M[t][dk(z)];if(o){vals.push(o.mean+o.se);if(show.reps)o.reps.forEach(v=>vals.push(v))}}));if(Si&&show.sim)Object.values(Si).forEach(o=>vals.push(o.mean+o.sd));
+  const Y=Math.max(120,Math.ceil(Math.max(...vals)/20)*20);
+  const x=i=>m.l+(zs.length<2?iw/2:i*iw/(zs.length-1)),y=v=>m.t+ih-Math.max(0,v)/Y*ih;
+  let g=`<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="Viability by dose, ${esc(l)} ${esc(d)}">`;
+  for(let v=0;v<=Y;v+=Y>200?50:20)g+=`<line class="grid" x1="${m.l}" x2="${m.l+iw}" y1="${y(v)}" y2="${y(v)}"/><text x="${m.l-8}" y="${y(v)+3.5}" text-anchor="end">${v}</text>`;
+  g+=`<line x1="${m.l}" x2="${m.l+iw}" y1="${y(100)}" y2="${y(100)}" stroke="${css("--ink")}" stroke-opacity=".35" stroke-dasharray="3 3"/><line x1="${m.l}" x2="${m.l+iw}" y1="${y(50)}" y2="${y(50)}" stroke="${css("--ink")}" stroke-opacity=".2" stroke-dasharray="1 4"/>`;
+  g+=`<text x="${m.l+iw}" y="${y(100)-5}" text-anchor="end">untreated = 100%</text>`;
+  zs.forEach((z,i)=>{g+=`<text x="${x(i)}" y="${m.t+ih+16}" text-anchor="middle">${doseLabel(z)}</text>`});
+  if(!compact)g+=`<text x="${m.l+iw}" y="${h-4}" text-anchor="end">µM, not to scale</text>`;
+  g+=`<text x="4" y="10">% viable</text>`;
+  const series=[];
+  if(show.t24)series.push({k:"24",c:C.t24,lab:"24 h",fill:false});
+  if(show.t72)series.push({k:"72",c:C.t72,lab:"72 h",fill:true});
+  if(show.reps)series.forEach((s,si)=>zs.forEach((z,i)=>{const o=M[s.k][dk(z)];if(!o)return;o.reps.forEach((v,j)=>{g+=`<circle cx="${x(i)+(si?5:-5)+(j-2.5)*1.6}" cy="${y(v)}" r="2.2" fill="${s.c}" opacity=".35"/>`})}));
+  if(Si&&show.sim){const pts=zs.map((z,i)=>[i,Si[dk(z)]]).filter(q=>q[1]);
+    pts.forEach(([i,o])=>{g+=`<line x1="${x(i)+3}" x2="${x(i)+3}" y1="${y(o.mean-o.sd)}" y2="${y(o.mean+o.sd)}" stroke="${C.sim}" opacity=".6"/>`});
+    g+=`<path d="${pts.map(([i,o],k)=>(k?"L":"M")+(x(i)+3).toFixed(1)+","+y(o.mean).toFixed(1)).join("")}" fill="none" stroke="${C.sim}" stroke-width="2" stroke-dasharray="6 4"/>`;
+    pts.forEach(([i,o])=>{g+=`<rect x="${x(i)}" y="${y(o.mean)-3}" width="6" height="6" fill="${C.sim}" data-tt="${esc(d)} ${doseLabel(zs[i])} µM · model, 72 h<br>${fmt(o.mean,1)}% ± ${fmt(o.sd,1)}"/>`})}
+  series.forEach(s=>{const pts=zs.map((z,i)=>[i,M[s.k][dk(z)]]).filter(q=>q[1]);
+    pts.forEach(([i,o])=>{g+=`<line x1="${x(i)}" x2="${x(i)}" y1="${y(o.mean-o.se)}" y2="${y(o.mean+o.se)}" stroke="${s.c}" stroke-width="1.4"/>`});
+    g+=`<path d="${pts.map(([i,o],k)=>(k?"L":"M")+x(i).toFixed(1)+","+y(o.mean).toFixed(1)).join("")}" fill="none" stroke="${s.c}" stroke-width="2.4" stroke-linejoin="round"/>`;
+    pts.forEach(([i,o])=>{g+=`<circle cx="${x(i)}" cy="${y(o.mean)}" r="4.2" fill="${s.fill?s.c:css("--surface")}" stroke="${s.c}" stroke-width="2"/><circle cx="${x(i)}" cy="${y(o.mean)}" r="11" fill="transparent" data-tt="${esc(d)} ${doseLabel(zs[i])} µM · MTT, ${s.lab}<br>${fmt(o.mean,1)}% ± ${fmt(o.se,1)} SE · 6 wells"/>`})});
+  return g+"</svg>";
+}
+const swatch=(c,kind)=>kind==="sim"?`<svg width="24" height="8" viewBox="0 0 24 8" aria-hidden="true"><line x1="0" y1="4" x2="24" y2="4" stroke="${c}" stroke-width="2" stroke-dasharray="6 4"/></svg>`:`<svg width="24" height="10" viewBox="0 0 24 10" aria-hidden="true"><line x1="0" y1="5" x2="24" y2="5" stroke="${c}" stroke-width="2.4"/><circle cx="12" cy="5" r="3.6" fill="${kind==="24"?css("--surface"):c}" stroke="${c}" stroke-width="2"/></svg>`;
+function legend(show,hasSim){const C=COL();return[show.t24?`<span class="lg">${swatch(C.t24,"24")}MTT, 24 h</span>`:"",show.t72?`<span class="lg">${swatch(C.t72,"72")}MTT, 72 h</span>`:"",hasSim&&show.sim?`<span class="lg">${swatch(C.sim,"sim")}Model, 72 h</span>`:""].join("")}
+
+/* hero */
+function hero(){const l="HCT-116",d="Oxaliplatin";$("#heroTag").textContent=`${l} · ${d}`;
+  $("#heroFig").innerHTML=`<div class="fig" style="margin-top:8px">${doseChart(l,d,{w:560,h:280,show:{t24:true,t72:true,sim:false,reps:false},compact:true})}</div>`;
+  $("#heroLegend").innerHTML=legend({t24:true,t72:true},false);bindTips($("#heroFig"));
+  $("#heroFig").style.cursor="pointer";$("#heroFig").onclick=()=>{S.line=l;S.drug=d;render();document.getElementById("explore").scrollIntoView()}}
+
+/* explore */
+function picker(){
+  $("#pLine").innerHTML=Object.keys(LINES).map(l=>`<button aria-pressed="${l===S.line}" data-v="${esc(l)}">${esc(l)}<small>${esc(LINES[l].tissue)}</small></button>`).join("");
+  $("#pDrug").innerHTML=LINES[S.line].drugs.map(d=>`<button aria-pressed="${d===S.drug}" data-v="${esc(d)}">${esc(d)}</button>`).join("");
+  const SH=[["t24","24 h"],["t72","72 h"],["sim","Model"],["reps","Wells"]];
+  $("#pShow").innerHTML=SH.map(([k,n])=>`<button aria-pressed="${!!S.show[k]}" data-k="${k}">${n}</button>`).join("");
+}
+$("#pLine").onclick=e=>{const b=e.target.closest("button");if(!b)return;S.line=b.dataset.v;if(!LINES[S.line].drugs.includes(S.drug))S.drug=LINES[S.line].drugs[0];render()};
+$("#pDrug").onclick=e=>{const b=e.target.closest("button");if(!b)return;S.drug=b.dataset.v;render()};
+$("#pShow").onclick=e=>{const b=e.target.closest("button");if(!b)return;const k=b.dataset.k;S.show[k]=!S.show[k];if(!S.show.t24&&!S.show.t72)S.show[k==="t24"?"t72":"t24"]=true;render()};
+function chapter(){
+  const l=S.line,d=S.drug,M=mtt(l,d),Si=sim(l,d),Pr=probs(l,d),IC=D.ic50[l][d],fig=LINES[l].figure,sfig=LINES[l].suppFigure;
+  const icTxt=v=>v==null?">500 µM":String(v)+" µM";
+  const rows=M.doses.map(z=>{const a=M["24"][dk(z)],b=M["72"][dk(z)],s=Si&&Si[dk(z)],pr=Pr&&Pr[dk(z)];
+    return`<tr><th class="rowh">${doseLabel(z)} µM</th><td>${a?fmt(a.mean,1)+"%":"–"}</td><td>${b?fmt(b.mean,1)+"%":"–"}</td><td>${s?fmt(s.mean,1)+"%":'<span class="src">not simulated</span>'}</td><td>${pr?pr[0].toFixed(3):"–"}</td><td>${pr?pr[1].toFixed(3):"–"}</td></tr>`}).join("");
+  const ctrl=Pr&&Pr["0"]?`<tr><th class="rowh">untreated</th><td class="src">100%</td><td class="src">100%</td><td class="src">–</td><td>${Pr["0"][0].toFixed(3)}</td><td>${Pr["0"][1].toFixed(3)}</td></tr>`:"";
+  $("#chapter").innerHTML=`<div class="ch-top"><span class="eyebrow">${esc(l)} · ${esc(LINES[l].tissue)} · ${esc(d)}</span><span class="tag obs">Observed</span></div>
+    <h3>${esc(d)} on ${esc(l)}: IC50 ${icTxt(IC[0])} at 24 h, ${icTxt(IC[1])} at 72 h</h3>
+    <p class="lead">MTT viability as % of untreated wells, mean ± standard error of six wells. The dashed line is the agent-based model fitted to the 72 h wells.</p>
+    <div class="cmp-legend">${legend(S.show,!!Si)}</div>
+    <div class="fig">${doseChart(l,d)}</div>
+    <div class="heat" style="margin-top:14px"><table><thead><tr><th>Dose</th><th>MTT 24 h</th><th>MTT 72 h</th><th>Model 72 h</th><th>P apoptose</th><th>P divide</th></tr></thead><tbody>${ctrl}${rows}</tbody></table></div>
+    <p class="note">P apoptose and P divide are the model's per-step probabilities fitted to each scenario (Tables S1–S2). The authors compare drugs through the ratio of the two, normalised to untreated, shown as distributions in Fig 6.</p>
+    <div class="ch-foot"><div class="row-links" style="margin-top:0"><button class="link" data-text="mtt">What the authors say</button><button class="link" data-method="m-mtt">MTT method</button><button class="link" data-method="m-vbmc">Model fit</button></div><div class="pdfmap">This view replaces <s>Fig ${fig}</s><s>Fig ${sfig}</s><s>Tables S${l==="HCT-116"?"1, S3":"2, S4"}</s></div></div>`;
+  bindTips($("#chapter"));
+  $("#chapter").querySelector("[data-text]").onclick=e=>openText(e.currentTarget.dataset.text);
+  $("#chapter").querySelectorAll("[data-method]").forEach(b=>b.onclick=()=>{const el=document.getElementById(b.dataset.method);el.open=true;el.scrollIntoView({block:"center"})});
 }
 
-/* ---------- compare ---------- */
-const CMP={conds:[{line:"HCT-116",drug:"Oxaliplatin",dose:100},{line:"MRC-5",drug:"Oxaliplatin",dose:100},{line:"HCT-116",drug:"Irinotecan",dose:50},{line:"MRC-5",drug:"Irinotecan",dose:50}],metric:"flow",t:72,fit:"rtca"};
-const METRICS=[["curve","Viability over time"],["v","Impedance, % of control"],["flow","Cell death states"],["genes","Apoptosis genes"],["params","Model parameters"]];
-const PAL=()=>[1,2,3,4,5,6,7,8].map(i=>css("--c"+i));
-const cName=c=>c.drug?`${c.drug} ${c.dose} µM`:"Untreated";
-const cKey=c=>c.line+"|"+(c.drug||"")+"|"+c.dose;
-const PRESETS=[
-  {n:"Cancer vs fibroblast, colorectal drugs",c:CRC.flatMap(d=>[{line:"HCT-116",drug:d,dose:d==="Irinotecan"?50:100},{line:"MRC-5",drug:d,dose:d==="Irinotecan"?50:100}]),m:"flow"},
-  {n:"Oxaliplatin dose–response on HCT-116",c:[1,10,50,100].map(z=>({line:"HCT-116",drug:"Oxaliplatin",dose:z})),m:"curve"},
-  {n:"Paclitaxel dose–response on MDA-MB-231",c:[1,10,50,100].map(z=>({line:"MDA-MB-231",drug:"Paclitaxel",dose:z})),m:"curve"},
-  {n:"Oxaliplatin: cancer vs fibroblast curves",c:[10,100].flatMap(z=>[{line:"HCT-116",drug:"Oxaliplatin",dose:z},{line:"MRC-5",drug:"Oxaliplatin",dose:z}]),m:"curve"},
-  {n:"All HCT-116 drugs at 100 µM",c:CRC.map(d=>({line:"HCT-116",drug:d,dose:100})),m:"curve"},
-  {n:"Breast drugs: cancer vs fibroblast genes",c:["Doxorubicin","Paclitaxel"].flatMap(d=>[{line:"MDA-MB-231",drug:d,dose:d==="Doxorubicin"?1:100},{line:"MRC-5",drug:d,dose:d==="Doxorubicin"?1:100}]),m:"genes"},
-  {n:"Fitted parameters, HCT-116 at 10 µM",c:CRC.map(d=>({line:"HCT-116",drug:d,dose:10})),m:"params"}
-];
-function cmpAdder(){
-  const L=$("#aLine"),Dd=$("#aDrug"),O=$("#aDose");
-  L.innerHTML=Object.keys(LINES).map(l=>`<option>${l}</option>`).join("");
-  const fillDrug=()=>{Dd.innerHTML=LINES[L.value].drugs.map(d=>`<option>${d}</option>`).join("");fillDose()};
-  const fillDose=()=>{const zs=dosesFor(L.value,Dd.value);O.innerHTML=zs.map(z=>`<option value="${z}">${z} µM</option>`).join("");O.value=String(flowDoses(L.value,Dd.value).slice(-1)[0])};
-  L.onchange=fillDrug;Dd.onchange=fillDose;fillDrug();
-  $("#aAdd").onclick=()=>{const c={line:L.value,drug:Dd.value,dose:+O.value};if(CMP.conds.length>=8||CMP.conds.some(x=>cKey(x)===cKey(c)))return;CMP.conds.push(c);renderCompare()};
-  $("#presets").innerHTML=PRESETS.map((p,i)=>`<button class="link" data-p="${i}">${p.n}</button>`).join("");
-  $("#presets").onclick=e=>{const b=e.target.closest("[data-p]");if(!b)return;const p=PRESETS[+b.dataset.p];CMP.conds=p.c.map(x=>({...x}));CMP.metric=p.m;renderCompare()};
-  $("#metrics").onclick=e=>{const b=e.target.closest("button");if(b){CMP.metric=b.dataset.v;renderCompare()}};
-  $("#cmpT").onclick=e=>{const b=e.target.closest("button");if(b){if(b.dataset.f)CMP.fit=b.dataset.f;else CMP.t=+b.dataset.v;renderCompare()}};
-}
-function openInStory(i,step){const c=CMP.conds[i];Object.assign(S,{line:c.line,drug:c.drug,dose:c.dose,step,doses:null,healthy:false,sel:null,fit:null});hideTip();renderAll();document.getElementById("explore").scrollIntoView()}
-function skipped(list,why){return list.length?`<p class="note">Not shown (${why}): ${list.map(c=>`${c.line} · ${cName(c)}`).join("; ")}.</p>`:""}
-function hbar(rows,{unit="%",ref=null,label}){const w=640,rh=34,l=230,h=rows.length*rh+34,X=Math.max(ref?ref*1.1:0,...rows.map(r=>r.v))*1.08||1,sx=v=>l+v/X*(w-l-60);
-  let g=`<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="${label}">`;
-  const st=X>150?50:X>60?25:10;for(let v=0;v<=X;v+=st)g+=`<line class="${v?"grid":"axis"}" x1="${sx(v)}" x2="${sx(v)}" y1="4" y2="${h-24}"/><text x="${sx(v)}" y="${h-8}" text-anchor="middle">${v}</text>`;
-  if(ref!=null)g+=`<line x1="${sx(ref)}" x2="${sx(ref)}" y1="4" y2="${h-24}" stroke="${css("--ink")}" stroke-dasharray="3 3" opacity=".5"/>`;
-  rows.forEach((r,k)=>{const y=8+k*rh;g+=`<text x="${l-10}" y="${y+12}" text-anchor="end" style="fill:var(--ink);font-weight:500">${cName(r.c)}</text><text x="${l-10}" y="${y+24}" text-anchor="end" style="font-size:9.5px">${r.c.line}</text>
-    <rect x="${l}" y="${y+4}" width="${Math.max(2,sx(r.v)-l)}" height="20" rx="3" fill="${r.col}" data-open="${r.i}" data-tt="${r.c.line} · ${cName(r.c)}<br>${r.v.toFixed(1)}${unit}<br><span style='opacity:.7'>tap to open story</span>" style="cursor:pointer"/>
-    <text x="${sx(r.v)+6}" y="${y+18}">${r.v.toFixed(0)}${unit}</text>`});
-  return g+"</svg>"}
-function renderCompare(){
-  const pal=PAL(),C=CMP.conds;
-  $("#aAdd").disabled=C.length>=8;$("#aAdd").textContent=C.length>=8?"Eight conditions is the limit":"Add to comparison";
-  $("#conds").innerHTML=C.length?C.map((c,i)=>`<div class="cond"><i style="background:${pal[i]}"></i><span>${cName(c)}<small>${c.line} · ${LINES[c.line].kind}</small></span><button aria-label="Remove ${cName(c)} on ${c.line}" data-rm="${i}">×</button></div>`).join(""):`<div class="hint">No conditions yet. Add one or pick a quick comparison.</div>`;
-  $("#conds").onclick=e=>{const b=e.target.closest("[data-rm]");if(b){C.splice(+b.dataset.rm,1);renderCompare()}};
-  $("#metrics").innerHTML=METRICS.map(([k,n])=>`<button aria-pressed="${k===CMP.metric}" data-v="${k}">${n}</button>`).join("");
-  const M=CMP.metric;
-  if(M!=="v"&&CMP.t===48)CMP.t=72;
-  $("#cmpT").hidden=!(M==="flow"||M==="genes"||M==="v"||M==="params");
-  $("#cmpT").innerHTML=M==="params"?[["rtca","RTCA fit"],["joint","RTCA + flow fit"]].map(([k,n])=>`<button aria-pressed="${k===CMP.fit}" data-f="${k}">${n}</button>`).join(""):
-    (M==="v"?[24,48,72]:[24,72]).map(t=>`<button aria-pressed="${t===CMP.t}" data-v="${t}">${t} h after treatment</button>`).join("");
-  const out=$("#cmpOut");
-  if(!C.length){out.innerHTML=`<div class="empty">Add conditions on the left to build a figure.</div>`;return}
-  let html="",src="",miss=[];
-  const idx=C.map((c,i)=>({c,i,col:pal[i]}));
-  if(M==="curve"){
-    const ok=idx.filter(o=>rtcaOf(o.c.line,o.c.drug)&&rtcaOf(o.c.line,o.c.drug).series[dkey(o.c.dose)]);miss=idx.filter(o=>!ok.includes(o)).map(o=>o.c);
-    const cd=ok.length?ok[0].c.drug:null;
-    const legend=`<div class="cmp-legend">${cd?`<span class="lg" style="cursor:default"><svg width="24" height="6" viewBox="0 0 24 6" aria-hidden="true" style="flex:none"><line x1="0" y1="3" x2="24" y2="3" stroke="${css("--control")}" stroke-width="1.6" stroke-dasharray="3 4"/></svg>Untreated · ${ok[0].c.line} ${cd} plate</span>`:""}${ok.map(o=>`<button class="lg" data-open="${o.i}"><i style="background:${o.col}"></i>${o.c.line} · ${cName(o.c)}</button>`).join("")}</div>`;
-    const ctrl=ok.length?[{label:"control",color:css("--control"),pts:ptsOf(rtcaOf(ok[0].c.line,ok[0].c.drug).series["0"]),dash:"3 4",w:1.2,noEnd:true}]:[];
-    html=`<div class="cmp-title"><h3>Normalized cell index, 0–96 h after seeding</h3><span class="eyebrow">Observed · RTCA</span></div>${legend}<div class="fig">${ok.length?curveChart(ctrl.slice(0,1).concat(ok.map(o=>({label:cName(o.c),color:o.col,pts:ptsOf(rtcaOf(o.c.line,o.c.drug).series[dkey(o.c.dose)]),dots:6}))),{endLabels:false,h:320}):`<div class="empty">None of these conditions has an impedance curve loaded yet.</div>`}</div><p class="note">Each drug ran on its own plate with its own untreated control. The dashed line is the control of the ${cd||"first"} plate; for exact comparisons use “Impedance, % of control”.</p>`;src="Figs S1–S4";
-  }
-  if(M==="v"){
-    const rows=[];idx.forEach(o=>{const v=viabAt(o.c.line,o.c.drug,o.c.dose,CMP.t);if(v==null)miss.push(o.c);else rows.push({...o,v})});rows.sort((a,b)=>a.v-b.v);
-    html=`<div class="cmp-title"><h3>Impedance ${CMP.t} h after treatment, % of untreated</h3><span class="eyebrow">Derived · RTCA ratio</span></div><div class="fig">${rows.length?hbar(rows,{ref:100,label:"Impedance percent of control"}):`<div class="empty">No impedance curves for these conditions.</div>`}</div><p class="note">Each condition against the control on its own plate. Dashed line is 100%.</p>`;src="Fig S1";
-  }
-  if(M==="flow"){
-    const col=[css("--viable"),css("--early"),css("--late"),css("--nec")];const ok=idx.filter(o=>flowOf(o.c.line,o.c.drug,o.c.dose));miss=idx.filter(o=>!ok.includes(o)).map(o=>o.c);
-    const w=640,rh=40,l=230,h=ok.length*rh+40,iw=w-l-16;let g=`<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="Cell death state composition">`;
-    ok.forEach((o,k)=>{const f=flowOf(o.c.line,o.c.drug,o.c.dose)[String(CMP.t)];const y=6+k*rh;let x=l;const s=f.reduce((a,b)=>a+b,0);
-      g+=`<rect x="8" y="${y+10}" width="8" height="8" rx="2" fill="${o.col}"/><text x="${l-10}" y="${y+14}" text-anchor="end" style="fill:var(--ink);font-weight:500">${cName(o.c)}</text><text x="${l-10}" y="${y+26}" text-anchor="end" style="font-size:9.5px">${o.c.line}</text>`;
-      f.forEach((v,j)=>{const ww=v/Math.max(100,s)*iw;g+=`<rect x="${x}" y="${y+4}" width="${Math.max(0,ww-1.5)}" height="26" rx="3" fill="${col[j]}" data-open="${o.i}" data-tt="${o.c.line} · ${cName(o.c)}<br>${STATE[j]}: ${v}%" style="cursor:pointer"/>`;if(ww>30)g+=`<text x="${x+ww/2}" y="${y+21}" text-anchor="middle" style="fill:#fff;pointer-events:none">${Math.round(v)}</text>`;x+=ww})});
-    let lx=l;STATE.forEach((n,j)=>{g+=`<rect x="${lx}" y="${h-16}" width="10" height="10" rx="2" fill="${col[j]}"/><text x="${lx+15}" y="${h-7}">${n}</text>`;lx+=n.length*6.6+34});
-    html=`<div class="cmp-title"><h3>Cell death states at ${CMP.t} h, % of cells</h3><span class="eyebrow">Observed · Annexin V / PI</span></div><div class="fig">${g}</svg></div>`;src="Figs S5–S8";
-  }
-  if(M==="genes"){
-    const ok=idx.filter(o=>qOf(o.c.line,o.c.drug,o.c.dose));miss=idx.filter(o=>!ok.includes(o)).map(o=>o.c);const ti=CMP.t===24?0:1;
-    const cell=fc=>{const v=Math.log2(fc),a=Math.min(1,Math.abs(v)/6)*80;return`background:color-mix(in srgb,var(${v>=0?"--up":"--down"}) ${a.toFixed(0)}%,var(--surface))`};
-    html=`<div class="cmp-title"><h3>Apoptosis genes at ${CMP.t} h, fold change</h3><span class="eyebrow">Observed · qPCR</span></div>
-      <div class="heat"><table><thead><tr><th></th>${GENES.map(g=>`<th style="text-align:center">${g[1]}</th>`).join("")}</tr></thead><tbody>
-      ${ok.map(o=>{const Q=qOf(o.c.line,o.c.drug,o.c.dose);const r=Q.Bax[ti]/Q.Bcl2[ti];return`<tr><th class="rowh" data-open="${o.i}"><i style="background:${o.col}"></i>${o.c.line} · ${cName(o.c)}</th>${GENES.map(([k,n])=>`<td style="${cell(Q[k][ti])}" data-open="${o.i}" data-tt="${o.c.line} · ${cName(o.c)}<br>${n}: ×${fx(Q[k][ti])}">×${fx(Q[k][ti])}</td>`).join("")}</tr>`}).join("")}
-      </tbody></table></div><div class="scale">down<b></b>up · colour saturates at ×64</div>
-`;src="Fig S9";
-  }
-  if(M==="params"){
-    const ok=idx.filter(o=>{const P=pOf(o.c.line,o.c.drug,o.c.dose);return P&&P[CMP.fit]});miss=idx.filter(o=>!ok.includes(o)).map(o=>o.c);
-    const vals=ok.map(o=>{const P=pOf(o.c.line,o.c.drug,o.c.dose)[CMP.fit],P0=pOf(o.c.line,null).rtca;return P.map((v,k)=>v/P0[k]*100)});
-    const mini=k=>{const w=300,h=180,l=40,b=26,Y=Math.max(150,Math.ceil(Math.max(...vals.map(v=>v[k]))/100)*100),y=v=>h-b-v/Y*(h-b-10),bw=Math.min(28,(w-l-10)/Math.max(1,ok.length)-6);
-      let g=`<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="s${k+1} percent of control">`;const st=Y>600?Y/4:Y>300?100:50;
-      for(let v=0;v<=Y;v+=st)g+=`<line class="${v?"grid":"axis"}" x1="${l}" x2="${w-6}" y1="${y(v)}" y2="${y(v)}"/><text x="${l-6}" y="${y(v)+3.5}" text-anchor="end">${Math.round(v)}</text>`;
-      g+=`<line x1="${l}" x2="${w-6}" y1="${y(100)}" y2="${y(100)}" stroke="${css("--ink")}" stroke-dasharray="3 3" opacity=".45"/>`;
-      ok.forEach((o,i)=>{const x=l+8+i*((w-l-14)/ok.length);g+=`<rect x="${x}" y="${y(vals[i][k])}" width="${bw}" height="${Math.max(1,h-b-y(vals[i][k]))}" rx="2" fill="${o.col}" data-open="${o.i}" data-tt="${o.c.line} · ${cName(o.c)}<br>s${k+1}: ${Math.round(vals[i][k])}% of control" style="cursor:pointer"/>`});
-      return g+"</svg>"};
-    const legend=`<div class="cmp-legend">${ok.map(o=>`<button class="lg" data-open="${o.i}"><i style="background:${o.col}"></i>${o.c.line} · ${cName(o.c)}</button>`).join("")}</div>`;
-    html=`<div class="cmp-title"><h3>Fitted parameters, % of the untreated fit</h3><span class="eyebrow">Derived · ${CMP.fit==="rtca"?"Tables S1/S2":"Tables S3/S4"}</span></div>${legend}
-      ${ok.length?`<div class="mults">${[0,1,2,3].map(k=>`<div><h4>s${k+1} · ${["growth","death","death, O₂","death saturation"][k]}</h4>${mini(k)}</div>`).join("")}</div>`:`<div class="empty">No tabulated parameters for these conditions.</div>`}
-      <p class="note">Switch between the two published fits above.</p>`;src="Tables S1–S4 · Figs 2–3, S10–S13";
-  }
-  const why={curve:"no impedance curve loaded",v:"no impedance value at this time",flow:"flow not measured at this dose",genes:"qPCR not measured at this dose",params:"no tabulated parameters"}[M];
-  out.innerHTML=html+skipped(miss,why)+`<div class="ch-foot"><div class="pdfmap">This one view replaces <s>${src}</s></div></div>`;
-  bindTips(out);
-  const stepFor={curve:0,v:0,flow:1,genes:2,params:3}[M];
-  out.querySelectorAll("[data-open]").forEach(el=>el.addEventListener("click",()=>openInStory(+el.dataset.open,stepFor)));
+/* IC50 */
+function ic50(){
+  const C=COL();$("#ic50Out").innerHTML=Object.keys(LINES).map(l=>{
+    const ds=LINES[l].drugs,w=320,h=230,m={l:44,r:8,t:18,b:40},iw=w-m.l-m.r,ih=h-m.t-m.b,lo=Math.log10(0.01),hi=Math.log10(1000);
+    const y=v=>m.t+ih-(Math.log10(v)-lo)/(hi-lo)*ih,gw=iw/ds.length,bw=Math.min(22,gw/2-6);
+    let g=`<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="IC50 ${esc(l)}">`;
+    [0.01,0.1,1,10,100,1000].forEach(v=>{g+=`<line class="grid" x1="${m.l}" x2="${w-m.r}" y1="${y(v)}" y2="${y(v)}"/><text x="${m.l-6}" y="${y(v)+3.5}" text-anchor="end">${v}</text>`});
+    g+=`<line x1="${m.l}" x2="${w-m.r}" y1="${y(500)}" y2="${y(500)}" stroke="${css("--ink")}" stroke-opacity=".35" stroke-dasharray="3 3"/>`;
+    ds.forEach((d,i)=>{const cx=m.l+gw*i+gw/2;[0,1].forEach(k=>{const v=D.ic50[l][d][k],cap=v==null,vv=cap?500:v,x0=cx+(k?3:-bw-3);
+      g+=`<rect x="${x0}" y="${y(vv)}" width="${bw}" height="${m.t+ih-y(vv)}" rx="2" fill="${k?C.t72:C.t24}" ${cap?'fill-opacity=".25" stroke-dasharray="3 2" stroke="'+(k?C.t72:C.t24)+'"':""} data-tt="${esc(l)} · ${esc(d)}, ${k?72:24} h<br>IC50 ${cap?"> 500 µM (not reached)":String(v)+" µM"}"/><text x="${x0+bw/2}" y="${y(vv)-4}" text-anchor="middle" style="font-size:9.5px">${cap?">500":String(v)}</text>`});
+      g+=`<text x="${cx}" y="${h-22}" text-anchor="middle" style="fill:var(--ink)">${esc(d.length>9?d.slice(0,8)+"…":d)}</text>`});
+    g+=`<text x="4" y="10">µM, log</text></svg>`;
+    return`<div><h4>${esc(l)} · ${esc(LINES[l].tissue)}</h4>${g}</div>`}).join("")+`<div class="cmp-legend" style="grid-column:1/-1"><span class="lg"><i style="background:${C.t24}"></i>24 h</span><span class="lg"><i style="background:${C.t72}"></i>72 h</span><span class="lg"><i style="background:transparent;border:1px dashed var(--muted)"></i>not reached at 500 µM</span></div>`;
+  bindTips($("#ic50Out"));
 }
 
-/* ---------- your own RTCA run (in-browser only) ---------- */
-function yours(){
-  const Y={ds:null,ctrl:0,norm:true,hide:new Set(),ov:{line:"",drug:"",dose:""}};
-  const out=$("#yOut"),fileIn=$("#yFile"),dz=$("#yDrop");
-  const CTRL_RE=/^(ctrl|control|kontrol|untreated|medium|vehicle|neg)/i;
-  const isNum=v=>typeof v==="number"&&isFinite(v);
-  const toNum=v=>{if(isNum(v))return v;if(typeof v!=="string")return NaN;const t=v.trim().replace(",",".");return t===""?NaN:+t};
+/* model agreement */
+function reg(){
+  const C=COL(),rows=Object.keys(LINES).flatMap(l=>LINES[l].drugs.map(d=>({l,d,r:D.regression[d]})));
+  const w=640,rh=30,L=190,h=rows.length*rh+30,sx=v=>L+v*(w-L-70);
+  let g=`<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="Model agreement R squared">`;
+  [0,0.25,0.5,0.75,1].forEach(v=>{g+=`<line class="${v?"grid":"axis"}" x1="${sx(v)}" x2="${sx(v)}" y1="4" y2="${h-22}"/><text x="${sx(v)}" y="${h-8}" text-anchor="middle">${v}</text>`});
+  rows.forEach((o,k)=>{const y=6+k*rh;g+=`<text x="${L-10}" y="${y+15}" text-anchor="end" style="fill:var(--ink);font-weight:500">${esc(o.d)}</text><text x="${L-10}" y="${y+25}" text-anchor="end" style="font-size:9px">${esc(o.l)}</text>
+    <rect x="${L}" y="${y+4}" width="${Math.max(2,sx(o.r[0])-L)}" height="18" rx="3" fill="${o.l==="HCT-116"?C.t72:css("--c4")}" data-tt="${esc(o.l)} · ${esc(o.d)}<br>R² ${o.r[0].toFixed(3)} · SEE ${o.r[1]} · p ${o.r[2]}" style="cursor:pointer" data-go="${esc(o.l)}|${esc(o.d)}"/>
+    <text x="${sx(o.r[0])+6}" y="${y+17}">R² ${o.r[0].toFixed(2)}</text>`});
+  $("#regOut").innerHTML=`<div class="cmp-title"><h3>Measured vs simulated viability at 72 h, R²</h3><span class="eyebrow">Derived · Table 1</span></div><div class="fig">${g}</svg></div><p class="note">Linear regression of model on MTT viability across doses. Tap a bar to open that drug above.</p>`;
+  bindTips($("#regOut"));
+  $("#regOut").querySelectorAll("[data-go]").forEach(el=>el.addEventListener("click",()=>{const [l,d]=el.dataset.go.split("|");S.line=l;S.drug=d;render();document.getElementById("explore").scrollIntoView()}));
+}
+document.querySelector('#model [data-text]').onclick=()=>openText("model");
 
-  /* ---- loading ---- */
-  let libP=null;
-  const lib=()=>libP||(libP=new Promise((res,rej)=>{if(window.XLSX)return res(window.XLSX);const s=document.createElement("script");s.src=window.XLSX_SRC||"/lib/xlsx.core.min.js";s.onload=()=>res(window.XLSX);s.onerror=()=>{libP=null;rej(new Error("The spreadsheet reader could not be loaded. Save the file as CSV and try again."))};document.head.appendChild(s)}));
-  async function readFile(f){
-    status(`Reading ${esc(f.name)}…`);
-    try{
-      let ds;
-      if(/\.(csv|txt|tsv)$/i.test(f.name))ds=fromCSV(await f.text());
-      else{const X=await lib();const wb=X.read(new Uint8Array(await f.arrayBuffer()),{type:"array"});ds=fromWorkbook(X,wb)}
-      ds.name=f.name;load(ds);
-    }catch(e){status(`<b>Could not read ${esc(f.name)}</b><p>${esc(e.message)}</p>`,true)}
-  }
-  function status(html,err){out.innerHTML=`<div class="pending" style="margin-top:14px">${err?html:`<p style="margin:0">${html}</p>`}</div>`}
-
-  function fromCSV(txt){
-    const lines=txt.replace(/\r/g,"").split("\n");let treat=null;const body=[];
-    lines.forEach(l=>{if(/^\s*#/.test(l)){const m=l.match(/treatment_h\s*[,;:=\t]\s*([\d.,]+)/i);if(m)treat=+m[1].replace(",",".");}else if(l.trim())body.push(l)});
-    if(!body.length)throw new Error("The file is empty.");
-    const h=body[0],cnt=c=>h.split(c).length-1;const d=cnt("\t")>0?"\t":cnt(";")>cnt(",")?";":",";
-    const rows=body.map(l=>l.split(d).map(c=>c.trim().replace(/^"|"$/g,"")).map(c=>d!==","?c.replace(",","."):c));
-    const ds=fromRows(rows,null);ds.preNorm=true;if(treat!=null){ds.treat=treat;ds.treatSrc="file"}return ds;
-  }
-  function fromWorkbook(X,wb){
-    const get=n=>X.utils.sheet_to_json(wb.Sheets[n],{header:1,raw:true,blankrows:true,defval:""});
-    let layout=null;const ln=wb.SheetNames.find(n=>/layout/i.test(n));
-    if(ln){const a=get(ln);const hr=a.findIndex(r=>r.some(c=>/^well\s*id$/i.test(String(c))));
-      if(hr>=0){const H=a[hr].map(c=>String(c).trim().toLowerCase()),iw=H.findIndex(c=>/^well\s*id$/.test(c)),ic=H.findIndex(c=>/compound/.test(c)),iz=H.findIndex(c=>/concentration/.test(c)),iu=H.findIndex(c=>/^unit/.test(c)),it=H.findIndex(c=>/cell-?type/.test(c));
-        layout={};a.slice(hr+1).forEach(r=>{const w=String(r[iw]||"").trim();if(!w)return;const cmp=String(ic>=0?r[ic]:"").trim(),z=iz>=0?r[iz]:"",u=String(iu>=0?r[iu]:"").trim();
-          const zero=z!==""&&+z===0,ctrl=CTRL_RE.test(cmp)||(cmp===""&&z==="")||zero;
-          layout[w.toUpperCase()]={label:zero?`Control (${cmp||w} 0)`:[cmp||w,z!==""?`${z}${u?" "+u.replace(/^uM$/i,"µM"):""}`:""].filter(Boolean).join(" "),ctrl,cell:String(it>=0?r[it]:"").trim()}})}}
-    const rank=n=>/^plot$/i.test(n)?0:/plot/i.test(n)?1:/^well\s*graph$/i.test(n)?2:/hide/i.test(n)?9:5;
-    const order=[...wb.SheetNames].sort((a,b)=>rank(a)-rank(b));
-    let ds=null;for(const n of order){try{ds=fromRows(get(n),layout);ds.sheet=n;break}catch(e){}}
-    if(!ds)throw new Error("No sheet with a time column was found. In the RTCA software, open the Plot tab so the curves are drawn, then export again. Or use the CSV template.");
-    const mn=wb.SheetNames.find(n=>/message/i.test(n));
-    if(mn){const a=get(mn);let st=null,pa=[];a.forEach(r=>{const tt=r[0],m=String(r[2]||"");if(!isNum(tt))return;if(/^start experiment/i.test(m))st=st==null?tt:Math.min(st,tt);if(/^pause experiment/i.test(m))pa.push(tt)});
-      if(st!=null){const h=pa.map(x=>(x-st)*24).filter(h=>h>0.5&&h<ds.t[ds.t.length-1]).sort((p,q)=>p-q)[0];if(h!=null){ds.treat=+h.toFixed(2);ds.treatSrc="log"}}}
-    return ds;
-  }
-  function fromRows(a,layout){
-    const hr=a.findIndex(r=>r.some(c=>timeUnit(c)));
-    if(hr<0)throw new Error("No column named “Time (h)” or “time_h” was found.");
-    const H=a[hr].map(c=>String(c).trim()),it=H.findIndex(c=>timeUnit(c)),k=timeUnit(H[it]);
-    const cols=H.map((c,i)=>({c,i})).filter(o=>o.i!==it&&o.c&&!/time|hh:mm/i.test(o.c));
-    const data=a.slice(hr+1).map(r=>r.map(toNum)).filter(r=>isNum(r[it]));
-    if(data.length<5)throw new Error("Fewer than five time points were found below the header row.");
-    const t=data.map(r=>r[it]*k);const groups=new Map(),bad=[],spk=[];
-    cols.forEach(o=>{const v=data.map(r=>r[o.i]).filter(isNum);if(!v.length)return;
-      const m=o.c.match(/^(?:Y\s*\(\s*)?([A-P]\d{1,2})\s*\)?$/i),well=m?m[1].toUpperCase():o.c;
-      const nb=v.filter(x=>Math.abs(x)>50).length;if(nb>0.2*v.length){bad.push(well);return}if(nb){spk.push(well);data.forEach(r=>{if(Math.abs(r[o.i])>50)r[o.i]=NaN})}
-      const L=layout&&layout[well];if(layout&&m&&!L)return;
-      const label=L?L.label:o.c.replace(/(\D)\.\d+$/,"$1");
-      if(!groups.has(label))groups.set(label,{label,wells:[],cols:[],ctrl:L?L.ctrl:CTRL_RE.test(label)});
-      const g=groups.get(label);g.wells.push(well);g.cols.push(o.i)});
-    if(!groups.size)throw new Error("No data columns were found next to the time column.");
-    const G=[...groups.values()].map(g=>{const ci=[],sd=[];data.forEach(r=>{const v=g.cols.map(i=>r[i]).filter(isNum);const mu=v.length?v.reduce((p,q)=>p+q,0)/v.length:NaN;ci.push(mu);sd.push(v.length>1?Math.sqrt(v.reduce((p,q)=>p+(q-mu)*(q-mu),0)/(v.length-1)):0)});return{label:g.label,wells:g.wells,ctrl:g.ctrl,ci,sd}});
-    const cell=layout?[...new Set(Object.values(layout).map(v=>v.cell).filter(Boolean))].join(", "):"";
-    const ds={t,groups:G,cell,bad,spk,treat:null,treatSrc:"none"};
-    const dt=t.slice(1).map((v,i)=>v-t[i]),med=dt.slice().sort((p,q)=>p-q)[dt.length>>1];
-    let bi=-1;dt.forEach((v,i)=>{if(t[i]>1&&v>Math.max(0.2,2*med)&&(bi<0||v>dt[bi]))bi=i});
-    if(bi>=0){ds.treat=+t[bi].toFixed(2);ds.treatSrc="pause"}
-    return ds;
-  }
-  function timeUnit(c){c=String(c).trim();if(/^(time\s*\(\s*h(our)?s?\s*\)|time_?h|time,\s*h|time\s*\[h\]|t\s*\(h\)|hours?)$/i.test(c))return 1;if(/^(time\s*points?\s*\(\s*s\s*\)|time\s*\(\s*s(ec(onds?)?)?\s*\)|time_?s)$/i.test(c))return 1/3600;if(/^(time\s*\(\s*min(utes?)?\s*\)|time_?min)$/i.test(c))return 1/60;return 0}
-
-  /* ---- computation ---- */
-  const interp=(t,v,x)=>{if(x<t[0]||x>t[t.length-1]+1e-9)return null;let i=t.findIndex(q=>q>=x);if(i<0)i=t.length-1;if(i===0||t[i]===x)return isNum(v[i])?v[i]:null;const f=(x-t[i-1])/(t[i]-t[i-1]),a=v[i-1],b=v[i];return isNum(a)&&isNum(b)?a*(1-f)+b*f:null};
-  function prep(){
-    const d=Y.ds,T=d.treat;let i0=-1;if(T!=null)d.t.forEach((q,i)=>{if(q<=T+1e-6)i0=i});
-    d.i0=i0;d.groups.forEach(g=>{g.base=i0>=0?g.ci[i0]:null;g.nci=g.base!=null&&g.base>0.02?g.ci.map(v=>v/g.base):null;g.fitN=T!=null&&g.nci?fit(d.t,g.nci,T):null;g.fitR=T!=null?fit(d.t,g.ci,T):null});
-  }
-  function fit(t,v,T){
-    const s=t.map((q,i)=>[q,v[i]]).filter(p=>p[0]>=T+3-1e-9&&isNum(p[1]));if(s.length<8)return null;
-    const t0=s[0][0],L=(q,N0,g,K)=>K/(1+(K/N0-1)*Math.exp(-g*(q-t0)));
-    const par=p=>[Math.min(20,Math.max(1e-3,Math.exp(p[0]))),Math.min(2,Math.max(-1,p[1])),Math.min(50,Math.max(1e-2,Math.exp(p[2])))];
-    const sse=p=>{const[N0,g,K]=par(p);let e=0;for(const[q,y]of s){const m=L(q,N0,g,K);e+=(m-y)*(m-y)}return isFinite(e)?e:1e30};
-    const vmax=Math.max(...s.map(p=>p[1])),v0=Math.max(s[0][1],0.05);
-    let best=null;[[0.05,vmax*1.2],[0.02,vmax*2],[0.2,vmax],[-0.02,v0]].forEach(([g,K])=>{let r=nm(sse,[Math.log(v0),g,Math.log(Math.max(K,0.2))]);r=nm(sse,r.x);if(!best||r.f<best.f)best=r});
-    const mu=s.reduce((p,q)=>p+q[1],0)/s.length,sst=s.reduce((p,q)=>p+(q[1]-mu)*(q[1]-mu),0);
-    const[N0,g,K]=par(best.x),r2=sst>0?1-best.f/sst:0;
-    return{t0,N0,g,K,r2,ok:r2>=0.5&&K<49,L:q=>L(q,N0,g,K)}
-  }
-  function nm(f,x0){const n=x0.length;let P=[x0].concat(x0.map((_,i)=>x0.map((v,j)=>j===i?v+0.5:v))).map(x=>({x,f:f(x)}));
-    for(let it=0;it<1500;it++){P.sort((a,b)=>a.f-b.f);if(Math.abs(P[n].f-P[0].f)<1e-12*(1+Math.abs(P[0].f)))break;
-      const c=P.slice(0,n).reduce((a,p)=>a.map((v,j)=>v+p.x[j]/n),new Array(n).fill(0)),w=P[n];
-      const pt=k=>{const x=c.map((v,j)=>v+k*(w.x[j]-v));return{x,f:f(x)}};
-      const r=pt(-1);if(r.f<P[0].f){const e=pt(-2);P[n]=e.f<r.f?e:r}else if(r.f<P[n-1].f)P[n]=r;else{const k=pt(r.f<w.f?-0.5:0.5);if(k.f<Math.min(w.f,r.f))P[n]=k;else P=P.map((p,i)=>i?{x:p.x.map((v,j)=>P[0].x[j]+0.5*(v-P[0].x[j])),f:0}:p).map((p,i)=>i?{x:p.x,f:f(p.x)}:p)}}
-    P.sort((a,b)=>a.f-b.f);return P[0]}
-  const vals=g=>Y.norm?g.nci:g.ci;
-  const lowCtrl=()=>{const c=Y.ds.groups[Y.ctrl];return!c||c.base==null||c.base<0.1};
-  const pct=(g,h)=>{const d=Y.ds,c=d.groups[Y.ctrl];if(!c||d.treat==null||lowCtrl())return null;const gv=vals(g),cv=vals(c);if(!gv||!cv)return null;const a=interp(d.t,gv,d.treat+h),b=interp(d.t,cv,d.treat+h);return a==null||b==null||b<=0.05?null:a/b*100};
-  const hourly=(t,v)=>{const o=[];for(let q=Math.ceil(t[0]);q<=Math.floor(t[t.length-1]);q++){const y=interp(t,v,q);if(y!=null)o.push([q,y])}return o};
-
-  /* ---- render ---- */
-  function load(ds){Y.ds=ds;Y.hide=new Set();const c=ds.groups.findIndex(g=>g.ctrl);Y.ctrl=c>=0?c:0;Y.norm=ds.treat!=null&&!ds.preNorm;prep();if(Y.norm&&lowCtrl())Y.norm=false;render()}
-  function render(){
-    const d=Y.ds,pal=PAL(),T=d.treat,c=d.groups[Y.ctrl];
-    const col=i=>i===Y.ctrl?css("--control"):pal[(i-(i>Y.ctrl?1:0))%pal.length];
-    const warn=[];
-    if(T==null)warn.push("No drug-addition time was found in the file. Enter it above to get normalized curves, % of control and the re-fit.");
-    else if(d.treatSrc==="pause")warn.push(`Drug addition was taken from the pause in recording at ${T} h. Change it above if that is wrong.`);
-    else if(d.treatSrc==="log")warn.push(`Drug addition was taken from the “Pause Experiment” entry in the instrument log, ${T} h after the start. Change it above if that is wrong.`);
-    if(d.sheet&&!/^plot$/i.test(d.sheet))warn.push(`The Plot sheet in this file is empty, so the curves were read from the “${esc(d.sheet)}” sheet. It holds fewer time points than the full recording.`);
-    if(d.bad&&d.bad.length)warn.push(`Left out ${d.bad.length===1?"well":"wells"} ${d.bad.join(", ")}: more than a fifth of the readings are beyond ±50 cell index, which points to an electrode or connection fault.`);
-    if(d.spk&&d.spk.length)warn.push(`Removed single readings beyond ±50 cell index in ${d.spk.length===1?"well":"wells"} ${d.spk.join(", ")}. The rest of ${d.spk.length===1?"that well":"those wells"} is kept.`);
-    if(T!=null&&c&&c.base!=null&&c.base<0.1)warn.push(c.base<=0?`The control cell index at drug addition is ${c.base.toFixed(3)}. A value at or below zero cannot serve as a reference, so % of control is not calculated and the curves open as recorded.`:`The control cell index at drug addition is ${c.base.toFixed(3)}. Below 0.1 the signal is close to instrument noise, so % of control is not calculated and the curves open as recorded. Normalizing would divide by a value near zero.`);
-    const norm=Y.norm&&T!=null;const fitOf=g=>norm?g.fitN:g.fitR;
-    const tmax=d.t[d.t.length-1],xmax=Math.max(24,Math.ceil((tmax-0.75)/12)*12);
-    const ser=[];
-    d.groups.forEach((g,i)=>{if(Y.hide.has(i))return;const v=norm?g.nci:g.ci;if(!v)return;const pts=hourly(d.t,v);
-      ser.push(i===Y.ctrl?{label:g.label,color:col(i),pts,dash:"3 4",w:1.6,dots:6}:{label:g.label,color:col(i),pts,dots:6})});
-    let ovTxt="";
-    if(T!=null&&Y.ov.dose!==""){const r=rtcaOf(Y.ov.line,Y.ov.drug),s=r&&r.series[dkey(Y.ov.dose)];if(s){const b=norm?at(s,r.treat):1;if(b>0){const pts=ptsOf(s).map(p=>[+(p[0]-r.treat+T).toFixed(2),p[1]/b]).filter(p=>p[0]>=0&&p[0]<=xmax);ser.push({label:"paper",color:css("--ink"),pts,dash:"1.5 4",w:2.2,noEnd:true});ovTxt=`${Y.ov.line} · ${Y.ov.drug} ${Y.ov.dose} µM`}}}
-    const lineOpts=Object.keys(D.rtca).map(l=>`<option ${l===Y.ov.line?"selected":""}>${l}</option>`).join("");
-    const drugOpts=Y.ov.line?Object.keys(D.rtca[Y.ov.line]).map(x=>`<option ${x===Y.ov.drug?"selected":""}>${x}</option>`).join(""):"";
-    const doseOpts=Y.ov.drug?Object.keys(rtcaOf(Y.ov.line,Y.ov.drug).series).filter(z=>z!=="0").map(Number).sort((p,q)=>p-q).map(z=>`<option value="${z}" ${String(z)===String(Y.ov.dose)?"selected":""}>${z} µM</option>`).join(""):"";
-    const H=[24,48,72];
-    const rows=d.groups.map((g,i)=>{const f=fitOf(g);return`<tr><th class="rowh"><i style="background:${col(i)}"></i>${esc(g.label)}${i===Y.ctrl&&!CTRL_RE.test(g.label)&&!/control/i.test(g.label)?' <span class="src">control</span>':""}</th><td class="src">${g.wells.length}</td>${H.map(h=>{const v=i===Y.ctrl?null:pct(g,h);return`<td>${i===Y.ctrl?'<span class="src">100%</span>':v==null?`<span class="src">${T!=null&&T+h>tmax+0.01?"ends "+tmax.toFixed(0)+" h":"–"}</span>`:fmt(v)+"%"}</td>`}).join("")}<td>${f&&f.ok?f.g.toFixed(3):'<span class="src">–</span>'}</td><td>${f&&f.ok?f.K.toFixed(2):'<span class="src">–</span>'}</td><td>${f?(f.ok?f.r2.toFixed(2):`<span class="src">${f.r2.toFixed(2)}, no fit</span>`):'<span class="src">–</span>'}</td></tr>`}).join("");
-    let paperRow="";if(ovTxt){const r=rtcaOf(Y.ov.line,Y.ov.drug),s=r.series[dkey(Y.ov.dose)],c0=r.series["0"],bs=norm?at(s,r.treat):1,bc=norm?at(c0,r.treat):1,v=H.map(h=>{const a=at(s,r.treat+h),b=at(c0,r.treat+h);return a==null||b==null||b<=0?null:(a/bs)/(b/bc)*100}),pf0=s.fit,pf=pf0&&{...pf0,K:pf0.K/bs};
-      paperRow=`<tr><th class="rowh"><svg width="16" height="6" viewBox="0 0 16 6" aria-hidden="true" style="margin-right:8px;flex:none"><line x1="0" y1="3" x2="16" y2="3" stroke="${css("--ink")}" stroke-width="2.2" stroke-dasharray="1.5 4" stroke-linecap="round"/></svg>Paper: ${esc(ovTxt)}</th><td class="src">–</td>${v.map(x=>`<td>${x==null?'<span class="src">n/a</span>':fmt(x)+"%"}</td>`).join("")}<td>${pf&&pf.r2>=0.5?pf.g.toFixed(3):'<span class="src">–</span>'}</td><td>${pf&&pf.r2>=0.5?pf.K.toFixed(2):'<span class="src">–</span>'}</td><td>${pf?(pf.r2>=0.5?pf.r2.toFixed(2):'<span class="src">no fit</span>'):'<span class="src">–</span>'}</td></tr>`}
-    const legend=`<div class="cmp-legend">${d.groups.map((g,i)=>`<button class="lg" data-g="${i}" aria-pressed="${!Y.hide.has(i)}" style="${Y.hide.has(i)?"opacity:.4":""}">${i===Y.ctrl?`<svg width="24" height="6" viewBox="0 0 24 6" aria-hidden="true" style="flex:none"><line x1="0" y1="3" x2="24" y2="3" stroke="${col(i)}" stroke-width="1.6" stroke-dasharray="3 4"/></svg>`:`<i style="background:${col(i)}"></i>`}${esc(g.label)}</button>`).join("")}${ovTxt?`<span class="lg" style="cursor:default"><svg width="24" height="6" viewBox="0 0 24 6" aria-hidden="true" style="flex:none"><line x1="0" y1="3" x2="24" y2="3" stroke="${css("--ink")}" stroke-width="2.2" stroke-dasharray="1.5 4" stroke-linecap="round"/></svg>Paper · ${esc(ovTxt)}</span>`:""}</div>`;
-    out.innerHTML=`
-      <div class="panel" style="margin-top:14px">
-        <div class="ycfg">
-          <div><div class="pick-label">File</div><div class="yfile"><b>${esc(d.name)}</b><span class="src">${d.groups.reduce((p,g)=>p+g.wells.length,0)} wells · ${d.groups.length} conditions · ${d.t.length} time points · 0–${tmax.toFixed(0)} h${d.cell?" · "+esc(d.cell):""}</span></div></div>
-          <label><span class="pick-label">Control</span><select id="yCtrl">${d.groups.map((g,i)=>`<option value="${i}" ${i===Y.ctrl?"selected":""}>${esc(g.label)}</option>`).join("")}</select></label>
-          <label><span class="pick-label">Drug added at (h)</span><input id="yT" type="number" step="0.1" min="0" value="${T??""}" placeholder="e.g. 24"></label>
-          <div><div class="pick-label">Show</div><div class="seg" id="yNorm"><button data-v="1" aria-pressed="${norm}" ${T==null?"disabled":""}>Normalized at addition</button><button data-v="0" aria-pressed="${!norm}">As in the file</button></div></div>
-        </div>
-        <div class="pick-label" style="margin-top:14px">Compare with a curve from this paper</div>
-        <div class="adder"><select id="oLine" aria-label="Paper cell line"><option value="">none</option>${lineOpts}</select><select id="oDrug" aria-label="Paper drug" ${Y.ov.line?"":"hidden"}>${drugOpts}</select><select id="oDose" aria-label="Paper dose" ${Y.ov.drug?"":"hidden"}>${doseOpts}</select></div>
-        ${!norm&&ovTxt?'<p class="note">Both curves are shown as in their files. If your file holds raw cell index, switch to “Normalized at addition” to put both on the same scale.</p>':""}
-      </div>
-      ${warn.map(w=>`<div class="tension">${w}</div>`).join("")}
-      <div class="panel" style="margin-top:12px">
-        <div class="cmp-title"><h3>${norm?"Cell index normalized to 1 at drug addition":"Cell index as in the file"}</h3><span class="eyebrow">Your data · mean of replicate wells</span></div>
-        ${legend}
-        <div class="fig" id="yFig">${ser.length?curveChart(ser,{xmax,treat:T,endLabels:false,h:320,yfit:true,ylab:norm?"NCI":"CI"}):`<div class="empty">All conditions are hidden. Tap one above to show it.</div>`}</div>
-        <p class="note">Tap a condition to hide or show it. Values are the mean of wells with the same condition name.${ovTxt?" The paper curve is shifted so both drug additions line up.":""}${d.preNorm?" The example uses the hourly curves drawn on this page, so its re-fit can differ slightly from the published re-fit on the paper row.":""}</p>
-        <div class="heat" style="margin-top:14px"><table><thead><tr><th>Condition</th><th>Wells</th><th style="text-align:center">+24 h</th><th style="text-align:center">+48 h</th><th style="text-align:center">+72 h</th><th>g, /h</th><th>K</th><th>R²</th></tr></thead><tbody>${rows}${paperRow}</tbody></table></div>
-        <p class="note">+24/48/72 h: the plotted value as % of the control, counted from drug addition. g and K: logistic re-fit from 3 h after addition, the same fit used for the paper's curves. “No fit” means R² below 0.5.</p>
-        <div class="row-links"><button class="btn" id="yCsv">Download results (CSV)</button><button class="btn" id="yClear">Clear</button></div>
-      </div>`;
-    bindTips(out);
-    $("#yCtrl").onchange=e=>{Y.ctrl=+e.target.value;render()};
-    $("#yT").onchange=e=>{const v=e.target.value.trim();d.treat=v===""?null:+v;d.treatSrc=v===""?"none":"manual";Y.norm=d.treat!=null;prep();render()};
-    $("#yNorm").onclick=e=>{const b=e.target.closest("button");if(b&&!b.disabled){Y.norm=b.dataset.v==="1";render()}};
-    out.querySelector(".cmp-legend").onclick=e=>{const b=e.target.closest("[data-g]");if(!b)return;const i=+b.dataset.g;Y.hide.has(i)?Y.hide.delete(i):Y.hide.add(i);render()};
-    $("#oLine").onchange=e=>{Y.ov={line:e.target.value,drug:"",dose:""};if(Y.ov.line){Y.ov.drug=Object.keys(D.rtca[Y.ov.line])[0];const zs=Object.keys(rtcaOf(Y.ov.line,Y.ov.drug).series).filter(z=>z!=="0").map(Number).sort((p,q)=>p-q);Y.ov.dose=zs[zs.length-1]}render()};
-    $("#oDrug").onchange=e=>{Y.ov.drug=e.target.value;const zs=Object.keys(rtcaOf(Y.ov.line,Y.ov.drug).series).filter(z=>z!=="0").map(Number).sort((p,q)=>p-q);Y.ov.dose=zs[zs.length-1];render()};
-    $("#oDose").onchange=e=>{Y.ov.dose=+e.target.value;render()};
-    $("#yCsv").onclick=()=>downloadResults();
-    $("#yClear").onclick=()=>{Y.ds=null;out.innerHTML="";fileIn.value=""};
-  }
-  function save(name,text){const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([text],{type:"text/csv"}));a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500)}
-  const q=s=>/[",;\n]/.test(s)?`"${String(s).replace(/"/g,'""')}"`:s;
-  function downloadResults(){
-    const d=Y.ds,H=[24,48,72],L=[`# Living Papers · results for ${d.name}`,`# drug added at ${d.treat??"not set"} h; control: ${d.groups[Y.ctrl].label}; values ${Y.norm&&d.treat!=null?"normalized to 1 at drug addition":"as in the file"}`,`# computed in the browser at ${location.host}${location.pathname}`,
-      ["condition","wells","pct_of_control_24h","pct_of_control_48h","pct_of_control_72h","fit_g_per_h","fit_K","fit_r2"].join(",")];
-    d.groups.forEach((g,i)=>{const f=Y.norm&&d.treat!=null?g.fitN:g.fitR;L.push([q(g.label),g.wells.length,...H.map(h=>{const v=i===Y.ctrl?100:pct(g,h);return v==null?"":v.toFixed(1)}),f&&f.ok?f.g.toFixed(4):"",f&&f.ok?f.K.toFixed(3):"",f?f.r2.toFixed(3):""].join(","))});
-    L.push("","time_h,"+d.groups.map(g=>q(g.label+" (mean CI)")).join(",")+(d.treat!=null?","+d.groups.map(g=>q(g.label+" (NCI)")).join(","):""));
-    d.t.forEach((t,k)=>L.push([t,...d.groups.map(g=>isNum(g.ci[k])?g.ci[k].toFixed(4):""),...(d.treat!=null?d.groups.map(g=>g.nci&&isNum(g.nci[k])?g.nci[k].toFixed(4):""):[])].join(",")));
-    save(d.name.replace(/\.[^.]+$/,"")+"_living-papers.csv",L.join("\n"));
-  }
-  function template(){
-    const r=rtcaOf("HCT-116","Irinotecan"),z=["0","10","50"],nm={"0":"Control","10":"Irinotecan 10 uM","50":"Irinotecan 50 uM"};
-    const L=["# Living Papers RTCA template. One row per time point.","# First column: time in hours since seeding. Other columns: one per well.","# Wells with the same column name are averaged as replicates. Name the control column Control.",`# Drug addition time in hours since seeding (delete this line to enter it on the page):`,`# treatment_h,${r.treat}`,
-      ["time_h",...z.flatMap(k=>[nm[k],nm[k]])].join(",")];
-    const n=Math.min(...z.map(k=>r.series[k].nci.length));
-    for(let t=0;t<n;t++)L.push([t,...z.flatMap(k=>{const v=r.series[k].nci[t];return[v.toFixed(4),v.toFixed(4)]})].join(","));
-    save("rtca_template.csv",L.join("\n"));
-  }
-  function demo(){
-    const r=rtcaOf("HCT-116","Irinotecan"),keys=Object.keys(r.series).sort((a,b)=>a-b),n=Math.max(...keys.map(k=>r.series[k].nci.length));
-    const t=[...Array(n).keys()];
-    load({name:"Example: HCT-116 irinotecan from this paper",t,cell:"HCT-116",treat:r.treat,treatSrc:"file",preNorm:true,groups:keys.map(k=>({label:+k?`Irinotecan ${k} µM`:"Control",wells:["–"],ctrl:!+k,ci:t.map(i=>{const v=r.series[k].nci[i];return v==null?NaN:v}),sd:[]}))});
-  }
-
-  /* ---- wiring ---- */
-  $("#yPick").onclick=()=>fileIn.click();
-  fileIn.onchange=()=>{if(fileIn.files[0])readFile(fileIn.files[0])};
-  ["dragenter","dragover"].forEach(ev=>dz.addEventListener(ev,e=>{e.preventDefault();dz.classList.add("on")}));
-  ["dragleave","drop"].forEach(ev=>dz.addEventListener(ev,e=>{e.preventDefault();dz.classList.remove("on")}));
-  dz.addEventListener("drop",e=>{const f=e.dataTransfer.files[0];if(f)readFile(f)});
-  dz.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();fileIn.click()}});
-  $("#yTpl").onclick=template;$("#yDemo").onclick=demo;
-  return{rerender:()=>{if(Y.ds)render()}};
+/* cited as evidence: RTCA from the 2023 living paper */
+let D23=null,D23err=null;
+const cb=(P.citedBy||[])[0];
+$("#citedLead").textContent=cb?`${cb.label} cites this paper as reference [${cb.ref}] in three places. Here are those sentences, and the MTT values from this paper next to the real-time impedance values from that one, for the same cell line, drug and dose.`:"";
+async function loadD23(){if(D23||D23err||!cb)return;try{D23=await fetch(cb.page+"data.json",{cache:"no-cache"}).then(r=>{if(!r.ok)throw new Error(r.status);return r.json()})}catch(e){D23err=e}}
+function atS(s,t){const a=s.nci;if(t<0||t>s.tmax+2)return null;t=Math.min(t,a.length-1);const i=Math.floor(t),f=t-i;if(i+1>=a.length)return a[a.length-1];return a[i]*(1-f)+a[i+1]*f}
+function rtcaPct(l,d,z,h){if(!D23)return null;const r=D23.rtca&&D23.rtca[l]&&D23.rtca[l][d];if(!r)return null;const s=r.series[dk(z)],c=r.series["0"];if(!s||!c)return null;const a=atS(s,r.treat+h),b=atS(c,r.treat+h);return a==null||b==null||b<=0?null:a/b*100}
+function cited(){
+  if(!cb){$("#cited").hidden=true;return}
+  const l=S.line,d=S.drug,M=mtt(l,d);
+  const quotes=`<div class="pick-label">The three sentences in ${esc(cb.label)}</div>${CITES.map(c=>`<blockquote class="citeq"><span class="src">${esc(c.where)}</span><br>${esc(c.text).split("[31]").join(`<b>[${cb.ref}]</b>`)}</blockquote>`).join("")}`;
+  let table="";
+  if(D23err)table=`<p class="note">The ${esc(cb.label)} data could not be loaded.</p>`;
+  else if(!D23)table=`<p class="note">Loading the real-time data…</p>`;
+  else{const zs=M.doses.filter(z=>rtcaPct(l,d,z,24)!=null||rtcaPct(l,d,z,72)!=null);
+    table=zs.length?`<div class="heat"><table><thead><tr><th>Dose</th><th>MTT 24 h</th><th>RTCA +24 h</th><th>MTT 72 h</th><th>RTCA +72 h</th></tr></thead><tbody>${zs.map(z=>{const a=M["24"][dk(z)],b=M["72"][dk(z)],r24=rtcaPct(l,d,z,24),r72=rtcaPct(l,d,z,72);return`<tr><th class="rowh">${doseLabel(z)} µM</th><td>${a?fmt(a.mean,1)+"%":"–"}</td><td>${r24!=null?fmt(r24,1)+"%":"–"}</td><td>${b?fmt(b.mean,1)+"%":"–"}</td><td>${r72!=null?fmt(r72,1)+"%":"–"}</td></tr>`}).join("")}</tbody></table></div>
+      <p class="note">MTT: this paper, % of untreated wells after 24 and 72 h of treatment. RTCA: ${esc(cb.label)}, normalized cell index as % of the untreated curve, 24 and 72 h after the drug was added. Only doses used in both papers are listed.</p>`
+      :`<p class="note">No dose of ${esc(d)} on ${esc(l)} was used in both papers.</p>`}
+  $("#citedOut").innerHTML=`<div class="cmp-title"><h3>${esc(d)} on ${esc(l)}, both methods</h3><span class="eyebrow">Observed · two papers</span></div>${table}
+    <div class="row-links"><a class="btn" href="${esc(cb.page)}#explore">Open ${esc(cb.label)} ↗</a></div>
+    <div style="margin-top:22px">${quotes}</div>`;
 }
 
-/* ---------- nav highlight ---------- */
+function render(){picker();chapter();cited()}
+hero();render();ic50();reg();
+loadD23().then(cited);
 const links=[...document.querySelectorAll("#navLinks a")];
 const io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting)links.forEach(a=>a.classList.toggle("on",a.getAttribute("href")==="#"+en.target.id))}),{rootMargin:"-40% 0px -55% 0px"});
-["overview","explore","agent","compare","yours","evidence","methods","limitations","code","references"].forEach(id=>io.observe(document.getElementById(id)));
-
-function renderAll(){if(S.step!==1)S.sel=null;picker();steps();renderChapter(true)}
-hero();renderAll();cards();refs();cmpAdder();renderCompare();const YO=yours();
-const rerender=()=>{hero();renderChapter();renderCompare();YO.rerender()};
+["overview","explore","ic50","model","cited","methods","limitations","code","references"].forEach(id=>io.observe(document.getElementById(id)));
+const rerender=()=>{hero();render();ic50();reg()};
 matchMedia("(prefers-color-scheme: dark)").addEventListener("change",rerender);
 new MutationObserver(rerender).observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]});
 }
-function esc(s){return String(s).replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"})[c])}
-function renderStatic(P){
-  const refIdx=n=>P.references.findIndex(r=>r.n===n);
-  const rich=s=>esc(s).replace(/\[ref:(\d+)\]/g,(m,n)=>`<button class="cite" data-n="${n}">${n}</button>`);
-  const p=P.paper,$=s=>document.querySelector(s);
-  document.title="Living Paper: "+p.journal+" "+p.year;
-  $("#heroMeta").innerHTML=`<span class="chip solid">${esc(p.status)}</span><span class="chip">${esc(p.journal)} · ${p.year} · ${esc(p.volume)}, ${esc(p.article)}</span><span class="chip">${esc(p.license)}</span>`;
-  $("#heroTitle").textContent=p.displayTitle||p.title;
-  const [first,...rest]=p.authorsShort.split(", ");
-  $("#heroAuthors").innerHTML=`<b>${esc(first)}</b>, ${esc(rest.join(", "))} · ${esc(p.affiliation)}`;
-  $("#heroQuestion").textContent=P.question;
-  let mf=esc(P.mainFinding.text);(P.mainFinding.emphasis||[]).forEach(w=>{mf=mf.replace(esc(w),`<b>${esc(w)}</b>`)});
-  $("#heroFinding").innerHTML=`<div class="eyebrow">Main finding, ${esc(P.mainFinding.label)}</div>${mf}`;
-  document.querySelectorAll("[data-doi]").forEach(a=>a.href="https://doi.org/"+p.doi);
-  $("#methodsList").innerHTML=P.methods.map(m=>`<details class="m" id="${m.id}"><summary>${esc(m.title)} <small>${esc(m.section)}</small></summary><div class="in">
-    ${m.paragraphs.map(t=>`<p>${rich(t)}</p>`).join("")}
-    ${m.equations?`<div class="eq">${m.equations.map(esc).join("<br>")}</div>`:""}
-    ${(m.notes||[]).map(t=>`<p style="margin-top:10px">${rich(t)}</p>`).join("")}</div></details>`).join("");
-  $("#limList").innerHTML=P.limitations.map(l=>`<div><b>${esc(l.title)}</b><p>${esc(l.text)}</p></div>`).join("");
-  $("#provList").innerHTML=P.provenance.map(r=>`<div><div class="k">${esc(r.item)}</div><div class="v">${esc(r.source)}</div></div>`).join("");
-  if(P.agent){
-    $("#mcpUrl").textContent=P.agent.mcpUrl;$("#mcpTransport").textContent=P.agent.transport;
-    $("#mcpAsks").innerHTML=P.agent.examples.map((q,i)=>`<div class="ask"><span>${esc(q)}</span><button data-q="${i}">Copy</button></div>`).join("");
-    $("#mcpTools").innerHTML=P.agent.tools.map(t=>`<span>${esc(t)}</span>`).join("");
-    const copy=(txt,btn)=>{const done=()=>{const o=btn.textContent;btn.textContent="Copied";setTimeout(()=>btn.textContent=o,1400)};
-      try{navigator.clipboard.writeText(txt).then(done,()=>sel())}catch(e){sel()}
-      function sel(){const r=document.createRange();r.selectNodeContents(btn.previousElementSibling);const s=getSelection();s.removeAllRanges();s.addRange(r);btn.textContent="Press Ctrl+C"}};
-    $("#mcpCopy").onclick=e=>copy(P.agent.mcpUrl,e.currentTarget);
-    $("#mcpAsks").onclick=e=>{const b=e.target.closest("[data-q]");if(b)copy(P.agent.examples[+b.dataset.q],b)};
-  } else document.getElementById("agent").hidden=true;
-  $("#footCite").innerHTML=`${esc(p.authors[0].split(" ").slice(-1)[0])} ${esc(p.authors[0][0])}. et al. <i>${esc(p.journal)}</i> ${p.year}, ${esc(p.volume)}, ${esc(p.article)} · <a href="https://doi.org/${p.doi}" target="_blank" rel="noopener">doi:${p.doi}</a>`;
-}
 boot();
-})();</script></body></html>
+})();
+</script></body></html>

@@ -343,10 +343,6 @@
   {
    "item": "Logistic re-fit",
    "source": "scipy curve_fit, from 3 h after the addition spike to end of recording"
-  },
-  {
-   "item": "Pending",
-   "source": "Simulated model curves (FEM output), for a model-over-data view"
   }
  ],
  "relatedPapers": [],

@@ -296,12 +296,24 @@ footer{border-top:1px solid var(--line);margin-top:64px;padding-block:28px 40px;
 .toolchips{display:flex;flex-wrap:wrap;gap:6px}
 .toolchips span{font-family:var(--mono);font-size:11.5px;border:1px solid var(--line);border-radius:5px;padding:3px 7px;color:var(--muted);background:var(--bg)}
 .agent-grid .panel + .panel{margin-top:0}
-</style>
-</head>
-<body>
-<div class="demo" role="note"><b>Working version.</b>&nbsp;Viability curves come from the authors' RTCA workbooks for all three cell lines. Flow cytometry, qPCR and model parameters are transcribed from the Supplementary.</div>
 
-<div class="wrap">
+.drop{border:1.5px dashed var(--line);border-radius:10px;padding:26px 18px;text-align:center;background:var(--bg);display:flex;flex-direction:column;align-items:center;gap:6px;transition:border-color .15s,background .15s;cursor:default}
+.drop b{font-family:var(--display);font-size:17px}
+.drop.on{border-color:var(--accent);background:var(--accent-soft)}
+.drop:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.drop .link{font-size:15px}
+.ycfg{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr) minmax(0,.8fr) auto;gap:14px;align-items:end}
+@media (max-width:860px){.ycfg{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.ycfg{grid-template-columns:1fr}}
+.ycfg label{display:flex;flex-direction:column}
+.ycfg select,.ycfg input{font:inherit;font-size:15px;border:1px solid var(--line);border-radius:8px;padding:9px 10px;background:var(--surface);color:var(--ink);min-height:44px;width:100%;box-sizing:border-box}
+.yfile{display:flex;flex-direction:column;gap:2px;overflow-wrap:anywhere}
+.yfile b{font-family:var(--display);font-size:15.5px}
+#yOut .tension{margin-top:12px}
+#yOut .seg button:disabled{opacity:.4;cursor:not-allowed}
+#yOut .adder{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:560px){#yOut .adder{grid-template-columns:1fr}}
+</style></head><body><div class="wrap">
   <header class="hero" id="overview">
     <div>
       <div class="meta" id="heroMeta"></div>
@@ -339,6 +351,7 @@ footer{border-top:1px solid var(--line);margin-top:64px;padding-block:28px 40px;
     <a href="#explore">Explore</a>
     <a href="#agent">AI agent</a>
     <a href="#compare">Compare</a>
+    <a href="#yours">Your data</a>
     <a href="#evidence">Evidence</a>
     <a href="#methods">Methods</a>
     <a href="#limitations">Limitations</a>
@@ -428,6 +441,20 @@ footer{border-top:1px solid var(--line);margin-top:64px;padding-block:28px 40px;
     </div>
   </section>
 
+  <section class="block" id="yours">
+    <div class="sec-head"><div><div class="eyebrow">Your data</div><h2>Analyze your own RTCA run</h2><p>Drop an xCELLigence export or a CSV. You get normalized curves, % of control and the same logistic re-fit used on this page, next to any curve from the paper.</p></div></div>
+    <div class="panel">
+      <div class="drop" id="yDrop" tabindex="0" role="button" aria-label="Choose a file to analyze">
+        <input type="file" id="yFile" accept=".xls,.xlsx,.csv,.txt,.tsv" hidden>
+        <b>Drop a file here</b> or <button class="link" id="yPick" type="button">choose one</button>
+        <span class="src">.xls or .xlsx exported from the RTCA software (Plot and Layout sheets), or a CSV in the template format</span>
+      </div>
+      <div class="row-links"><button class="btn" id="yDemo" type="button">Try it with this paper's data</button><button class="btn" id="yTpl" type="button">Download CSV template</button></div>
+      <p class="note"><b>Your file stays on your computer.</b> It is read and analyzed inside this browser tab. Nothing is uploaded, stored or sent anywhere, and closing the tab removes it.</p>
+    </div>
+    <div id="yOut"></div>
+  </section>
+
   <section class="block" id="evidence">
     <div class="sec-head"><div><div class="eyebrow">Key evidence</div><h2>Three claims, each one tap from its data</h2></div></div>
     <div class="cards" id="cards"></div>
@@ -455,7 +482,7 @@ footer{border-top:1px solid var(--line);margin-top:64px;padding-block:28px 40px;
 
   <footer>
     <span id="footCite"></span>
-    <span>Biology 2.0 · living paper, working version</span>
+    <span>Biology 2.0 · living paper</span>
   </footer>
 </main>
 
@@ -465,9 +492,7 @@ footer{border-top:1px solid var(--line);margin-top:64px;padding-block:28px 40px;
   <div class="dr-body" id="drBody"></div>
 </aside>
 <div class="tooltip" id="tip"></div>
-
-<script>
-(function(){
+<script>(function(){
 async function boot(){
   try{
     const [D,P]=await Promise.all(["data.json","paper.json"].map(f=>fetch(f).then(r=>{if(!r.ok)throw new Error(f+" "+r.status);return r.json()})));
@@ -512,16 +537,17 @@ function hideTip(){tip.style.opacity=0}
 function bindTips(root){root.querySelectorAll("[data-tt]").forEach(el=>{el.addEventListener("pointermove",e=>showTip(e,el.dataset.tt));el.addEventListener("pointerleave",hideTip)})}
 
 /* ---------- time-course chart (time since seeding) ---------- */
-function curveChart(series,{w=640,h=300,ymax,xmin=0,xmax=96,treat=null,animate=false,clickable=false,endLabels=true}={}){
+function curveChart(series,{w=640,h=300,ymax,xmin=0,xmax=96,treat=null,animate=false,clickable=false,endLabels=true,yfit=false,ylab="NCI",xlab="hours since seeding"}={}){
   const m={l:40,r:endLabels?92:16,t:14,b:34};const iw=w-m.l-m.r,ih=h-m.t-m.b;
   const all=series.flatMap(s=>(s.pts||[]).map(p=>p[1]).concat((s.err||[]).map(e=>e[1]+e[2])));
-  const Y=ymax||Math.max(1,Math.ceil(Math.max(...all)*1.05));
-  const x=t=>m.l+(t-xmin)/(xmax-xmin)*iw,y=v=>m.t+ih-Math.max(-0.3,v)/Y*ih;
-  let g=`<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="Normalized cell index over time">`;
-  const st=Y>8?2:1;for(let v=0;v<=Y;v+=st)g+=`<line class="grid" x1="${m.l}" x2="${m.l+iw}" y1="${y(v)}" y2="${y(v)}"/><text x="${m.l-8}" y="${y(v)+3.5}" text-anchor="end">${v}</text>`;
+  let Y=ymax||Math.max(1,Math.ceil(Math.max(...all)*1.05)),Y0=0,st=Y>8?2:1,dec=0;
+  if(yfit){const hi=Math.max(...all),lo=Math.min(0,...all),raw=(hi-lo)/5||0.1,p=Math.pow(10,Math.floor(Math.log10(raw))),f=raw/p;st=(f<=1?1:f<=2?2:f<=5?5:10)*p;Y=Math.ceil(hi*1.04/st)*st||st;Y0=lo< -0.03*hi?Math.floor(lo/st)*st:0;dec=Math.max(0,-Math.floor(Math.log10(st)+1e-9))}
+  const x=t=>m.l+(t-xmin)/(xmax-xmin)*iw,y=v=>m.t+ih-(Math.max(Y0-0.3*(Y-Y0)/Math.max(1,Y-Y0),v)-Y0)/(Y-Y0)*ih;
+  let g=`<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="${ylab} over time">`;
+  for(let k=0,v=Y0;v<=Y+st/1e3;k++,v=Y0+k*st)g+=`<line class="grid" x1="${m.l}" x2="${m.l+iw}" y1="${y(v)}" y2="${y(v)}"/><text x="${m.l-8}" y="${y(v)+3.5}" text-anchor="end">${v.toFixed(dec)}</text>`;
   for(let t=Math.ceil(xmin/12)*12;t<=xmax;t+=12)g+=`<text x="${x(t)}" y="${h-14}" text-anchor="middle">${t}</text>`;
   g+=`<line class="axis" x1="${m.l}" x2="${m.l+iw}" y1="${y(0)}" y2="${y(0)}"/>`;
-  g+=`<text x="${m.l+iw}" y="${h-1}" text-anchor="end">hours since seeding</text><text x="4" y="${m.t-2}">NCI</text>`;
+  g+=`<text x="${m.l+iw}" y="${h-1}" text-anchor="end">${xlab}</text><text x="4" y="${m.t-2}">${ylab}</text>`;
   if(treat!=null){g+=`<line x1="${x(treat)}" x2="${x(treat)}" y1="${m.t}" y2="${m.t+ih}" stroke="${css("--accent")}" stroke-dasharray="4 4" stroke-width="1.2"/><text x="${x(treat)+5}" y="${m.t+10}" style="fill:${css("--accent-ink")}">drug added</text>`}
   const ends=[];
   series.forEach((s,i)=>{
@@ -529,7 +555,7 @@ function curveChart(series,{w=640,h=300,ymax,xmin=0,xmax=96,treat=null,animate=f
     if(s.pts&&s.pts.length){const d=s.pts.filter(p=>p[0]>=xmin&&p[0]<=xmax).map((p,k)=>(k?"L":"M")+x(p[0]).toFixed(1)+","+y(p[1]).toFixed(1)).join("");
       g+=`<path d="${d}" fill="none" stroke="${s.color}" stroke-width="${s.w||2.2}" stroke-linejoin="round" stroke-linecap="round" ${s.dash?`stroke-dasharray="${s.dash}"`:""} class="${animate&&!s.dash?"draw":""}" style="${animate?`animation-delay:${0.15+i*0.3}s`:""}"/>`;
       if(clickable)g+=`<path d="${d}" fill="none" stroke="transparent" stroke-width="18" style="cursor:pointer" data-key="${s.key}" data-tt="${s.label} · open story →"/>`;
-      if(s.dots)s.pts.forEach(p=>{if(p[0]%s.dots===0&&p[0]>=xmin)g+=`<circle cx="${x(p[0])}" cy="${y(p[1])}" r="6" fill="transparent" data-tt="${s.label}<br>${p[0]} h · NCI ${p[1].toFixed(2)}" style="cursor:crosshair"/>`});
+      if(s.dots)s.pts.forEach(p=>{if(p[0]%s.dots===0&&p[0]>=xmin)g+=`<circle cx="${x(p[0])}" cy="${y(p[1])}" r="6" fill="transparent" data-tt="${s.label}<br>${p[0]} h · ${ylab} ${p[1].toFixed(Math.abs(p[1])<0.1?3:2)}" style="cursor:crosshair"/>`});
       const last=s.pts.filter(p=>p[0]<=xmax).slice(-1)[0];if(last&&!s.noEnd)ends.push({y:y(last[1]),yy:y(last[1]),x:x(last[0]),c:s.color,l:s.label})}
   });
   if(endLabels){ends.sort((a,b)=>a.y-b.y);for(let k=1;k<ends.length;k++)if(ends[k].y-ends[k-1].y<13)ends[k].y=ends[k-1].y+13;
@@ -898,14 +924,198 @@ function renderCompare(){
   out.querySelectorAll("[data-open]").forEach(el=>el.addEventListener("click",()=>openInStory(+el.dataset.open,stepFor)));
 }
 
+/* ---------- your own RTCA run (in-browser only) ---------- */
+function yours(){
+  const Y={ds:null,ctrl:0,norm:true,hide:new Set(),ov:{line:"",drug:"",dose:""}};
+  const out=$("#yOut"),fileIn=$("#yFile"),dz=$("#yDrop");
+  const CTRL_RE=/^(ctrl|control|kontrol|untreated|medium|vehicle|neg)/i;
+  const isNum=v=>typeof v==="number"&&isFinite(v);
+  const toNum=v=>{if(isNum(v))return v;if(typeof v!=="string")return NaN;const t=v.trim().replace(",",".");return t===""?NaN:+t};
+
+  /* ---- loading ---- */
+  let libP=null;
+  const lib=()=>libP||(libP=new Promise((res,rej)=>{if(window.XLSX)return res(window.XLSX);const s=document.createElement("script");s.src="/lib/xlsx.core.min.js";s.onload=()=>res(window.XLSX);s.onerror=()=>{libP=null;rej(new Error("The spreadsheet reader could not be loaded. Save the file as CSV and try again."))};document.head.appendChild(s)}));
+  async function readFile(f){
+    status(`Reading ${esc(f.name)}…`);
+    try{
+      let ds;
+      if(/\.(csv|txt|tsv)$/i.test(f.name))ds=fromCSV(await f.text());
+      else{const X=await lib();const wb=X.read(new Uint8Array(await f.arrayBuffer()),{type:"array"});ds=fromWorkbook(X,wb)}
+      ds.name=f.name;load(ds);
+    }catch(e){status(`<b>Could not read ${esc(f.name)}</b><p>${esc(e.message)}</p>`,true)}
+  }
+  function status(html,err){out.innerHTML=`<div class="pending" style="margin-top:14px">${err?html:`<p style="margin:0">${html}</p>`}</div>`}
+
+  function fromCSV(txt){
+    const lines=txt.replace(/\r/g,"").split("\n");let treat=null;const body=[];
+    lines.forEach(l=>{if(/^\s*#/.test(l)){const m=l.match(/treatment_h\s*[,;:=\t]\s*([\d.,]+)/i);if(m)treat=+m[1].replace(",",".");}else if(l.trim())body.push(l)});
+    if(!body.length)throw new Error("The file is empty.");
+    const h=body[0],cnt=c=>h.split(c).length-1;const d=cnt("\t")>0?"\t":cnt(";")>cnt(",")?";":",";
+    const rows=body.map(l=>l.split(d).map(c=>c.trim().replace(/^"|"$/g,"")).map(c=>d!==","?c.replace(",","."):c));
+    const ds=fromRows(rows,null);ds.preNorm=true;if(treat!=null){ds.treat=treat;ds.treatSrc="file"}return ds;
+  }
+  function fromWorkbook(X,wb){
+    const get=n=>X.utils.sheet_to_json(wb.Sheets[n],{header:1,raw:true,blankrows:true,defval:""});
+    let layout=null;const ln=wb.SheetNames.find(n=>/layout/i.test(n));
+    if(ln){const a=get(ln);const hr=a.findIndex(r=>r.some(c=>/^well\s*id$/i.test(String(c))));
+      if(hr>=0){const H=a[hr].map(c=>String(c).trim().toLowerCase()),iw=H.findIndex(c=>/^well\s*id$/.test(c)),ic=H.findIndex(c=>/compound/.test(c)),iz=H.findIndex(c=>/concentration/.test(c)),iu=H.findIndex(c=>/^unit/.test(c)),it=H.findIndex(c=>/cell-?type/.test(c));
+        layout={};a.slice(hr+1).forEach(r=>{const w=String(r[iw]||"").trim();if(!w)return;const cmp=String(ic>=0?r[ic]:"").trim(),z=iz>=0?r[iz]:"",u=String(iu>=0?r[iu]:"").trim();
+          layout[w.toUpperCase()]={label:[cmp||w,z!==""?`${z}${u?" "+u.replace(/^uM$/i,"µM"):""}`:""].filter(Boolean).join(" "),ctrl:CTRL_RE.test(cmp)||(cmp===""&&z===""),cell:String(it>=0?r[it]:"").trim()}})}}
+    const order=[...wb.SheetNames].sort((a,b)=>(/plot/i.test(b)?1:0)-(/plot/i.test(a)?1:0));
+    for(const n of order){const a=get(n);try{return fromRows(a,layout)}catch(e){}}
+    throw new Error("No sheet with a time column in hours was found. Use the CSV template, or export the Plot sheet from the RTCA software.");
+  }
+  function fromRows(a,layout){
+    const hr=a.findIndex(r=>r.some(c=>isTimeH(c)));
+    if(hr<0)throw new Error("No column named “Time (h)” or “time_h” was found.");
+    const H=a[hr].map(c=>String(c).trim()),it=H.findIndex(isTimeH);
+    const cols=H.map((c,i)=>({c,i})).filter(o=>o.i!==it&&o.c&&!/time|hh:mm/i.test(o.c));
+    const data=a.slice(hr+1).map(r=>r.map(toNum)).filter(r=>isNum(r[it]));
+    if(data.length<5)throw new Error("Fewer than five time points were found below the header row.");
+    const t=data.map(r=>r[it]);const groups=new Map();
+    cols.forEach(o=>{if(!data.some(r=>isNum(r[o.i])))return;const m=o.c.match(/^Y\s*\(\s*([A-P]\d{1,2})\s*\)$/i),well=m?m[1].toUpperCase():o.c;
+      const L=layout&&layout[well],label=L?L.label:o.c.replace(/(\D)\.\d+$/,"$1");
+      if(!groups.has(label))groups.set(label,{label,wells:[],cols:[],ctrl:L?L.ctrl:CTRL_RE.test(label)});
+      const g=groups.get(label);g.wells.push(well);g.cols.push(o.i)});
+    if(!groups.size)throw new Error("No data columns were found next to the time column.");
+    const G=[...groups.values()].map(g=>{const ci=[],sd=[];data.forEach(r=>{const v=g.cols.map(i=>r[i]).filter(isNum);const mu=v.length?v.reduce((p,q)=>p+q,0)/v.length:NaN;ci.push(mu);sd.push(v.length>1?Math.sqrt(v.reduce((p,q)=>p+(q-mu)*(q-mu),0)/(v.length-1)):0)});return{label:g.label,wells:g.wells,ctrl:g.ctrl,ci,sd}});
+    const cell=layout?[...new Set(Object.values(layout).map(v=>v.cell).filter(Boolean))].join(", "):"";
+    const ds={t,groups:G,cell,treat:null,treatSrc:"none"};
+    const dt=t.slice(1).map((v,i)=>v-t[i]),med=dt.slice().sort((p,q)=>p-q)[dt.length>>1];
+    let bi=-1;dt.forEach((v,i)=>{if(t[i]>1&&v>Math.max(0.2,2*med)&&(bi<0||v>dt[bi]))bi=i});
+    if(bi>=0){ds.treat=+t[bi].toFixed(2);ds.treatSrc="pause"}
+    return ds;
+  }
+  function isTimeH(c){c=String(c).trim();return/^(time\s*\(\s*h(our)?s?\s*\)|time_?h|time,\s*h|time\s*\[h\]|t\s*\(h\)|hours?)$/i.test(c)}
+
+  /* ---- computation ---- */
+  const interp=(t,v,x)=>{if(x<t[0]||x>t[t.length-1]+1e-9)return null;let i=t.findIndex(q=>q>=x);if(i<0)i=t.length-1;if(i===0||t[i]===x)return isNum(v[i])?v[i]:null;const f=(x-t[i-1])/(t[i]-t[i-1]),a=v[i-1],b=v[i];return isNum(a)&&isNum(b)?a*(1-f)+b*f:null};
+  function prep(){
+    const d=Y.ds,T=d.treat;let i0=-1;if(T!=null)d.t.forEach((q,i)=>{if(q<=T+1e-6)i0=i});
+    d.i0=i0;d.groups.forEach(g=>{g.base=i0>=0?g.ci[i0]:null;g.nci=g.base&&Math.abs(g.base)>1e-9?g.ci.map(v=>v/g.base):null;g.fitN=T!=null&&g.nci?fit(d.t,g.nci,T):null;g.fitR=T!=null?fit(d.t,g.ci,T):null});
+  }
+  function fit(t,v,T){
+    const s=t.map((q,i)=>[q,v[i]]).filter(p=>p[0]>=T+3-1e-9&&isNum(p[1]));if(s.length<8)return null;
+    const t0=s[0][0],L=(q,N0,g,K)=>K/(1+(K/N0-1)*Math.exp(-g*(q-t0)));
+    const par=p=>[Math.min(20,Math.max(1e-3,Math.exp(p[0]))),Math.min(2,Math.max(-1,p[1])),Math.min(50,Math.max(1e-2,Math.exp(p[2])))];
+    const sse=p=>{const[N0,g,K]=par(p);let e=0;for(const[q,y]of s){const m=L(q,N0,g,K);e+=(m-y)*(m-y)}return isFinite(e)?e:1e30};
+    const vmax=Math.max(...s.map(p=>p[1])),v0=Math.max(s[0][1],0.05);
+    let best=null;[[0.05,vmax*1.2],[0.02,vmax*2],[0.2,vmax],[-0.02,v0]].forEach(([g,K])=>{let r=nm(sse,[Math.log(v0),g,Math.log(Math.max(K,0.2))]);r=nm(sse,r.x);if(!best||r.f<best.f)best=r});
+    const mu=s.reduce((p,q)=>p+q[1],0)/s.length,sst=s.reduce((p,q)=>p+(q[1]-mu)*(q[1]-mu),0);
+    const[N0,g,K]=par(best.x),r2=sst>0?1-best.f/sst:0;
+    return{t0,N0,g,K,r2,ok:r2>=0.5&&K<49,L:q=>L(q,N0,g,K)}
+  }
+  function nm(f,x0){const n=x0.length;let P=[x0].concat(x0.map((_,i)=>x0.map((v,j)=>j===i?v+0.5:v))).map(x=>({x,f:f(x)}));
+    for(let it=0;it<1500;it++){P.sort((a,b)=>a.f-b.f);if(Math.abs(P[n].f-P[0].f)<1e-12*(1+Math.abs(P[0].f)))break;
+      const c=P.slice(0,n).reduce((a,p)=>a.map((v,j)=>v+p.x[j]/n),new Array(n).fill(0)),w=P[n];
+      const pt=k=>{const x=c.map((v,j)=>v+k*(w.x[j]-v));return{x,f:f(x)}};
+      const r=pt(-1);if(r.f<P[0].f){const e=pt(-2);P[n]=e.f<r.f?e:r}else if(r.f<P[n-1].f)P[n]=r;else{const k=pt(r.f<w.f?-0.5:0.5);if(k.f<Math.min(w.f,r.f))P[n]=k;else P=P.map((p,i)=>i?{x:p.x.map((v,j)=>P[0].x[j]+0.5*(v-P[0].x[j])),f:0}:p).map((p,i)=>i?{x:p.x,f:f(p.x)}:p)}}
+    P.sort((a,b)=>a.f-b.f);return P[0]}
+  const vals=g=>Y.norm?g.nci:g.ci;
+  const lowCtrl=()=>{const c=Y.ds.groups[Y.ctrl];return!c||c.base==null||Math.abs(c.base)<0.1};
+  const pct=(g,h)=>{const d=Y.ds,c=d.groups[Y.ctrl];if(!c||d.treat==null||lowCtrl())return null;const gv=vals(g),cv=vals(c);if(!gv||!cv)return null;const a=interp(d.t,gv,d.treat+h),b=interp(d.t,cv,d.treat+h);return a==null||b==null||b<=0.05?null:a/b*100};
+  const hourly=(t,v)=>{const o=[];for(let q=Math.ceil(t[0]);q<=Math.floor(t[t.length-1]);q++){const y=interp(t,v,q);if(y!=null)o.push([q,y])}return o};
+
+  /* ---- render ---- */
+  function load(ds){Y.ds=ds;Y.hide=new Set();const c=ds.groups.findIndex(g=>g.ctrl);Y.ctrl=c>=0?c:0;Y.norm=ds.treat!=null&&!ds.preNorm;prep();render()}
+  function render(){
+    const d=Y.ds,pal=PAL(),T=d.treat,c=d.groups[Y.ctrl];
+    const col=i=>i===Y.ctrl?css("--control"):pal[(i-(i>Y.ctrl?1:0))%pal.length];
+    const warn=[];
+    if(T==null)warn.push("No drug-addition time was found in the file. Enter it above to get normalized curves, % of control and the re-fit.");
+    else if(d.treatSrc==="pause")warn.push(`Drug addition was taken from the pause in recording at ${T} h. Change it above if that is wrong.`);
+    if(T!=null&&c&&c.base!=null&&Math.abs(c.base)<0.1)warn.push(`The control cell index at drug addition is ${c.base.toFixed(3)}. Below 0.1 the signal is close to instrument noise, so % of control is not calculated. The curves are still shown.`);
+    const norm=Y.norm&&T!=null;const fitOf=g=>norm?g.fitN:g.fitR;
+    const tmax=d.t[d.t.length-1],xmax=Math.max(24,Math.ceil((tmax-0.75)/12)*12);
+    const ser=[];
+    d.groups.forEach((g,i)=>{if(Y.hide.has(i))return;const v=norm?g.nci:g.ci;if(!v)return;const pts=hourly(d.t,v);
+      ser.push(i===Y.ctrl?{label:g.label,color:col(i),pts,dash:"3 4",w:1.6,dots:6}:{label:g.label,color:col(i),pts,dots:6})});
+    let ovTxt="";
+    if(T!=null&&Y.ov.dose!==""){const r=rtcaOf(Y.ov.line,Y.ov.drug),s=r&&r.series[dkey(Y.ov.dose)];if(s){const b=norm?at(s,r.treat):1;if(b>0){const pts=ptsOf(s).map(p=>[+(p[0]-r.treat+T).toFixed(2),p[1]/b]).filter(p=>p[0]>=0&&p[0]<=xmax);ser.push({label:"paper",color:css("--ink"),pts,dash:"1.5 4",w:2.2,noEnd:true});ovTxt=`${Y.ov.line} · ${Y.ov.drug} ${Y.ov.dose} µM`}}}
+    const lineOpts=Object.keys(D.rtca).map(l=>`<option ${l===Y.ov.line?"selected":""}>${l}</option>`).join("");
+    const drugOpts=Y.ov.line?Object.keys(D.rtca[Y.ov.line]).map(x=>`<option ${x===Y.ov.drug?"selected":""}>${x}</option>`).join(""):"";
+    const doseOpts=Y.ov.drug?Object.keys(rtcaOf(Y.ov.line,Y.ov.drug).series).filter(z=>z!=="0").map(Number).sort((p,q)=>p-q).map(z=>`<option value="${z}" ${String(z)===String(Y.ov.dose)?"selected":""}>${z} µM</option>`).join(""):"";
+    const H=[24,48,72];
+    const rows=d.groups.map((g,i)=>{const f=fitOf(g);return`<tr><th class="rowh"><i style="background:${col(i)}"></i>${esc(g.label)}${i===Y.ctrl&&!/control|ctrl/i.test(g.label)?' <span class="src">control</span>':""}</th><td class="src">${g.wells.length}</td>${H.map(h=>{const v=i===Y.ctrl?null:pct(g,h);return`<td>${i===Y.ctrl?'<span class="src">100%</span>':v==null?`<span class="src">${T!=null&&T+h>tmax+0.01?"ends "+tmax.toFixed(0)+" h":"–"}</span>`:fmt(v)+"%"}</td>`}).join("")}<td>${f&&f.ok?f.g.toFixed(3):'<span class="src">–</span>'}</td><td>${f&&f.ok?f.K.toFixed(2):'<span class="src">–</span>'}</td><td>${f?(f.ok?f.r2.toFixed(2):`<span class="src">${f.r2.toFixed(2)}, no fit</span>`):'<span class="src">–</span>'}</td></tr>`}).join("");
+    let paperRow="";if(ovTxt){const r=rtcaOf(Y.ov.line,Y.ov.drug),s=r.series[dkey(Y.ov.dose)],c0=r.series["0"],bs=norm?at(s,r.treat):1,bc=norm?at(c0,r.treat):1,v=H.map(h=>{const a=at(s,r.treat+h),b=at(c0,r.treat+h);return a==null||b==null||b<=0?null:(a/bs)/(b/bc)*100}),pf0=s.fit,pf=pf0&&{...pf0,K:pf0.K/bs};
+      paperRow=`<tr><th class="rowh"><svg width="16" height="6" viewBox="0 0 16 6" aria-hidden="true" style="margin-right:8px;flex:none"><line x1="0" y1="3" x2="16" y2="3" stroke="${css("--ink")}" stroke-width="2.2" stroke-dasharray="1.5 4" stroke-linecap="round"/></svg>Paper: ${esc(ovTxt)}</th><td class="src">–</td>${v.map(x=>`<td>${x==null?'<span class="src">n/a</span>':fmt(x)+"%"}</td>`).join("")}<td>${pf&&pf.r2>=0.5?pf.g.toFixed(3):'<span class="src">–</span>'}</td><td>${pf&&pf.r2>=0.5?pf.K.toFixed(2):'<span class="src">–</span>'}</td><td>${pf?(pf.r2>=0.5?pf.r2.toFixed(2):'<span class="src">no fit</span>'):'<span class="src">–</span>'}</td></tr>`}
+    const legend=`<div class="cmp-legend">${d.groups.map((g,i)=>`<button class="lg" data-g="${i}" aria-pressed="${!Y.hide.has(i)}" style="${Y.hide.has(i)?"opacity:.4":""}">${i===Y.ctrl?`<svg width="24" height="6" viewBox="0 0 24 6" aria-hidden="true" style="flex:none"><line x1="0" y1="3" x2="24" y2="3" stroke="${col(i)}" stroke-width="1.6" stroke-dasharray="3 4"/></svg>`:`<i style="background:${col(i)}"></i>`}${esc(g.label)}</button>`).join("")}${ovTxt?`<span class="lg" style="cursor:default"><svg width="24" height="6" viewBox="0 0 24 6" aria-hidden="true" style="flex:none"><line x1="0" y1="3" x2="24" y2="3" stroke="${css("--ink")}" stroke-width="2.2" stroke-dasharray="1.5 4" stroke-linecap="round"/></svg>Paper · ${esc(ovTxt)}</span>`:""}</div>`;
+    out.innerHTML=`
+      <div class="panel" style="margin-top:14px">
+        <div class="ycfg">
+          <div><div class="pick-label">File</div><div class="yfile"><b>${esc(d.name)}</b><span class="src">${d.groups.reduce((p,g)=>p+g.wells.length,0)} wells · ${d.groups.length} conditions · ${d.t.length} time points · 0–${tmax.toFixed(0)} h${d.cell?" · "+esc(d.cell):""}</span></div></div>
+          <label><span class="pick-label">Control</span><select id="yCtrl">${d.groups.map((g,i)=>`<option value="${i}" ${i===Y.ctrl?"selected":""}>${esc(g.label)}</option>`).join("")}</select></label>
+          <label><span class="pick-label">Drug added at (h)</span><input id="yT" type="number" step="0.1" min="0" value="${T??""}" placeholder="e.g. 24"></label>
+          <div><div class="pick-label">Show</div><div class="seg" id="yNorm"><button data-v="1" aria-pressed="${norm}" ${T==null?"disabled":""}>Normalized at addition</button><button data-v="0" aria-pressed="${!norm}">As in the file</button></div></div>
+        </div>
+        <div class="pick-label" style="margin-top:14px">Compare with a curve from this paper</div>
+        <div class="adder"><select id="oLine" aria-label="Paper cell line"><option value="">none</option>${lineOpts}</select><select id="oDrug" aria-label="Paper drug" ${Y.ov.line?"":"hidden"}>${drugOpts}</select><select id="oDose" aria-label="Paper dose" ${Y.ov.drug?"":"hidden"}>${doseOpts}</select></div>
+        ${!norm&&ovTxt?'<p class="note">Both curves are shown as in their files. If your file holds raw cell index, switch to “Normalized at addition” to put both on the same scale.</p>':""}
+      </div>
+      ${warn.map(w=>`<div class="tension">${w}</div>`).join("")}
+      <div class="panel" style="margin-top:12px">
+        <div class="cmp-title"><h3>${norm?"Cell index normalized to 1 at drug addition":"Cell index as in the file"}</h3><span class="eyebrow">Your data · mean of replicate wells</span></div>
+        ${legend}
+        <div class="fig" id="yFig">${ser.length?curveChart(ser,{xmax,treat:T,endLabels:false,h:320,yfit:true,ylab:norm?"NCI":"CI"}):`<div class="empty">All conditions are hidden. Tap one above to show it.</div>`}</div>
+        <p class="note">Tap a condition to hide or show it. Values are the mean of wells with the same condition name.${ovTxt?" The paper curve is shifted so both drug additions line up.":""}${d.preNorm?" The example uses the hourly curves drawn on this page, so its re-fit can differ slightly from the published re-fit on the paper row.":""}</p>
+        <div class="heat" style="margin-top:14px"><table><thead><tr><th>Condition</th><th>Wells</th><th style="text-align:center">+24 h</th><th style="text-align:center">+48 h</th><th style="text-align:center">+72 h</th><th>g, /h</th><th>K</th><th>R²</th></tr></thead><tbody>${rows}${paperRow}</tbody></table></div>
+        <p class="note">+24/48/72 h: the plotted value as % of the control, counted from drug addition. g and K: logistic re-fit from 3 h after addition, the same fit used for the paper's curves. “No fit” means R² below 0.5.</p>
+        <div class="row-links"><button class="btn" id="yCsv">Download results (CSV)</button><button class="btn" id="yClear">Clear</button></div>
+      </div>`;
+    bindTips(out);
+    $("#yCtrl").onchange=e=>{Y.ctrl=+e.target.value;render()};
+    $("#yT").onchange=e=>{const v=e.target.value.trim();d.treat=v===""?null:+v;d.treatSrc=v===""?"none":"manual";Y.norm=d.treat!=null;prep();render()};
+    $("#yNorm").onclick=e=>{const b=e.target.closest("button");if(b&&!b.disabled){Y.norm=b.dataset.v==="1";render()}};
+    out.querySelector(".cmp-legend").onclick=e=>{const b=e.target.closest("[data-g]");if(!b)return;const i=+b.dataset.g;Y.hide.has(i)?Y.hide.delete(i):Y.hide.add(i);render()};
+    $("#oLine").onchange=e=>{Y.ov={line:e.target.value,drug:"",dose:""};if(Y.ov.line){Y.ov.drug=Object.keys(D.rtca[Y.ov.line])[0];const zs=Object.keys(rtcaOf(Y.ov.line,Y.ov.drug).series).filter(z=>z!=="0").map(Number).sort((p,q)=>p-q);Y.ov.dose=zs[zs.length-1]}render()};
+    $("#oDrug").onchange=e=>{Y.ov.drug=e.target.value;const zs=Object.keys(rtcaOf(Y.ov.line,Y.ov.drug).series).filter(z=>z!=="0").map(Number).sort((p,q)=>p-q);Y.ov.dose=zs[zs.length-1];render()};
+    $("#oDose").onchange=e=>{Y.ov.dose=+e.target.value;render()};
+    $("#yCsv").onclick=()=>downloadResults();
+    $("#yClear").onclick=()=>{Y.ds=null;out.innerHTML="";fileIn.value=""};
+  }
+  function save(name,text){const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([text],{type:"text/csv"}));a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500)}
+  const q=s=>/[",;\n]/.test(s)?`"${String(s).replace(/"/g,'""')}"`:s;
+  function downloadResults(){
+    const d=Y.ds,H=[24,48,72],L=[`# Living Papers · results for ${d.name}`,`# drug added at ${d.treat??"not set"} h; control: ${d.groups[Y.ctrl].label}; values ${Y.norm&&d.treat!=null?"normalized to 1 at drug addition":"as in the file"}`,`# computed in the browser at ${location.host}${location.pathname}`,
+      ["condition","wells","pct_of_control_24h","pct_of_control_48h","pct_of_control_72h","fit_g_per_h","fit_K","fit_r2"].join(",")];
+    d.groups.forEach((g,i)=>{const f=Y.norm&&d.treat!=null?g.fitN:g.fitR;L.push([q(g.label),g.wells.length,...H.map(h=>{const v=i===Y.ctrl?100:pct(g,h);return v==null?"":v.toFixed(1)}),f&&f.ok?f.g.toFixed(4):"",f&&f.ok?f.K.toFixed(3):"",f?f.r2.toFixed(3):""].join(","))});
+    L.push("","time_h,"+d.groups.map(g=>q(g.label+" (mean CI)")).join(",")+(d.treat!=null?","+d.groups.map(g=>q(g.label+" (NCI)")).join(","):""));
+    d.t.forEach((t,k)=>L.push([t,...d.groups.map(g=>isNum(g.ci[k])?g.ci[k].toFixed(4):""),...(d.treat!=null?d.groups.map(g=>g.nci&&isNum(g.nci[k])?g.nci[k].toFixed(4):""):[])].join(",")));
+    save(d.name.replace(/\.[^.]+$/,"")+"_living-papers.csv",L.join("\n"));
+  }
+  function template(){
+    const r=rtcaOf("HCT-116","Irinotecan"),z=["0","10","50"],nm={"0":"Control","10":"Irinotecan 10 uM","50":"Irinotecan 50 uM"};
+    const L=["# Living Papers RTCA template. One row per time point.","# First column: time in hours since seeding. Other columns: one per well.","# Wells with the same column name are averaged as replicates. Name the control column Control.",`# Drug addition time in hours since seeding (delete this line to enter it on the page):`,`# treatment_h,${r.treat}`,
+      ["time_h",...z.flatMap(k=>[nm[k],nm[k]])].join(",")];
+    const n=Math.min(...z.map(k=>r.series[k].nci.length));
+    for(let t=0;t<n;t++)L.push([t,...z.flatMap(k=>{const v=r.series[k].nci[t];return[v.toFixed(4),v.toFixed(4)]})].join(","));
+    save("rtca_template.csv",L.join("\n"));
+  }
+  function demo(){
+    const r=rtcaOf("HCT-116","Irinotecan"),keys=Object.keys(r.series).sort((a,b)=>a-b),n=Math.max(...keys.map(k=>r.series[k].nci.length));
+    const t=[...Array(n).keys()];
+    load({name:"Example: HCT-116 irinotecan from this paper",t,cell:"HCT-116",treat:r.treat,treatSrc:"file",preNorm:true,groups:keys.map(k=>({label:+k?`Irinotecan ${k} µM`:"Control",wells:["–"],ctrl:!+k,ci:t.map(i=>{const v=r.series[k].nci[i];return v==null?NaN:v}),sd:[]}))});
+  }
+
+  /* ---- wiring ---- */
+  $("#yPick").onclick=()=>fileIn.click();
+  fileIn.onchange=()=>{if(fileIn.files[0])readFile(fileIn.files[0])};
+  ["dragenter","dragover"].forEach(ev=>dz.addEventListener(ev,e=>{e.preventDefault();dz.classList.add("on")}));
+  ["dragleave","drop"].forEach(ev=>dz.addEventListener(ev,e=>{e.preventDefault();dz.classList.remove("on")}));
+  dz.addEventListener("drop",e=>{const f=e.dataTransfer.files[0];if(f)readFile(f)});
+  dz.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();fileIn.click()}});
+  $("#yTpl").onclick=template;$("#yDemo").onclick=demo;
+  return{rerender:()=>{if(Y.ds)render()}};
+}
+
 /* ---------- nav highlight ---------- */
 const links=[...document.querySelectorAll("#navLinks a")];
 const io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting)links.forEach(a=>a.classList.toggle("on",a.getAttribute("href")==="#"+en.target.id))}),{rootMargin:"-40% 0px -55% 0px"});
-["overview","explore","agent","compare","evidence","methods","limitations","code","references"].forEach(id=>io.observe(document.getElementById(id)));
+["overview","explore","agent","compare","yours","evidence","methods","limitations","code","references"].forEach(id=>io.observe(document.getElementById(id)));
 
 function renderAll(){if(S.step!==1)S.sel=null;picker();steps();renderChapter(true)}
-hero();renderAll();cards();refs();cmpAdder();renderCompare();
-const rerender=()=>{hero();renderChapter();renderCompare()};
+hero();renderAll();cards();refs();cmpAdder();renderCompare();const YO=yours();
+const rerender=()=>{hero();renderChapter();renderCompare();YO.rerender()};
 matchMedia("(prefers-color-scheme: dark)").addEventListener("change",rerender);
 new MutationObserver(rerender).observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]});
 }
@@ -942,6 +1152,4 @@ function renderStatic(P){
   $("#footCite").innerHTML=`${esc(p.authors[0].split(" ").slice(-1)[0])} ${esc(p.authors[0][0])}. et al. <i>${esc(p.journal)}</i> ${p.year}, ${esc(p.volume)}, ${esc(p.article)} · <a href="https://doi.org/${p.doi}" target="_blank" rel="noopener">doi:${p.doi}</a>`;
 }
 boot();
-})();</script>
-</body>
-</html>
+})();</script></body></html>

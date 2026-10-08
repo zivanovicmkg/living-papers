@@ -1,0 +1,732 @@
+{
+ "paper": {
+  "title": "CRISPR screens reveal convergent targeting strategies against evolutionarily distinct chemoresistance in cancer",
+  "authors": "Chunge Zhong, Wen-Jie Jiang, Yingjia Yao, Zexu Li, You Li, Shengnan Wang, Xiaofeng Wang, Wenjuan Zhu, Siqi Wu, Jing Wang, Shuangshuang Fan, Shixin Ma, Yeshu Liu, Han Zhang, Wenchang Zhao, Lu Zhao, Yi Feng, Zihan Li, Ruifang Guo, Li Yu, Fengyun Pei, Jun Hu, Xingzhi Feng, Zihuan Yang, Zhengjia Yang, Xueying Yang, Yue Hou, Danni Zhang, Dake Xu, Ren Sheng, Yihao Li, Lijun Liu, Hua-Jun Wu, Jun Huang, Teng Fei",
+  "authorsShort": "Chunge Zhong, Wen-Jie Jiang, Yingjia Yao … Hua-Jun Wu, Jun Huang, Teng Fei (35 authors)",
+  "cite": "Zhong C, Jiang W-J, Yao Y, … Wu H-J, Huang J, Fei T.",
+  "journal": "Nature Communications",
+  "year": 2024,
+  "volume": "15",
+  "article": "5502",
+  "doi": "10.1038/s41467-024-49673-4",
+  "license": "CC BY 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+ },
+ "abstract": "Resistance to chemotherapy has been a major hurdle that limits therapeutic benefits for many types of cancer. Here we systematically identify genetic drivers underlying chemoresistance by performing 30 genome-scale CRISPR knockout screens for seven chemotherapeutic agents in multiple cancer cells. Chemoresistance genes vary between conditions primarily due to distinct genetic background and mechanism of action of drugs, manifesting heterogeneous and multiplexed routes towards chemoresistance. By focusing on oxaliplatin and irinotecan resistance in colorectal cancer, we unravel that evolutionarily distinct chemoresistance can share consensus vulnerabilities identified by 26 second-round CRISPR screens with druggable gene library. We further pinpoint PLK4 as a therapeutic target to overcome oxaliplatin resistance in various models via genetic ablation or pharmacological inhibition, highlighting a single-agent strategy to antagonize evolutionarily distinct chemoresistance. Our study not only provides resources and insights into the molecular basis of chemoresistance, but also proposes potential biomarkers and therapeutic strategies against such resistance.",
+ "scope": "Every cell-line and mouse figure of the article, rebuilt from the Source Data file and Supplementary Data 1–5: 30 genome-scale screens, IC50 curves for six lines and seven drugs, the knockout-derived resistant lines, cell cycle, apoptosis and RNA-seq, 26 druggable screens, the PLK4 experiments and the xenografts. TCGA, patient tissue and organoid data are not included.",
+ "quotes": {
+  "ch1": {
+   "source": "Results · “Genome-scale CRISPR screens for chemoresistance genes” and “A systematic view on genetic maps of chemoresistance”",
+   "text": [
+    "To systematically identify the genes whose loss-of-function drives chemoresistance in cancer, we performed multiple genome-scale CRISPR knockout screens for seven commonly used chemotherapy drugs (oxaliplatin, irinotecan, 5-fluorouracil, doxorubicin, cisplatin, docetaxel and paclitaxel) in corresponding colorectal, breast and lung cancer cells (Fig. 1a and Supplementary Data 1). Six representative cell lines (HCT116 and DLD1 for colorectal cancer; T47D and MCF7 for breast cancer; A549 and NCI-H1568 for lung cancer) with different genetic backgrounds and varied responses to indicated drugs were employed for the chemogenomic screens (Supplementary Fig. 1a–c). Pooled lentiviruses encapsulating Cas9 nuclease and 92,817 single guide RNA (sgRNA) targeting 18,436 protein-coding genes in the human genome were transduced into these cells at a low multiplicity of infection (MOI) (~0.3) followed by puromycin selection. After that, cells were cultured for several days in the presence of either DMSO or the corresponding drugs for cell fitness screens. Genomic DNA was then harvested, and sgRNA abundance was quantified by high-throughput sequencing (Fig. 1a). A total of 30 genome-scale screens (24 for drug challenge and 6 for vehicle treatment) were conducted and analyzed by the MAGeCK algorithm. Multiple quality control (QC) measurements indicated the high quality of these screens (See Methods). For vehicle (DMSO) treatment screens without any selection pressure, we observed a strong negative selection for core essential genes, and the top negatively selected genes were enriched for essential functional terms such as translation, ribosome biogenesis, and RNA splicing (Supplementary Fig. 1d, e). This demonstrates that our screens can accurately identify functional hits associated with cell fitness. Different drugs imposed differential selection pressure on screened cells as evidenced by the Gini Index informing distribution evenness of sgRNA counts (Supplementary Fig. 1f). The effect of given gene knockout was quantified by an RRA score calculated by MAGeCK with a lower negative value indicating stronger negative selection and a higher positive value denoting stronger positive selection. “Chemoresistance genes” here were defined as those whose loss-offunction confer resistance to chemotherapy drugs on screened cells and can be pulled out from positively selected hits (score_drug - score_DMSO > 3 and score_drug > 3). Notably, this definition here is only for better understanding and mentioning the resistance phenotype due to functional perturbation of corresponding gene. The gene’s function per se is likely to suppress or restrain chemoresistance.",
+    "We identified tens of chemoresistance genes for each single cell line in response to a given drug (Fig. 1b). Global analysis across conditions showed that chemoresistance genes tended to cluster together primarily by cell-of-origin rather than type of chemotherapy drugs (Fig. 1c), suggesting the importance of genetic background in determining chemoresistance. The cellular specificity was further evidenced by the few overlap of chemoresistance genes across different cell lines (Supplementary Fig. 1g), strengthening the importance of genetic background and adding complexity to the genetic map of chemoresistance. We then took another route by generating drug-specific chemoresistance gene cohorts through a combination of results across cell lines for a given drug in the following analysis. Each chemotherapy drug tested had 81 to 337 chemoresistance genes with a few shared between drugs (Fig. 1d and Supplementary Data 1). Both the genetic background of cells and the drug’s mechanism of action contribute to such variance of chemoresistance genes. Interestingly, when focusing on top hits, several of them were shared by different drugs (Fig. 1e). For example, TP53 was a top hit for oxaliplatin resistance in TP53-wild type (WT) HCT116 cells but not in TP53-mutated DLD1 cells, highlighting how genetic background may affect screening results under certain scenarios (Fig. 1e and Supplementary Fig. 1a; Supplementary Data 1). As a well-characterized multi-functional gene, p53 (encoded by TP53) plays critical roles in DNA damage response, cell cycle regulation, chromosomal instability, and so on. Here, we found that TP53 knockout drove resistance to several chemotherapy drugs on top of its roles in normal cell growth (Fig. 1e). Loss-of-KEAP1, a sensor of oxidative and electrophilic stress, demonstrated irinotecan and cisplatin resistance (Fig. 1e), which agrees with previous findings that these drugs induce oxidative stress. Microtubule-related genes such as KIFC1, KATNA1, KIF18B, WDR62, and KATNBL1 were among the top chemoresistance genes for docetaxel and paclitaxel (Fig. 1e), in line with the microtubule-targeting mechanism of these two drugs."
+   ]
+  },
+  "ch2": {
+   "source": "Results · “A systematic view on genetic maps of chemoresistance”, “Clinical relevance of chemoresistance genes” (the cell-line part) and “A snapshot of chemosensitizer genes”",
+   "text": [
+    "Beyond individual gene-based resistance mechanisms, global investigation through functional enrichment and network analysis using chemoresistance gene cohorts allowed us to scrutinize specific or shared functions and/or pathways within cells that might be involved in driving chemoresistance (Fig. 2a, b). For instance, the “Cell cycle” function was strongly implicated in oxaliplatin, irinotecan, or doxorubicin resistance but to a lesser extent for other drugs. “Signal transduction in response to DNA damage” was weakly but broadly enriched among chemoresistance genes for all the tested drugs. Interestingly, “Regulation of fibroblast proliferation” also emerged as a multidrug resistance function, suggesting the pivotal roles of tumor microenvironment in shaping the responses for many chemotherapy drugs (Fig. 2a). In contrast, mitochondria-related terms were specifically associated with irinotecan resistance (Fig. 2a), consistent with the report that targeting mitochondrial oxidative phosphorylation abrogates irinotecan resistance in lung cancer cells. There were also broad protein-protein interactions between chemoresistance genes as exemplified by the case of oxaliplatin (Fig. 2b). These data systematically provide mechanistic insights into how chemoresistance may develop at the gene or pathway levels.",
+    "Next, we sought to investigate whether these chemoresistance genes identified by in vitro screens have relevance to human clinics. Given the loss-of-function nature of our screening system, we first examined the relationship between chemoresistance genes with tumor suppressor genes (TSGs) whose loss-of-function contribute to the development of cancer. Using cataloged TSG list from the COSMIC Cancer Gene Census, we indeed observed a few but significant overlap between the two gene groups (Fig. 2c, d). In contrast, oncogenes and pan-essential genes were not enriched among chemoresistance genes (Fig. 2d). Despite scattering reports linking TSGs to drug resistance such as TP53 which was also repeatedly found here (Fig. 1e), our study systematically demonstrate the implication of TSGs in mediating chemoresistance. […]",
+    "We further identified chemosensitizer genes from these genome-wide chemoresistance screens whose knockout accelerate cytotoxic cell death for given chemotherapy drugs (score_drug−score_DMSO < −3 and score_drug < −3) (Supplementary Fig. 3a and Supplementary Data 1). Different drugs had distinct sensitizer gene profiles, except that irinotecan had no sensitizer gene identified due to a strong selection pressure in the screens therefore making it inappropriate for analyzing negatively selected sensitizer genes (Supplementary Figs. 3b and 1f). Interestingly, different drugs shared more chemosensitizer genes than chemoresistance genes (Supplementary Fig. 3b and Fig. 1d). Consistently, some of the top sensitizer genes, such as NEK7, KDM5C, KLF5, and BCL2L1 were shared between different drug groups (Supplementary Fig. 3c), suggesting consensus vulnerabilities for multidrug resistance. Functional enrichment analysis for these sensitizer genes indicated potential pathways that might be targeted for combination therapy (Supplementary Fig. 3d). For instance, drugs that interfere with DNA repair processes may enhance the efficacy of oxaliplatin, whereas those that target RNA splicing pathways may increase cellular sensitivity to paclitaxel. These data suggest that potential therapeutic vulnerabilities may converge although the routes to chemoresistance are divergent. On the other hand, like chemoresistance genes, chemosensitizer genes also varied between different cell lines (Supplementary Fig. 3e), further underscoring the importance of cell-of-origin. Together, chemogenomic screens revealed multiple genetic players and mechanisms underlying chemoresistance with a vast diversity primarily determined by genetic background and mechanism of action of drugs. Considering such complexity, solely based on targeting specific chemoresistance drivers or sensitizers, it is still probably difficult to implement a defined and practical therapy against chemoresistant tumors with evolutionarily diversified characters. Instead, exploring multiple lines of chemoresistance simultaneously at an advanced level may be the key to uncover convergent targeting strategy, if any, for practical application in clinics."
+   ]
+  },
+  "ch3": {
+   "source": "Results · “Rapid derivation of chemoresistant cells via evolutionarily distinct routes”",
+   "text": [
+    "Typical approaches to study chemoresistance mainly through either direct comparison between drug-tolerant versus -sensitive cells with different genetic backgrounds, or derivation of matched drugresistant cells from sensitive parental cells via long-term drug challenge. The difference in genetic backgrounds complicates the data interpretation for the former method, while the latter approach is time-consuming and also constrained by undefined factors behind resistance. Benefited by our identification of chemoresistance genes, we tried to derive multiple chemoresistant cells with clearly defined routes in a time- and resource-efficient manner. To test this possibility, we first focused on several top-selected chemoresistance genes from HCT116-oxaliplatin and DLD1-irinotecan groups. Using two independent sgRNAs targeting each gene (Supplementary Fig. 4a–c), we found that knockout of SLC43A2, TP53, or CDKN1A significantly conferred oxaliplatin resistance to HCT116 cells, compared to Vector or AAVS1 control groups (Fig. 3a). With continued drug treatment on these knockout cells, we could readily establish oxaliplatin-resistant cell lines with significantly increased response dose within just one week (Fig. 3b and Supplementary Fig. 5a). TP53 and CDKN1A (encoding p21) are wellknown tumor suppressor genes that have been shown to be implicated in multidrug resistance including oxaliplatin. SLC43A2, a member of the L-amino acid transporter family, was reported to control T cell function through regulating methionine metabolism and histone methylation, but was not known to be implicated in chemoresistance. Similarly, knockout of BEND3, KEAP1, and SGF29 also led to quick generation of irinotecan-resistant DLD1 cells within around 10 days (Fig. 3c and Supplementary Fig. 5b). BEND3 is a transcriptional repressor and epigenetic regulator. KEAP1 acts as a sensor of oxidative and electrophilic stress. SGF29 (also known as CCDC101) is a subunit of the chromatin-modifying SAGA complex. Next, we extended this approach to broader cell lines using corresponding topranked chemoresistance genes and successfully established 5-fluorouracil-resistant MCF7 and NCI-H1568 cells in around two weeks by knocking out MED19 and MMACHC gene, respectively (Fig. 3d, e; Supplementary Figs. 4d, e and 5c, d). MED19 is a subunit of Mediator complex that plays critical role during transcription control while MMACHC is postulated to be involved in cobalamin (vitamin B12) trafficking. In parallel, we also derived oxaliplatin-resistant HCT116 cells and irinotecan-resistant DLD1 cells by gradual drug adaptation and “randomly” clonal selection, which took around three months to achieve a comparable resistance level to that of the above specific gene-derived resistant lines (Fig. 3f–i and Supplementary Fig. 5e, f).",
+    "The quick establishment of chemoresistant cells via specific gene knockout suggests a sufficient role but not merely a promotive function for the individual gene loss in driving resistance. The short duration of drug treatment on CRISPR-mediated gene knockout cell pools seemed to just eradicate unsuccessfully edited sensitive cells. The resistance was, in essence, established once the specific gene was knocked out without the need for corresponding drug adaptation. To test this and determine whether a single gene’s loss-of-function is sufficient to confer chemoresistance, using TP53 as an example, we selected multiple single-cell clones with complete disruption of p53 expression by any of the two independent sgRNAs (Supplementary Fig. 4f). Compared to control cells, all the nine ΔTP53 clones immediately exhibited intrinsic resistance to oxaliplatin treatment without prior drug adaptation (Supplementary Fig. 4g, h). Despite previous implications of p53 during oxaliplatin resistance, our data here directly and unambiguously demonstrate that a single genetic alteration such as TP53 loss-of-function is sufficient for oxaliplatin resistance in HCT116 cells. We inferred that the other top chemoresistance genes whose loss-of-function directly drove the quick establishment of resistant cells also work in a similar manner. […] For those mid- or low-ranked chemoresistance genes, knockout of themselves might not be sufficient to acquire immediate resistance but help to accelerate the development of chemoresistance over time. These data not only consolidate the drug response phenotype of the top chemoresistance hits, but also provide valuable resources for quick generation of multiple chemoresistant cell lines."
+   ]
+  },
+  "ch4": {
+   "source": "Results · “Cellular features of chemoresistant cells” and “Gene expression signatures underlying oxaliplatin or irinotecan resistance”",
+   "text": [
+    "The establishment of multiple resistant cells by knocking out specific genes or long-term drug selection allowed us to characterize the molecular mechanisms behind these evolutionarily distinct chemoresistances. Using oxaliplatin resistance as a model system, we firstly confirmed that these resistant cells derived from distinct sources showed no significant morphological changes (Fig. 4a) and survival decrease under oxaliplatin treatment (Fig. 4b). Cell cycle analysis showed that oxaliplatin significantly reduced cell fraction of S phase and arrested sensitive cells at G2/M phase at medium (5 µM) (Fig. 4c) or high dose (10 µM) (Supplementary Fig. 6a), while at low dose of 2.5 µM (Supplementary Fig. 6b) cells were also arrested at G1 phase. In contrast, resistant cells established from different routes all successfully counteracted such effect (Fig. 4c and Supplementary Fig. 6a, b). Consistently, we observed compromised expression of p53 or p21 across multiple resistant lines compared to sensitive controls (Fig. 4d), which are important cell cycle arrest mediators in response to DNA lesions. Oxaliplatin treatment caused significant decrease for cyclin D1, Cyclin E, phosphorylated Rb (p-Pb), and CKD1 in sensitive control cells, while different resistant lines could largely withstand such decrease (Fig. 4d). Furthermore, ERK activation is reported to mediate cell cycle arrest and apoptosis after DNA damage. Indeed, we found that ERK signaling was repressed or less activated under oxaliplatin treatment across all the tested oxaliplatin-resistant cells (Supplementary Fig. 6c). Apoptosis was only slightly increased upon oxaliplatin treatment using doses of current study in sensitivecontrol cellsbut not in resistant cells (Fig. 4e). These data suggest that cell cycle arrest but not cell apoptosis is the major cytostatic effect of oxaliplatin at relatively low doses in colorectal cancer. Resistant cells from different sources usually exhibit impaired p53/p21 signaling through genetic or epigenetic perturbations to counteract such cell cycle arrest to develop oxaliplatin resistance.",
+    "We further examined irinotecan resistance models. Various resistant cell lines displayed similar morphology and cell growth advantages under irinotecan treatment (Supplementary Fig. 7a, b). Cell cycle analysis indicated that irinotecan elicited a significant arrest at G2/M phase and decrease in G1 and S phases in sensitive control cells, while multiple resistant cells did not undergo such cell cycle arrest (Supplementary Fig. 7c). Similar to oxaliplatin, apoptosis rate was significantly increased only in sensitive control cells, but the overall percentage of apoptosis was not large under tested irinotecan doses (Supplementary Fig. 7d). Unlike oxaliplatin resistance models, we did not see decreased ERK or differences of other tested signaling activities between sensitive and resistant cells by immunoblot (Supplementary Fig. 7e). These results indicate that targeted therapy against these cell growth-related kinases might not be attractive options to overcome irinotecan resistance in colorectal cancer.",
+    "To characterize intrinsic molecular features underlying chemoresistance, we performed transcriptome profiling by RNA sequencing (RNA-seq) for multiple chemoresistant cells in basal state without drug challenge (Supplementary Data 2). Comparison was made firstly between each line of resistant cells and their parental control sensitive cells to retrieve differential gene signatures for each resistance model. After that, these chemoresistance-related gene signatures were compared across different models to see whether shared or model-specific gene expression alterations exist for chemoresistance. We observed varied gene expression patterns between different oxaliplatin-resistant cells in comparison to control sensitive cells (Fig. 4f, g), indicating that different driving forces could dictate divergent gene expression programs towards resistance. Notably, ΔTP53OR-2 and ΔCDKN1AOR-1 cells shared a more portion of differentially regulated genes (Fig. 4f, g), which is concordant with that p53 can transcriptionally induce p21 expression in response to DNA damage. Interestingly, despite differential gene expression profiles, cell cycle related genes were repetitively enriched across multiple oxaliplatin-resistant cell lines (Fig. 4h). For example, CCNA2 (encoding cyclin A2), CDK1 and CCNB1 (encoding cyclin B1) were generally up-regulated while negative regulators of cell growth such as CDKN1C and GPER1 were broadly down-regulated in resistant cells compared to sensitive cells (Fig. 4i). These data further suggest that propelling cell cycle progression might be one of the major routes for cells to counteract cytotoxic effect of oxaliplatin.",
+    "For differential genes associated with irinotecan resistance, there was a significant overlap of such gene sets between the three gene-specific resistant cells (ΔBEND3IR-1, ΔKEAP1IR-2 and ΔSGF29IR-2) while randomly derived resistant cells (DLD1IR) had a distinct gene expression pattern (Supplementary Fig. 8a, b). It is interesting that these three mechanistically distinct genes might work synergistically along similar routes to confer irinotecan resistance. Moreover, genes related to “microtubule cytoskeleton organization”, “mitotic cell cycle” and “DNA damage response” were significantly enriched among those up-regulated genes across three gene-specific resistant cells (Supplementary Fig. 8c, d), suggesting the implication of these pathways in shaping chemoresistance of indicated cells. In addition, several drug transporter genes involved in multidrug resistance were also up-regulated in some resistant cells (Supplementary Fig. 8e), further complementing the mechanisms for chemoresistance. […]",
+    "To exclude the potential bias in gene-specific resistant cell models, we specifically examined the gene expression profiles of traditional drug resistance model derived via gradual drug pulsing and clonal selection. We observed thatpositively selected hits in chemoresistance screen tended to be down-regulated in corresponding resistant cell lines (HCT116OR or DLD1IR), supporting the loss-of-function effect of these genes in driving chemoresistance (Supplementary Fig. 9a). On the other hand, up-regulated genes in resistant cells were more negatively selected in corresponding chemoresistance screens (Supplementary Fig. 9b), suggesting that some of the up-regulated genes might functionally drive chemoresistance. Furthermore, the genes relating to prominently enriched functional terms for up- or downregulated genes in resistant cells tended to be either more negatively selected or positively selected during chemoresistance screen, respectively (Supplementary Fig. 9c, d). These data again established the link between gene expression signatures and the functional effect in driving chemoresistance. […]"
+   ]
+  },
+  "ch5": {
+   "source": "Results · “Second-round CRISPR screens for druggable targets against chemoresistance” and “Selective dependency on PLK4 for oxaliplatin-resistant cells”",
+   "text": [
+    "Although multiple chemoresistant cells displayed diverse molecular features, we still hope to identify convergent vulnerabilities across all the resistant cells towards practical therapeutics. To explore potential druggable targets, we synthesized a new CRISPR knockout library with 12,000 sgRNAs targeting 1,716 druggable genes in the human genome (Supplementary Data 3; See Methods). Each druggable gene corresponds to one or more targeted drugs with inhibitory function to the gene. Using this druggable gene library, we carried out 20 CRISPR knockout screens on four lines of the above established HCT116-based and two additional oxaliplatin-resistant lines of different genetic backgrounds (DLD1OR and HCT8OR) together with their parental control sensitive cells (Fig. 5a and Supplementary Fig. 10; Supplementary Data 4). Two biological replicates correlated well for each condition (Supplementary Fig. 11a–j), suggesting a high reproductivity of the screening data. To pinpoint specific drug targets against chemoresistance, we preferentially focused on those druggable genes that were more negatively selected in resistant cells but less negatively or neutrally selected in normal sensitive cells (scoreresistant–scoresensitive < −1 & scoreresistant < −2 & scoresensitive < 1). Such strategy helps to identify prioritized drugs that are administrated as single-agent regimen to treat recurrent or resistant tumors post chemotherapy. Using such criteria, we identified a cohort of genes across all the six oxaliplatin-resistant cell lines, including a common hit - cell cycle regulator PLK4 (Fig. 5b, c). Functional enrichment analysis for these druggable hits indicated that targeting “cell cycle” processes might be tentative approaches to preferentially eradicate oxaliplatin-resistant cells (Fig. 5d). Similar six screens and analysis were also performed against irinotecan resistance and tens of druggable genes were shared between at least two irinotecan-resistant cell lines (Supplementary Fig. 12a–c). Functional terms related to “mitochondria” and “cellular respiration” were preferentially enriched for druggable genes antagonizing irinotecan resistance (Supplementary Fig. 12d), which is also in accordance to enriched mitochondria-related genes in first-round irinotecan resistance screen (Fig. 2a). The top consensus druggable genes for irinotecan-resistant cells were highlighted (Supplementary Fig. 12c, e). These results suggest that convergent vulnerabilities indeed exist for evolutionarily distinct chemoresistance, and these druggable targets or pathways identified by such approach provide a tentatively practical choice to apply single-agent regimens to overcome chemoresistance.",
+    "To test the validity of convergent targeting strategy, we preferentially focused on the top hit PLK4 for its roles and targeting potential against oxaliplatin resistance in colorectal cancer (Fig. 5c). PLK4 encodes a serine/threonine protein kinase that regulates centriole duplication as well as cytokinesis during the cell cycle and is also implicated in resistance to radiotherapy, cisplatin, temozolomide and taxanes. Using individual sgRNAs, we specifically knocked out PLK4 or its homolog gene PLK1 in HCT116 cells (Fig. 5e). PLK4 knockout led to more significant cell growth reduction in all the seven oxaliplatinresistant cell lines compared to three groups of control sensitive cells (Fig. 5f). In contrast, knockout of PLK1, recently reported to be associated with chemoresistance, only had minor effect in a subset of oxaliplatin-resistant cells (Supplementary Fig. 13a), suggesting that PLK4 is a more convergent and fundamental vulnerability than PLK1. To rule out potential off-target effect and determine whether kinase activity of PLK4 is necessary for this phenotype, we constructed a Cas9-resistant (mutating PAM sequence without changing open reading frame) wild type (WT) and kinase-dead (KD) form (D154A) of PLK4 for rescue experiments.As shown in Fig. 5g, PLK4-WT expression could fully rescue the growth reduction resulting from PLK4 knockout, whereas PLK4-KD failed to do so, suggesting that the kinase activity of PLK4 is required for its specific cell growth phenotype in resistant cells. Moreover, for three additional oxaliplatin-resistant cell lines using “randomly” clonal selection method based on DLD1, HCT8 and HCT29 parental cells (Supplementary Fig. 10a–c), PLK4 knockout still significantly decreased cell growth for these resistant cells despite diversified genetic backgrounds (Fig. 5h–j). Moreover, consistent with the results from genetic ablation of PLK4, when applying a specific PLK4 inhibitor CFI-400945, similar cell growth reduction effects were also observed in all the oxaliplatin-resistant cells tested (Fig. 5k–n and Supplementary Fig. 13b). These data demonstrate that catalytically active PLK4 is a convergently vulnerable target for multiple lines of oxaliplatin-resistant cells, despite their varied genetic backgrounds, distinct derivation routes and divergent molecular features."
+   ]
+  },
+  "ch6": {
+   "source": "Results · “Selective dependency on PLK4 for oxaliplatin-resistant cells” and “Mechanistic insights on oxaliplatin resistance and PLK4 dependency”",
+   "text": [
+    "To explore how PLK4 exerts its function in oxaliplatin-resistant cells, we examined the effect of PLK4 knockout on cell cycle regulation. A pronounced G2/M phase accumulation was observed upon PLK4 knockout in resistant cells versus sensitive controls (Fig. 6a). Consistently, CFI-400945 treatment also significantly drove the accumulation of G2/M phase for resistant cells (Fig. 6b). Given that PLK4 can regulate centriole biogenesis and mitosis, we performed a timecourse analysis on mitotic spindle assembly. Interestingly, either PLK4 knockout or CFI-400945 treatment led to spindle collapse only in resistant cells but not in sensitive control cells (Fig. 6c, d and Supplementary Fig. 14a, b), which was consistent with corresponding cell growth phenotype (Fig. 5f, k). As PLK4 was required for centriole duplication, centrosomes were significantly depleted in PLK4 knockout cells for both sensitive and resistant cells (Supplementary Fig. 14c, d). However, CFI-400945 treatment did not reduce centrosome number (Supplementary Fig. 14e), which is consistent with previous reports that relatively low dose range of CFI-400945 can rather increase centriole duplication possibly due to an increase in protein levels of partially active PLK4. These results suggest that centriole biogenesis may not be the key to explain the differential dependency on PLK4 between sensitive and resistant cells. PLK4 could also control spindle assembly in acentrosomal cells through coordination with pericentriolar material (PCM). More importantly, PLK4 was also reported to be essential for cytokinesis. Failed spindle assembly and cytokinesis may cause enhanced polyploidy and stalled cell division. Consistent with this hypothesis, we observed increased multicentrosomes (≥3) in resistant cells than sensitive cells synchronized at G2/M phase upon PLK4 knockout or CFI-400945 treatment (Fig. 6e, f), which is possibly due to polyploidy from failed daughter cell separation after DNA duplication. Quantification of >4 N (DNA content) cells provided direct evidence that PLK4 loss-of-function led to enhanced polyploidy in resistance cells compared to sensitive control cells (Fig. 6g, h). Little effect on apoptosis was observed upon PLK4 knockout or inhibition in these cells (Supplementary Fig. 14f, g). These data indicate that, compared to control sensitive cells, PLK4-mediated spindle assembly and cytokinesis control is essentially required specifically for oxaliplatin-resistant cell growth.",
+    "We further sought to identify downstream PLK4 target genes by RNA-seq. Upon CRISPR-mediated PLK4 knockout, differential amount of target genes was identified in both resistant and sensitive control cells (Supplementary Fig. 15a, b and Supplementary Data 5). Interestingly, we did not observe consensus difference for PLK4-regulated targets between resistant and sensitive groups. Rather, ΔSLC43A2OR-1 sample resembled ΔTP53OR-1 group, and sensitive vector cells were more similar to the resistant ΔCDKN1AOR-1 cells (Supplementary Fig. 15a, b). Functional enrichment analysis showed that RNA processing-related genes were enriched in PLK4 up-regulated targets for all cell types (Supplementary Fig. 15c). When focusing on specific enrichment only in resistant cells, more basic terms such as “ribosome”, “proteasome” and “cell cycle” or functions related to “cell adhesion” appeared (Supplementary Fig. 15d, e), consistent with pronounced vulnerability to PLK4 inhibition for resistant cells. Previous studies showed that PLK4 inhibition causes synthetic lethality in cancer cells with genomic amplification or overexpression of the centrosomal ubiquitin ligase TRIM37 which is a negative regulator of PCM. Compromised PCM failed to proceed acentrosomal spindle assembly and led to mitotic failure in cells with centrosome depletion caused by PLK4 inhibition. Indeed, we observed that several PCM scaffolding genes (e.g., TUBG1 and CEP192) were de-regulated in PLK4 ablated oxaliplatin-resistant cells (Supplementary Fig. 15f), which further supports our speculation that PLK4-regulated PCM might be more critical than centriole biogenesis in distinguishing the spindle collapse phenotype among oxaliplatin-resistant and -sensitive cells.",
+    "Through a combinatorial effort including CRISPR screen, cellular and molecular characterization of multiple oxaliplatin-resistant models, we gained some preliminary insights on how colorectal cancer develops oxaliplatin resistance (Fig. 6i). In sensitive cells, the formation of oxaliplatin-DNA adduct creates DNA lesions that can be sensed by p53. The activated p53-p21 pathway then induces both G1 and G2/M cell cycle arrest, thereby blocking cell growth of oxaliplatin-sensitive cells. Once the cells undergo certain genetic or epigenetic alterations that block the function of p53-p21 pathway (e.g., knockout of TP53, CDKN1A or SLC43A2), the cells become resistant to oxaliplatin treatment due to unconstrained cell cycle progression. Notably, other mechanisms such as altered drug transport, detoxification, DNA repair and cell death were reported to underlie oxaliplatin resistance in various contexts including colorectal cancer. Our results here favored a cell cycle-centered theory as the primary mechanism to explain oxaliplatin resistance in colorectal cancer. As cells become resistant to oxaliplatin, they may also bear certain special vulnerabilities that are conferred concomitantly by those causal alterations. Indeed, multiple oxaliplatin-resistant cells are accordantly more dependent on PLK4 function to complete cell division in the presence of oxaliplatin-induced DNA lesions. Consistently, p53 was reported to negatively regulate PLK4 expression during stress response. Either genetic ablation or pharmaceutical inhibition of PLK4 can lead to failed spindle assembly and cytokinesis preferentially in resistant cells (Fig. 6i). Such vulnerability creates an opportunity to apply single-agent PLK4-targeting drug for the treatment of oxaliplatin-resistant colorectal cancers."
+   ]
+  },
+  "ch7": {
+   "source": "Results · “Targeting PLK4 in xenograft model and clinical samples” (the mouse part)",
+   "text": [
+    "To further examine the therapeutic potential of targeting PLK4 to antagonize oxaliplatin resistance, we set up a tumor xenograft model in mice with oxaliplatin-responsive (vector) or -resistant (HCT116OR) HCT116 cells and monitored in vivo tumor growth upon oxaliplatin or CFI-400945 treatment. As shown in Supplementary Fig. 16a–d, HCT116OR xenograft indeed showed resistance to oxaliplatin in vivo while tumor growth of sensitive group can be significantly repressed by the same oxaliplatin treatment. In contrast, the oxaliplatin-resistant tumors (HCT116OR) displayed remarkable growth repression upon CFI-400945 treatment compared to medium response of control sensitive tumors (Fig. 7a–c and Supplementary Fig. 16e)."
+   ]
+  }
+ },
+ "legends": {
+  "1": "Fig. 1 | Genome-scale identification of chemoresistance genes. a Workflow of genome-wide CRISPR knockout screen to identify chemoresistance genes. b The number of chemoresistance genes identified from each indicated screen. c Pearson",
+  "2": "Fig. 2 | A systematic view on chemoresistance genes. a Enriched functional terms from Kyoto Encyclopedia of Genes and Genomes (KEGG) and Gene Ontology (GO) for chemoresistance genes of indicated chemotherapy drugs. Unpaired two-sided t test for p value with Benjamini-Hochberg (BH) adjustment. b Protein-protein interaction network for chemoresistance genes of oxaliplatin. The genes belonging to indicated functional terms are color-coded. c Venn diagram showing the overlap between tumor suppressor genes (TSGs) and chemoresistance genes. The overlap is significant as calculated by the Hypergeometric test (two-sided, p = 9.4e-7).",
+  "3": "Fig. 3 | Rapid derivation of chemoresistant cells. a Crystal violet staining of HCT116 cells with lentiviral infection of indicated sgRNAs and oxaliplatin treatment. b–e Bar chart showing the value of IC50 of indicated cells derived from three experimental replicates shown in Supplementary Fig. 5a–d. f–i Establishment of acquired resistance to oxaliplatin in HCT116 (f) and to irinotecan in DLD1 (h) cells",
+  "4": "Fig. 4 | Cellular and molecular features of oxaliplatin-resistant cells. a Cell morphology of multiple oxaliplatin-sensitive (Mock, Vector, and sgAAVS1 groups) and -resistant cell lines in the absence or presence of 5 μM oxaliplatin for 6 days. Scale bar, 50 μm. b Cell number quantification of indicated oxaliplatin-sensitive and -resistant cell lines after 7 days of oxaliplatin treatment. Mean ± SD with n = 3 biological replicates. Unpaired two-sided t test (oxaliplatin vs. DMSO) for p value. c Cell cycle analysis by propidium iodide (PI) staining of indicated cell lines in the absence or presence of 5 μM oxaliplatin for 48 h. OXA, oxaliplatin. Mean ± SD with n = 3 biological replicates. Unpaired two-sided t test for p value. d Immunoblot analysis of indicated proteins for multiple oxaliplatin-sensitive or -resistant HCT116 cell lines in the absence or presence of 5 μM oxaliplatin for 48 h. e Apoptosis analysis by PI",
+  "5": "Fig. 5 | Interrogation of druggable targets against oxaliplatin resistance by second-round CRISPR screens. a Workflow of identification of potential targets against oxaliplatin resistance using druggable gene CRISPR knockout screens. b Venn diagram of preferably druggable gene hits (ΔSLC43A2OR-1, ΔTP53OR-2 or ΔCDKN1AOR-1 vs. Vector; HCT116OR, HCT8OR, DLD1OR vs. corresponding untreated Mock) in six oxaliplatin-resistant cell lines. c The RRA scores of all the tested genes for oxaliplatin-sensitive control or -resistance cells in each comparison. The genes in red box are preferential targets against resistance. d The prominently enriched functional terms for druggable gene sets against oxaliplatin in six resistant cell lines. Unpaired two-sided t test for p value with Benjamini-Hochberg (BH) adjustment. e Immunoblot analysis validating the knockout effect of PLK4 or PLK1. sgCtrl, empty control sgRNA vector. f Cell growth effect of PLK4 knockout in oxaliplatin-sensitive or -resistant cell lines. Mean ± SD with n = 3 biological replicates. Unpaired two-sided t test (ΔSLC43A2OR, ΔTP53OR or ΔCDKN1AOR",
+  "6": "Fig. 6 | Selective dependency on PLK4 for oxaliplatin-resistant cells. a Cell cycle analysis upon PLK4 knockout in oxaliplatin-sensitive and -resistant cells. Mean ± SD with n = 3 biological replicates. Unpaired two-sided t test for p value. b Cell cycle analysis by BrdU and PI staining upon CFI-400945 treatment in oxaliplatin-sensitive and -resistant cells. Mean ± SD with n = 3 biological replicates. Unpaired two-sided for p value. c PLK4 knockout results in spindle collapse, folding, and slippage in oxaliplatin-resistant cells. Scale bar, 5 μm. d Quantification of spindle collapse for (c). Mean ± SD with n = 3 biological replicates, 100–200 cells were analyzed per independent experiment. Unpaired two-sided t test for p value. e, f Distribution of cell populations with indicated centrosome number according to γ-tubulin staining as shown in Supplementary Fig. 14c before or after PLK4 knockout (e) or CFI-400945 treatment (f) for oxaliplatin-sensitive and -resistant cells synchronized at G2/M phase. Mean ± SD with n = 3 biological replicates, 100–200 cells were",
+  "7": "Fig. 7 | Validation of efficacy of the PLK4 inhibitor CFI-400945 against oxaliplatin resistance in mice and at clinical levels. a Tumor volume measured at indicated time points after xenograft implantation for oxaliplatin-sensitive (Vector) or -resistant (HCT116OR) xenograft treated with vehicle or CFI-400945. (n = 12, number of tumor). Mean ± SEM. Two-way ANOVA for p value. b–c Relative tumor volume (compared to day 0) (b) or tumor weight (c) of mouse xenografts for indicated HCT116 cells measured at Day 21 post implantation. (n = 12, number of tumor). Mean ± SEM. Unpaired two-sided t test for p value. d Immunoblot of PLK4"
+ },
+ "limitations": [
+  {
+   "title": "Patient data are not shown",
+   "text": "Figs 2e, 2f, 7d–g, Supplementary Figs 2, 8g, 9e–f, 17 and 18, and the related text use TCGA cohorts, public patient RNA-seq, patient tumour tissue and patient-derived organoids. They are outside the scope of Living Papers, which covers cell-line and animal data only, and are not reproduced or summarised here. Quotes from the article stop or skip where they turn to patient data, marked […]."
+  },
+  {
+   "title": "Images are not reproduced",
+   "text": "Micrographs, crystal violet plates, immunoblots, indel gels, the network of Fig 2b and the scheme of Fig 6i are in the article. Panels without numbers in the Source Data are not shown."
+  },
+  {
+   "title": "Large tables are shown, not redrawn",
+   "text": "Enrichment tables (Fig 2a, 4h, 5d, Supplementary Figs 1e, 3d, 8c–d, 12d, 15c–e) and the gene heatmaps (Fig 4g, 4i, Supplementary Figs 8, 9, 15) are in the Source Data file. This page draws Fig 2a and uses the underlying screens and RNA-seq tables (Supplementary Data 1, 2, 4 and 5) for the explorers."
+  },
+  {
+   "title": "RNA-seq: the differential lists only",
+   "text": "Supplementary Data 2 and 5 hold raw counts and, for each comparison, the genes that passed the authors’ thresholds. The page shows those lists; it does not renormalise the counts or rerun DESeq2."
+  },
+  {
+   "title": "IC50 values are refitted",
+   "text": "IC50 values were refitted to the replicate values with a variable-slope model normalised to 100 and 0 (Data checks). The fits are given for comparison with the printed values and do not replace them."
+  },
+  {
+   "title": "p values are recomputed, not judged",
+   "text": "Two-sample t-tests were rerun on the replicate values in the Source Data file and set next to the p values written in the same file. Where the file does not name the reference group or the cell-cycle phase, the alternatives tested are listed. Nothing on this page interprets the differences."
+  },
+  {
+   "title": "Same condition is not a replication",
+   "text": "The comparison with HCT116 impedance curves from another laboratory sets two different assays side by side. No agreement or disagreement is claimed."
+  }
+ ],
+ "provenance": [
+  {
+   "item": "All figure panels",
+   "source": "Source Data file (41467_2024_49673_MOESM11_ESM.xlsx), 25 sheets, one per main or supplementary figure"
+  },
+  {
+   "item": "First-round screens · 30 screens, 18,459 genes",
+   "source": "Supplementary Data 1 (MOESM2): sheets “RRA Score”, “chemoresistance genes”, “chemosensitizer genes”"
+  },
+  {
+   "item": "RNA-seq of resistant lines",
+   "source": "Supplementary Data 2 (MOESM3): raw counts for HCT116 and DLD1, and eight DESeq2 sheets"
+  },
+  {
+   "item": "Druggable library",
+   "source": "Supplementary Data 3 (MOESM4): 12,000 sgRNAs"
+  },
+  {
+   "item": "Second-round druggable screens",
+   "source": "Supplementary Data 4 (MOESM5): RRA scores (oxaliplatin, 20 columns; irinotecan, 6 columns) and the hit sheets with their formulas"
+  },
+  {
+   "item": "RNA-seq after PLK4 knockout",
+   "source": "Supplementary Data 5 (MOESM6): raw counts and four DESeq2 sheets"
+  },
+  {
+   "item": "Text, methods, legends, references",
+   "source": "The published article, Nature Communications 15:5502 (2024), CC BY 4.0; the PDF carries “corrected publication 2025”"
+  },
+  {
+   "item": "Raw sequencing (not used here)",
+   "source": "Genome Sequence Archive, as stated in the article’s Data availability section"
+  },
+  {
+   "item": "Same condition, right panel",
+   "source": "Živanović et al. 2023, Pharmaceutics 15:1628, HCT116 impedance curves with oxaliplatin, irinotecan and 5-fluorouracil, from its Living Paper"
+  }
+ ],
+ "methods": [
+  {
+   "id": "m-eth",
+   "title": "Ethical statement",
+   "section": "Methods",
+   "paragraphs": [
+    "All animal experimental procedures were performed according to the Guidelines for the Care and Use of Laboratory Animals and were approved by the Biological and Medical Ethics Committee of Northeastern University (#NEU-EC-2021A020S). […]"
+   ]
+  },
+  {
+   "id": "m-cells",
+   "title": "Cells",
+   "section": "Methods",
+   "paragraphs": [
+    "HEK293FT (Cat# CRL-1573), HCT116 (Cat# CCL-247), DLD1 (Cat# CCL-221), T47D (Cat# HTB-133), MCF7 (Cat# HTB-22), A549 (Cat# CRM-CCL-185), NCI-H1568 (Cat# CRL-5876), HCT8 (Cat# CCL-244) and HT29 (Cat# HTB-38) cells were obtained from the American Type Culture Collection (ATCC). All cells were regularly tested negative for mycoplasma contamination and maintained in DMEM (for HEK293FT, HCT116, T47D, MCF7, A549 and HT29 cells) or RPMI 1640 (for DLD1, NCI-H1568 and HCT8 cells) medium with 10% fetal bovine serum plus 1% penicillin/streptomycin at 37 °C with 5% CO2."
+   ]
+  },
+  {
+   "id": "m-mice",
+   "title": "Mice",
+   "section": "Methods",
+   "paragraphs": [
+    "Around 6-week-old SFP-BALB/cA-nu male mice were purchased from Beijing HFK Bioscience Co.,Ltd. (Beijing, China). All mice were fed in standard individual ventilated cages, and maintained with 12 h: 12 h light cycle, 24–26 °C room temperature and 40–60% relative humidity."
+   ]
+  },
+  {
+   "id": "m-lenti",
+   "title": "Lentivirus production",
+   "section": "Methods",
+   "paragraphs": [
+    "Lentiviruses were generated by co-transfecting lentivector plasmids of interest together with packaging vectors pCMVR8.74 and pMD2.G using Opti-MEM (Gibco) and Lipofectamine 2000 reagent (Invitrogen) in HEK293FT cells. Viral supernatants were collected at 48 hour (h) or 72 h post transfection and centrifuged at 1580 × g for 5 min. The viral supernatants collected were subsequently aliquoted and stored at −80 °C before use."
+   ]
+  },
+  {
+   "id": "m-screen1",
+   "title": "First-round genome-wide CRISPR knockout screen",
+   "section": "Methods",
+   "paragraphs": [
+    "The pooled genome-wide CRISPR knockout library (Addgene, #1000000132) was kindly provided by Prof. X. Shirley Liu and Prof. Myles Brown at Dana-Farber Cancer Institute. We used the h1 part of the half library which contains 92,817 gRNAs targeting 18,436 genes (5 gRNAs per gene) in the human genome and is constructed under lentiCRISPRv2-puro backbone. Pooled lentiviruses encapsulating Cas9 and conjugated gRNAs in the library were produced in HEK293FT cells. HCT116, DLD1, T47D, MCF7, A549 and NCI-H1568 cells were infected with differential amount of lentivirus to maintain a low MOI ( < 0.3) during screening. After 48 h, infected cells were selected with puromycin (1, 3.5, 3.5, 2, 1, and 2 μg/ml, respectively) for 3 days followed by recovery for additional two days. Seven days post infection (Day 0, start point of screen), cells were treated with DMSO or indicated chemotherapy drugs (oxaliplatin, irinotecan, 5-fluorouracil, doxorubicin, cisplatin, docetaxel and paclitaxel) for corresponding cell lines. The concentration of drugs for screening was empirically determined by integrative consideration of IC50 values and cell survival status in the duration timeline of the screens. The details are as follows: HCT116-oxaliplatin (5 μM), HCT116-irinotecan (10 μM), HCT116-5-fluorouracil (10 μM), DLD1-oxaliplatin (20 μM), DLD1-irinotecan (10 μM), DLD1-5-fluorouracil (10 μM), MCF7-paclitaxel (0.01 μM), MCF7-docetaxel (0.01 μM), MCF7-cisplatin (60 μM), MCF7-5-fluorouracil (20 μM), T47D-paclitaxel (0.01 μM), T47D-docetaxel (0.005 μM), T47D-cisplatin (60 μM), T47D-5-fluorouracil (5 μM), T47D-doxorubicin (0.03 μM), A549-paclitaxel (0.02 μM), A549-docetaxel (0.005 μM), A549-cisplatin (20 μM), A549-5-fluorouracil (5 μM), A549-doxorubicin (0.05 μM), NCI-H1568-paclitaxel (0.01 μM), NCI-H1568-docetaxel (0.005 μM), NCI-H1568-5-fluorouracil (5 μM) and NCI-H1568-doxorubicin (0.02 μM). As cells had varied response to drugs, cell fitness selection by drug challenge lasted for around 9 ~ 21 days, depending on selection strength, amount of surviving cells and cell passages, before harvesting samples at the end of screen. The details of the drug treated days are as follows: HCT116-oxaliplatin (21 days), HCT116-irinotecan (21 days), HCT116-5-fluorouracil (21 days), DLD1-oxaliplatin (14 days), DLD1-irinotecan (14 days), DLD1-5-fluorouracil (21 days), MCF7-paclitaxel days), MCF7-docetaxel days), MCF7-cisplatin (12 days), MCF7-5-fluorouracil (15 days), T47D-paclitaxel (20 days), T47D-docetaxel (9 days), T47D-cisplatin (17 days), T47D-5-fluorouracil (9 days), T47D-doxorubicin (12 days), A549-paclitaxel (21 days), A549-docetaxel (21 days), A549-cisplatin (21 days), A549-5-fluorouracil (21 days), A549-doxorubicin (21 days), NCI-H1568-paclitaxel (21 days), NCI-H1568-docetaxel (21 days), NCI-H1568-5-fluorouracil (21 days) and NCI-H1568-doxorubicin (21 days). At least 300X coverage of cells were collected for samples at Day 0 and the end of screen. Genomic DNA was then extracted from these samples and the sgRNA fragment was PCR-amplified. High-throughput sequencing (PE150) was performed (Novogene) to determine the abundance of the sgRNAs. The MAGeCK algorithm was employed to analyze the data."
+   ]
+  },
+  {
+   "id": "m-gdna",
+   "title": "Genomic DNA extraction and sequencing",
+   "section": "Methods",
+   "paragraphs": [
+    "For large number of cells in the screens, cells were collected in 15 mL conical tubes. Add 4 mL lysis buffer (300 mM NaCl, 0.2% SDS, 2 mM EDTA, 10 mM Tris-HCl pH 8.0) in a 15 mL conical tube as well as 40 µL RNase A (10 mg/ml). Incubate tubes at 65 °C for 1 h with rotation. Add 40 µL proteinase K (10 mg/ml) and incubate tubes at 55 °C overnight (or 6 h). Add 4 mL phenol/chloroform/isoamyl alcohol solution (25:24:1), mix the samples and centrifuge at 3560 × g for 15 min. Take the supernatant and mix with 1 volume of isopropanol to precipitate genomic DNA (gDNA). Spin and wash 2 times by 75% ethanol. Add 1 mL clear water (nuclease-free) to dissolve gDNA and measure the concentration using Nanodrop. For low or medium number of cells during indel assays, use 1.5 mL centrifuge tubes during gRNA extraction with reduced quantity of reagents and similar procedures as mentioned above.",
+    "To construct sequencing libraries for quantification of sgRNA abundance, two rounds of PCR were performed to amplify sgRNA region from gDNA and ligate adaptor sequences for Illumina platform sequencing. For the first-round PCR, perform 25–30 separate 100 µL reactions with 6–8 µg genomic DNA in each reaction using Q5 High-Fidelity DNA Polymerase (New England Biolabs) for ~18–20 cycles and then combine the resulting amplicons. The primers (Supplementary Data 6) used for first-round PCR are as follows: lentiCRIPR_1st_Forward: 5′-AATGGACTATCATATGCTTACCGTAACTTGAAAGTATTTCG-3′. lenti CRISPR_1st_Reverse: 5′-GGAGTTCAGACGTGTGCTCTTCCGATCTCCAG TACACGACATCACTTTCCCAGTTTAC-3′. The second-round PCR is to attach Illumina adaptors and barcode samples. Perform the second-round PCR in a 100 µL reaction volume using 1 µL of the product from the first-round PCR for around 10–12 cycles. Primers for the second-round PCR are as follows: lentiCRIPR_2nd_Forward: 5′-AATGAT ACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCC GATCTATCTTGTGGAAAGGACGAAACACC-3′; lentiCRIPR_2nd_Index_ Reverse: 5′-CAAGCAGAAGACGGCATACGAGATNNNNNNNNGTGACTG GAGTTCAGACGTGTGCTCTTCCGATCT-3′ (N(8) are the specific index sequences). Purify PCR product using 1.2% agarose gel and Gel Purification Kit before proceeding to high-throughput sequencing on Illumina PE150 platform (Novogene)."
+   ]
+  },
+  {
+   "id": "m-lib",
+   "title": "Design and construction of druggable gene CRISPR knockout library",
+   "section": "Methods",
+   "paragraphs": [
+    "To design human druggable gene CRISPR knockout library, we selected 1716 druggable genes with well-defined drug-target interactions (6236 associated drugs) included in DGIdb3.0. In addition, we also included 106 known “core essential genes” from published resources, whose perturbations are known to have strong effects on cell proliferation or viability. We then extracted the corresponding sgRNA sequences and annotations for these genes from the Human CRISPR Knockout Library H3 (contributed by Profs. X. Shirley Liu and Myles",
+    "Brown, Addgene pooled library #133914). On average, 6 guides are designed per gene. In addition, 496 AAVS1- or ROSA26-targeting sgRNAs and 495 non-targeting sgRNAs were selected from the H3 library, which were not considered to have functional impact. In total, 12,000 sgRNAs were included for this druggable gene CRISPR knockout library. The oligos with flanking sequences were synthesized in a pooled format (Synbio Technologies).",
+    "Pooled synthetic oligonucleotides were PCR-amplified and cloned into the lentiCRISPRv2-puro vector (expressing Cas9 and sgRNA cassette simultaneously) by Gibson Assembly via the BsmB I site. The ligation mix was transformed into electrocompetent stable E. coli cells by electroporation to reach the efficiency with at least 100X coverage. Transformed bacteria were grown in liquid LB medium for 16–20 h at 30 °C to minimize recombination events in E. coli. The library plasmids were then extracted with the EndoFree Maxi Plasmid Kit (Tiangen, Cat# 4992194)."
+   ]
+  },
+  {
+   "id": "m-screen2",
+   "title": "Second-round CRISPR screen with druggable gene library",
+   "section": "Methods",
+   "paragraphs": [
+    "Pooled lentiviruses encapsulating Cas9 and conjugated gRNAs in the druggable gene library were produced in HEK293FT cells. For oxaliplatin-resistant models, the screens were performed on four lines of control sensitive cells (untreated HCT116-Mock and Vector; DLD1-Mock and HCT8-Mock), and four lines of oxaliplatin-resistant HCT116 cells (ΔSLC43A2OR-1, ΔTP53OR-2, ΔCDKN1AOR-1 and HCT116OR) as well as two additional oxaliplatin-resistant lines (DLD1OR, and HCT8OR). Two biological replicates were performed for second-round CRISPR screen using oxaliplatin resistance models. For irinotecan resistance models, the screens were performed on two lines of control sensitive cells (untreated DLD1-Mock and Vector) and four lines of irinotecan-resistant DLD1 cells (ΔBEND3IR-1, ΔKEAP1IR-2, ΔSGF29IR-2 and DLD1IR). These base cells were created by stably expressing indicated gRNAs with blasticidin resistance. For screening, these cells were infected with pooled lentiviruses of druggable gene library at a low MOI (<0.1). After 48 h, infected cells were selected with puromycin (2 and 3.5 μg/ml for HCT116 and DLD1 cells, respectively) for 3 days followed by recovery for additional two days. The resulting cells (Day 0, start of screen) were continually cultured in normal media for about three weeks (end of screen) to allow fitness selection. At least 300X coverage of cells were collected for samples at Day 0 and the end of screen. Genomic DNA was then extracted for these samples and sgRNA fragment was PCR-amplified. High-throughput sequencing (PE150) was performed (Novogene) to determine the abundance the sgRNAs."
+   ]
+  },
+  {
+   "id": "m-ko",
+   "title": "Individual gene knockout by CRISPR-Cas9",
+   "section": "Methods",
+   "paragraphs": [
+    "Two independent sgRNAs (Supplementary Data 6) were designed for each target gene and cloned into lentiCRISPRv2-blast vector (Addgene #83480) or lentiCRISPRv2-puro vector (Addgene #52961) which expresses Cas9 and sgRNA simultaneously once transduced into target cells. Lentiviruses were produced in HEK293FT cells and then used to infect target cells. After 48 hours, cells were selected by blasticidin for 3-5 days or puromycin for 3 days and the resulting cells were amplified for downstream analysis. To determine the knockout efficiency, indel assay was performed by T7 Endonuclease I-based Mutation Detection with the EnGen® Mutation Detection Kit (NEB #E3321) to detect how efficiently a given sgRNA produces indels at targeted genomic DNA locus. T7 Endonuclease I recognizes and cleaves imperfectly matched DNA. In the first step, PCR products were obtained from the genomic DNA of target cells spanning the Cas9-sgRNA targeted region. In the second step, the PCR products were annealed and digested with T7 Endonuclease I. Fragments were analyzed by agarose gel to determine the efficiency of genome editing. Calculate the efficiency of estimated genome editing using the following formula: % indel = 100 × (1 –ffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffi 1 \u0001 fraction of cleaved bands p",
+    "). For target gene with antibodies available, immunoblot analysis was performed to examine the level of protein reduction as a measurement of knockout efficiency."
+   ]
+  },
+  {
+   "id": "m-res",
+   "title": "Establishment of chemoresistant cell lines",
+   "section": "Methods",
+   "paragraphs": [
+    "For chemoresistant cells derived from specific gene knockout, two independent sgRNAs (numbered as -1 and -2) targeting corresponding gene were designed and cloned into lentiCRISPRv2-blast vector (with blasticidin resistance cassette) or into lentiCRISPRv2-puro vector (with puromycin resistance cassette). Empty vector expressing null sgRNA (Vector or sgCtrl) or construct expressing sgRNA targeting AAVS1 locus (sgAAVS1) served as control for gene-specific knockout. Lentiviruses were produced in HEK293T cells and used to infect HCT116, DLD1, MCF7 or NCI-H1568 cells. After 48 h, cells were selected with blasticidin for 7 days (for HCT116 and DLD1 cells) or with puromycin for 3 days (for MCF7 and NCI-H1568 cells) followed by recovery for additional two days. Successfully infected cells were further selected with oxaliplatin for days (ΔSLC43A2OR-1, ΔSLC43A2OR-2, ΔTP53OR-1, ΔTP53OR-2, ΔCDKN1AOR-1 and ΔCDKN1AOR-2), irinotecan for 11 days (ΔBEND3IR-1, ΔBEND3IR-2, ΔKEAP1IR-1, ΔKEAP1IR-2, ΔSGF29IR-1 and ΔSGF29IR-2), 5-Fluorouracil for 15 days (ΔMED195-FUR-1 and ΔMED195-FUR-2) or 5-Fluorouracil for 19 days (ΔMMACHC5-FUR-1 and ΔMMACHC5-FUR-2) to establish corresponding chemoresistant cell lines. The additional drug adaptation after single-gene KO during establishment of chemoresistant cells helped to get rid of unedited cells and to make sure the resistance phenotype. For acquired resistance by “randomly” clonal selection with gradual drug challenge such as HCT116OR and DLD1IR, wild type HCT116, DLD1, HCT8 and HT29 cells were treated with a stepwise increase of oxaliplatin or irinotecan for about 2-3 months to continually keep the survived cells until significant resistance appeared. Untreated wild type cells (Mock) served as a control in experiments for these “randomly” selected resistant cells. The drug response of control sensitive cells or resistant cells was determined by cell viability assay to confirm the resistance phenotype."
+   ]
+  },
+  {
+   "id": "m-via",
+   "title": "Cell viability assay",
+   "section": "Methods",
+   "paragraphs": [
+    "Cell viability assays for IC50 determination were based on MTT tetrazolium salt colorimetry. Succinate dehydrogenase in the mitochondria of living cells can reduce exogenous MTT to water-insoluble bluepurple crystalline formazan and deposit in cells, while dead cells have no such function. The amount of MTT crystals formed is proportional to the number of cells. Viable cell number was then measured according to the absorbance value. Cells (4 or 5 × 10^3 per well) were plated in 96-well plates and treated with chemotherapy drugs for 3 or 4 days followed by MTT addition. Cell viability was determined by the absorbance value at 490 nm using a BioTek Microplate Spectrophotometer (Gene Company Limited). For other experiments to evaluate cell growth, cell number was directly counted using a hemocytometer. Cell survival status was also visualized by crystal violet staining. Tested cells were washed twice with cold PBS and fixed with 100% methanol for 15 minutes at −20 °C. Subsequently, cells were stained with crystal violet and incubated for 15 minutes at room temperature. Wash away crystal violet with tap water and use a camera to acquire images of cell staining."
+   ],
+   "notes": [
+    "On this page the IC50 values are refitted to every replicate value in the Source Data (Data checks)."
+   ]
+  },
+  {
+   "id": "m-rnaprep",
+   "title": "RNA-seq sample preparation",
+   "section": "Methods",
+   "paragraphs": [
+    "At least 10^7 cells were harvested for each RNA-seq sample. RNA was extracted by TRIzol reagent. Strand-specific libraries were prepared by Novogene and sequenced on Illumina PE150 platform. For RNA-seq to profile transcriptome in oxaliplatin- or irinotecan-resistant HCT116 or DLD1 cells, each condition was performed in duplicate. For all the other RNA-seq, three biological replicates were performed for each condition. Data analysis details are elaborated in the following analysis section."
+   ]
+  },
+  {
+   "id": "m-if",
+   "title": "Immunofluorescence",
+   "section": "Methods",
+   "paragraphs": [
+    "Cells were seeded in 24-well plates with small round glass slides. To visualize the process of spindle assembly, cells were synchronized after adherence by 2 mM thymidine for 16 h followed by recovery in normal media for 8 h. Repeat this treatment and recovery cycle again and treat cells with 100 ng/mL nocodazole for 5 h. After that, cells were fixed at five time points: 0 min, 30 min, 45 min, 60 min and 90 min. Before fixation, wash the cells with PBS for 3 times with 3 min each time. The slides then were fixed with 3.7% paraformaldehyde or methanol for 10 min followed by PBS washing for 3 times with 3 min each time. Use 0.1% Triton X-100 (prepared with PBS) to permeabilize the cell membrane at room temperature for 2 minutes followed by 3 times of PBS washing cycle. Use bovine serum albumin (BSA) to block the glass slides at room temperature for 30 min. Add diluted primary antibody (α-tubulin 1:100, Proteintech # 66031-1-Ig or γ-tubulin 1:200, Proteintech # 15176-1-AP) to each slide, put it in a humid chamber and incubate at 4 °C overnight. Immerse slides 3 times in PBS for 3 min each, add fluorescent secondary antibody (Goat anti-Mouse IgG, 1:500, Thermo Fisher Scientific # A-11001 or Goat anti-Rabbit IgG, 1:500, Thermo Fisher Scientific # A-11008) and incubate for 1 h at room temperature in a wet box. Immerse slides in PBS for 3 times with 3 min each time. Add DAPI for 5 min followed by PBS washing for 3 times with 5 min each time. Dry the liquid on the slide with absorbent paper, and cover the slide with anti-fluorescence quencher liquid seal. Images were collected under a confocal microscope (ZEISS LSM 900)."
+   ]
+  },
+  {
+   "id": "m-cc",
+   "title": "Cell cycle analysis",
+   "section": "Methods",
+   "paragraphs": [
+    "For cell cycle assays, two staining methods (BrdU + PI or PI only) were used. For BrdU plus propidium iodide (PI) staining, 75 μM BrdU was added to the medium one hour before harvesting the treated cells. Cells were fully digested and washed with PBS. Add 90% ethanol dropwise while vortexing to fix the cells. Protect from light at 4 °C overnight. Resuspend and wash samples with PBS. Add 0.5 mL of 2 M HCl (0.5% Triton X-100) dropwise while vortexing and incubate for 30 min at room temperature followed by washing with PBS. Add 1 mL of 100 mM sodium borate solution (pH = 8.5), resuspend the cells, and centrifuge at 700 × g for 5 min. Discard the supernatant, add 1 mL of 3%",
+    "BSA blocking solution prepared in PBST, and incubate at room temperature for 30 min followed by centrifugation to remove the supernatant. Add 100 μL BrdU primary antibody (Cell Signaling Technology # 5292; 1:200 dilution in PBST with 1% BSA) and incubate for one hour at room temperature. After washing with PBST, add 100 μL mouse fluorescence secondary antibody (Thermo Fisher Scientific # A-11001; 1:500 dilution in PBST with 1% BSA). Protect from light and incubate at room temperature for 30 min followed by washing with PBST. Add 350 μL PI/RNase Staining Buffer (BD # 550825) and incubate at room temperature for 30 min while protecting from light. Samples were then filtered through 200-mesh nylon membrane and cell cycle status was analyzed by running on a flow cytometer (BD LSRFortessa). For PI staining, cells were collected and washed once with PBS. Fix cells with 70% pre-cooled ethanol at -20 °C overnight. After washing with PBS, add 500 μL PI/RNase Staining Buffer and incubate at room temperature for 30 min in the dark. Use 200-mesh nylon membrane to filter the samples and proceed to flow cytometry for cell cycle analysis. The gating strategy for flow cytometry analysis was shown in Supplementary Fig. 19."
+   ]
+  },
+  {
+   "id": "m-apo",
+   "title": "Apoptosis assay",
+   "section": "Methods",
+   "paragraphs": [
+    "For apoptosis assays, cells were stained by two methods (PI + Annexin V or PI + Hoechst) and analyzed by flow cytometry. For PI plus Annexin V (FITC) staining, cells were collected and washed once with PBS. Take 1×10^5 resuspended cells, add 195 μL Annexin V-FITC binding solution, 5 μL Annexin V-FITC (Beyotime # C1062) and 10 μL of PI staining solution (Beyotime # C1062). Mix gently and incubate in the dark for 10-20 min at room temperature. Cells were passed through 200-mesh nylon membrane and analyzed on a flow cytometer (BD LSRFortessa). For PI plus Hoechst staining, about 1 million cells were collected for each cell sample in a 1.5 mL centrifuge tube. The cell pellet was resuspended in 0.8 mL of cell staining buffer. Add 5 μL Hoechst staining solution (Beyotime # C1056) and 5 μL PI staining solution. Mix well and incubate on ice or 4 °C for 20-30 min. Pass cells through 200-mesh nylon membrane and proceed to flow cytometry analysis. The gating strategy for flow cytometry analysis was shown in Supplementary Fig. 19."
+   ]
+  },
+  {
+   "id": "m-xeno",
+   "title": "Xenograft assay",
+   "section": "Methods",
+   "paragraphs": [
+    "For testing CFI-400945 efficacy, two lines of HCT116 cells (sensitive control: Vector; resistant line: HCT116OR) were employed for xenograft assay. The mice were randomly allocated to each experimental group. A total of 3 × 10^6 cells were engrafted into both flanks by bilateral subcutaneous injection. When the tumor volume reached 100 mm³ (6 days after cell inoculation), the mice were given intragastric administration of vehicle control (DMSO) or small molecule CFI-400945 at 10 mg/kg/day, 5 days a week. At 21 days post inoculation, the tumor was excised, measured and weighed. For validating oxaliplatin resistance, the mice were given intraperitoneal injection of vehicle control (HO) or oxaliplatin at 7 mg/kg/day, 2 days a week. At 20 days post inoculation, the tumor was excised, measured and weighed. Tumor volume was measured with vernier calipers and calculated using the following formula: volume = (length*width*width)/2. All the tumors were within the maximal size (< 1.5 cm) and volume (< 2000 mm³) limit allowed by the related guidelines of the Biological and Medical Ethics Committee of Northeastern University."
+   ]
+  },
+  {
+   "id": "m-crispr",
+   "title": "CRISPR screen data analysis",
+   "section": "Methods",
+   "paragraphs": [
+    "CRISPR screen data were analyzed by MAGeCK, MAGeCK-VISPR and MAGeCKFlute essentially as described. Briefly, raw sequencing data were pre-processed by using MAGeCK to obtain the read counts for each sgRNA with default parameters. Quality control measurements by MAGeCK-VISPR showed good performance of the screening samples at the sequencing level, read count level, sample level and gene level. Control sgRNAs were used to normalize the data. The MAGeCK TEST algorithm was used to compare treatment with control samples to obtain the significantly enriched and depleted sgRNAs and genes. MAGeCK RRA uses the Robust Rank Aggregation (RRA) score to indicate gene performance during the screening by comparing sgRNA count of screen end point versus that of Day 0 (start of screen). RRA score was returned using ReadRRA function using MAGeCKFlute pipeline. For positive selection, a positive RRA score was assigned for each gene and higher RRA score indicates stronger positive selection for the corresponding gene. For negative selection, a negative value of RRA score was given for each gene and lower RRA score indicates stronger negative selection for the indicated gene. During first-round genome-scale chemogenomic screens, chemoresistance genes were defined as those whose loss-of-function confers resistance to corresponding drugs on screened cells and can be pulled out from positively selected genes with the cutoff as follows: score_drug - score_DMSO > 3 & score_drug > 3. For chemosensitizer genes whose knockout accelerates cytotoxic cell death for given chemotherapy drugs, only samples with modest selection (Gini Index ≤0.3) without too much loss-of sgRNA or count distortion were analyzed as chemosensitizer genes should be pulled out from negatively selected hits. The cutoff for chemosensitizer genes was as follows: score_drug - score_DMSO < -3 & score_drug < -3. For second-round druggable library CRISPR knockout screens, we preferentially focused on those druggable genes that were more negatively selected in resistant cells but less negatively or neutrally selected in normal sensitive cells. The cutoff for preferably druggable gene hits was as follows: scoreresistant – scoresensitive < -1 & scoreresistant < -2 & scoresensitive < 1."
+   ],
+   "notes": [
+    "The thresholds for chemoresistance and chemosensitizer genes are given in Results and in the legend of Supplementary Data 1; Data checks recounts them from the RRA scores."
+   ]
+  },
+  {
+   "id": "m-rna",
+   "title": "RNA-seq analysis",
+   "section": "Methods",
+   "paragraphs": [
+    "Raw reads were aligned to the hg38 human reference genome with the UCSC known gene transcript annotation using HISAT2 with the default parameters. Gene counts were quantified by HTSeq. Differentially expressed genes were identified by DESeq2 with the cutoff of |log2(-fold change)| > 1 & p.adjust < 0.05."
+   ]
+  },
+  {
+   "id": "m-enr",
+   "title": "Functional enrichment analysis",
+   "section": "Methods",
+   "paragraphs": [
+    "The Gene Ontology (GO) and Kyoto Encyclopedia of Genes and Genomes (KEGG) functional enrichment analysis were performed by using the functions of “enricher” and “GSEA” in clusterProfiler R package. For “enricher” analysis, the input is gene sets, and the libraries are composed by KEGG and GOBP. For “GSEA” analysis, the input is the gene expression matrix, and the libraries are the same as used in “enricher”. Enriched terms with false discovery rate (FDR) < 0.05 are regarded as significant."
+   ]
+  },
+  {
+   "id": "m-stat",
+   "title": "Statistics and reproducibility",
+   "section": "Methods",
+   "paragraphs": [
+    "No statistical methods were used to predetermine the sample size. To proceed with statistical analysis, more than three samples or repeats were performed. No data were excluded from the analyses. At least two or three independent replicates were performed in general to ensure reproducibility, and all attempts at reproducibility were successful. The number of replicates for corresponding experiments was also indicated in Methods and figure legends. Biological replicates here all refer to biologically distinct sources, i.e., independently cultured, treated or processed samples. The experiments were not randomized. The Investigators were not blinded to allocation during experiments and outcome assessment. GraphPad Prism 9 software and the R package were employed for statistical analysis. The replicate data were shown as Mean ± SD or Mean ± SEM. The unpaired two-sided t test was used to compare between two groups. Two-way ANOVA was used to estimate the difference for more than two groups. The Wilcoxon rank sum test was used when the data are not normally distributed. Asterisks indicate *p < 0.05, **p < 0.01, and ***p < 0.001."
+   ],
+   "notes": [
+    "p values on this page are recomputed from the replicate values in the Source Data file and set next to the p values written in the same file."
+   ]
+  }
+ ],
+ "referenceList": [
+  {
+   "n": 1,
+   "citation": "DeVita, V. T. Jr. & Rosenberg, S. A. Two hundred years of cancer research. N. Engl. J. Med. 366, 2207–2214 (2012).",
+   "url": "https://scholar.google.com/scholar?q=DeVita%2C%20V.%20T.%20Jr.%20%26%20Rosenberg%2C%20S.%20A.%20Two%20hundred%20years%20of%20cancer%20research.%20N.%20Engl.%20J.%20Med.%20366%2C%202207%E2%80%932214%20%282012%29."
+  },
+  {
+   "n": 2,
+   "citation": "Chabner, B. A. & Roberts, T. G. Jr Timeline: chemotherapy and the war on cancer. Nat. Rev. Cancer 5, 65–72 (2005).",
+   "url": "https://scholar.google.com/scholar?q=Chabner%2C%20B.%20A.%20%26%20Roberts%2C%20T.%20G.%20Jr%20Timeline%3A%20chemotherapy%20and%20the%20war%20on%20cancer.%20Nat.%20Rev.%20Cancer%205%2C%2065%E2%80%9372%20%282005%29."
+  },
+  {
+   "n": 3,
+   "citation": "Jiang, N., Wang, X., Yang, Y. & Dai, W. Advances in mitotic inhibitors for cancer treatment. Mini Rev. Med. Chem. 6, 885–895 (2006).",
+   "url": "https://scholar.google.com/scholar?q=Jiang%2C%20N.%2C%20Wang%2C%20X.%2C%20Yang%2C%20Y.%20%26%20Dai%2C%20W.%20Advances%20in%20mitotic%20inhibitors%20for%20cancer%20treatment.%20Mini%20Rev.%20Med.%20Chem.%206%2C%20885%E2%80%93895%20%282006%29."
+  },
+  {
+   "n": 4,
+   "citation": "Liang, X. et al. A comprehensive review of topoisomerase inhibitors as anticancer agents in the past decade. Eur. J. Med. Chem. 171, 129–168 (2019).",
+   "url": "https://scholar.google.com/scholar?q=Liang%2C%20X.%20et%20al.%20A%20comprehensive%20review%20of%20topoisomerase%20inhibitors%20as%20anticancer%20agents%20in%20the%20past%20decade.%20Eur.%20J.%20Med.%20Chem.%20171%2C%20129%E2%80%93168%20%282019%29."
+  },
+  {
+   "n": 5,
+   "citation": "Takeuchi, T. Antitumor antibiotics discovered and studied at the Institute of Microbial Chemistry. J. Cancer Res. Clin. Oncol. 121, 505–510 (1995).",
+   "url": "https://scholar.google.com/scholar?q=Takeuchi%2C%20T.%20Antitumor%20antibiotics%20discovered%20and%20studied%20at%20the%20Institute%20of%20Microbial%20Chemistry.%20J.%20Cancer%20Res.%20Clin.%20Oncol.%20121%2C%20505%E2%80%93510%20%281995%29."
+  },
+  {
+   "n": 6,
+   "citation": "Tiwari, M. Antimetabolites: established cancer therapy. J. Cancer Res. Ther. 8, 510–519 (2012).",
+   "url": "https://scholar.google.com/scholar?q=Tiwari%2C%20M.%20Antimetabolites%3A%20established%20cancer%20therapy.%20J.%20Cancer%20Res.%20Ther.%208%2C%20510%E2%80%93519%20%282012%29."
+  },
+  {
+   "n": 7,
+   "citation": "Huitema, A. D. et al. The clinical pharmacology of alkylating agents in high-dose chemotherapy. Anticancer Drugs 11, 515–533 (2000).",
+   "url": "https://scholar.google.com/scholar?q=Huitema%2C%20A.%20D.%20et%20al.%20The%20clinical%20pharmacology%20of%20alkylating%20agents%20in%20high-dose%20chemotherapy.%20Anticancer%20Drugs%2011%2C%20515%E2%80%93533%20%282000%29."
+  },
+  {
+   "n": 8,
+   "citation": "Gustavsson, B. et al. A review of the evolution of systemic chemotherapy in the management of colorectal cancer. Clin. Colorectal Cancer 14, 1–10 (2015).",
+   "url": "https://scholar.google.com/scholar?q=Gustavsson%2C%20B.%20et%20al.%20A%20review%20of%20the%20evolution%20of%20systemic%20chemotherapy%20in%20the%20management%20of%20colorectal%20cancer.%20Clin.%20Colorectal%20Cancer%2014%2C%201%E2%80%9310%20%282015%29."
+  },
+  {
+   "n": 9,
+   "citation": "Adam, R. Chemotherapy and surgery: new perspectives on the treatment of unresectable liver metastases. Ann. Oncol. 14, ii13–ii16 (2003).",
+   "url": "https://scholar.google.com/scholar?q=Adam%2C%20R.%20Chemotherapy%20and%20surgery%3A%20new%20perspectives%20on%20the%20treatment%20of%20unresectable%20liver%20metastases.%20Ann.%20Oncol.%2014%2C%20ii13%E2%80%93ii16%20%282003%29."
+  },
+  {
+   "n": 10,
+   "citation": "Bozkurt, M., Amlashi, F. G. & Blum Murphy, M. The role of chemotherapy in unresectable or metastatic adenocarcinoma of the stomach and gastroesophageal junction. Minerva Chir. 72, 317–333 (2017).",
+   "url": "https://scholar.google.com/scholar?q=Bozkurt%2C%20M.%2C%20Amlashi%2C%20F.%20G.%20%26%20Blum%20Murphy%2C%20M.%20The%20role%20of%20chemotherapy%20in%20unresectable%20or%20metastatic%20adenocarcinoma%20of%20the%20stomach%20and%20gastroesophageal%20junction.%20Minerva%20Chir.%2072%2C%20317%E2%80%93333%20%282017%29."
+  },
+  {
+   "n": 11,
+   "citation": "Leon-Ferre, R. A., Hieken, T. J. & Boughey, J. C. The landmark series: neoadjuvant chemotherapy for triple-negative and HER2-positive breast cancer. Ann. Surg. Oncol. 28, 2111–2119 (2021).",
+   "url": "https://scholar.google.com/scholar?q=Leon-Ferre%2C%20R.%20A.%2C%20Hieken%2C%20T.%20J.%20%26%20Boughey%2C%20J.%20C.%20The%20landmark%20series%3A%20neoadjuvant%20chemotherapy%20for%20triple-negative%20and%20HER2-positive%20breast%20cancer.%20Ann.%20Surg.%20Oncol.%2028%2C%202111%E2%80%932119%20%282021%29."
+  },
+  {
+   "n": 12,
+   "citation": "Gosavi, R. et al. Neoadjuvant chemotherapy in locally advanced colon cancer: a systematic review and meta-analysis. Int. J. Colorectal Dis. 36, 2063–2070 (2021).",
+   "url": "https://scholar.google.com/scholar?q=Gosavi%2C%20R.%20et%20al.%20Neoadjuvant%20chemotherapy%20in%20locally%20advanced%20colon%20cancer%3A%20a%20systematic%20review%20and%20meta-analysis.%20Int.%20J.%20Colorectal%20Dis.%2036%2C%202063%E2%80%932070%20%282021%29."
+  },
+  {
+   "n": 13,
+   "citation": "Sabanathan, D., Eslick, G. D. & Shannon, J. Use of neoadjuvant chemotherapy plus molecular targeted therapy in colorectal liver metastases: a systematic review and meta-analysis. Clin. Colorectal Cancer 15, e141–e147 (2016).",
+   "url": "https://scholar.google.com/scholar?q=Sabanathan%2C%20D.%2C%20Eslick%2C%20G.%20D.%20%26%20Shannon%2C%20J.%20Use%20of%20neoadjuvant%20chemotherapy%20plus%20molecular%20targeted%20therapy%20in%20colorectal%20liver%20metastases%3A%20a%20systematic%20review%20and%20meta-analysis.%20Clin.%20Colorectal%20Canc"
+  },
+  {
+   "n": 14,
+   "citation": "Salas-Benito, D. et al. Paradigms on immunotherapy combinations with chemotherapy. Cancer Discov. 11, 1353–1367 (2021).",
+   "url": "https://scholar.google.com/scholar?q=Salas-Benito%2C%20D.%20et%20al.%20Paradigms%20on%20immunotherapy%20combinations%20with%20chemotherapy.%20Cancer%20Discov.%2011%2C%201353%E2%80%931367%20%282021%29."
+  },
+  {
+   "n": 15,
+   "citation": "Vasan, N., Baselga, J. & Hyman, D. M. A view on drug resistance in cancer. Nature 575, 299–309 (2019).",
+   "url": "https://scholar.google.com/scholar?q=Vasan%2C%20N.%2C%20Baselga%2C%20J.%20%26%20Hyman%2C%20D.%20M.%20A%20view%20on%20drug%20resistance%20in%20cancer.%20Nature%20575%2C%20299%E2%80%93309%20%282019%29."
+  },
+  {
+   "n": 16,
+   "citation": "Holohan, C., Van Schaeybroeck, S., Longley, D. B. & Johnston, P. G. Cancer drug resistance: an evolving paradigm. Nat. Rev. Cancer 13, 714–726 (2013).",
+   "url": "https://scholar.google.com/scholar?q=Holohan%2C%20C.%2C%20Van%20Schaeybroeck%2C%20S.%2C%20Longley%2C%20D.%20B.%20%26%20Johnston%2C%20P.%20G.%20Cancer%20drug%20resistance%3A%20an%20evolving%20paradigm.%20Nat.%20Rev.%20Cancer%2013%2C%20714%E2%80%93726%20%282013%29."
+  },
+  {
+   "n": 17,
+   "citation": "Kim, C. et al. Chemoresistance evolution in triple-negative breast cancer delineated by single-cell sequencing. Cell 173, 879–893.e813 (2018).",
+   "url": "https://scholar.google.com/scholar?q=Kim%2C%20C.%20et%20al.%20Chemoresistance%20evolution%20in%20triple-negative%20breast%20cancer%20delineated%20by%20single-cell%20sequencing.%20Cell%20173%2C%20879%E2%80%93893.e813%20%282018%29."
+  },
+  {
+   "n": 18,
+   "citation": "Patch, A. M. et al. Whole-genome characterization of chemoresistant ovarian cancer. Nature 521, 489–494 (2015).",
+   "url": "https://scholar.google.com/scholar?q=Patch%2C%20A.%20M.%20et%20al.%20Whole-genome%20characterization%20of%20chemoresistant%20ovarian%20cancer.%20Nature%20521%2C%20489%E2%80%93494%20%282015%29."
+  },
+  {
+   "n": 19,
+   "citation": "Taylor-Weiner, A. et al. Genomic evolution and chemoresistance in germ-cell tumours. Nature 540, 114–118 (2016).",
+   "url": "https://scholar.google.com/scholar?q=Taylor-Weiner%2C%20A.%20et%20al.%20Genomic%20evolution%20and%20chemoresistance%20in%20germ-cell%20tumours.%20Nature%20540%2C%20114%E2%80%93118%20%282016%29."
+  },
+  {
+   "n": 20,
+   "citation": "Oshima, K. et al. Mutational and functional genetics mapping of chemotherapy resistance mechanisms in relapsed acute lymphoblastic leukemia. Nat. Cancer 1, 1113–1127 (2020).",
+   "url": "https://scholar.google.com/scholar?q=Oshima%2C%20K.%20et%20al.%20Mutational%20and%20functional%20genetics%20mapping%20of%20chemotherapy%20resistance%20mechanisms%20in%20relapsed%20acute%20lymphoblastic%20leukemia.%20Nat.%20Cancer%201%2C%201113%E2%80%931127%20%282020%29."
+  },
+  {
+   "n": 21,
+   "citation": "Stewart, C. A. et al. Single-cell analyses reveal increased intratumoral heterogeneity after the onset of therapy resistance in smallcell lung cancer. Nat. Cancer 1, 423–436 (2020).",
+   "url": "https://scholar.google.com/scholar?q=Stewart%2C%20C.%20A.%20et%20al.%20Single-cell%20analyses%20reveal%20increased%20intratumoral%20heterogeneity%20after%20the%20onset%20of%20therapy%20resistance%20in%20smallcell%20lung%20cancer.%20Nat.%20Cancer%201%2C%20423%E2%80%93436%20%282020%29."
+  },
+  {
+   "n": 22,
+   "citation": "Bohl, S. R. et al. Comprehensive CRISPR-Cas9 screens identify genetic determinants of drug responsiveness in multiple myeloma. Blood Adv. 5, 2391–2402 (2021).",
+   "url": "https://scholar.google.com/scholar?q=Bohl%2C%20S.%20R.%20et%20al.%20Comprehensive%20CRISPR-Cas9%20screens%20identify%20genetic%20determinants%20of%20drug%20responsiveness%20in%20multiple%20myeloma.%20Blood%20Adv.%205%2C%202391%E2%80%932402%20%282021%29."
+  },
+  {
+   "n": 23,
+   "citation": "Li, W. et al. MAGeCK enables robust identification of essential genes from genome-scale CRISPR/Cas9 knockout screens. Genome Biol. 15, 554 (2014).",
+   "url": "https://scholar.google.com/scholar?q=Li%2C%20W.%20et%20al.%20MAGeCK%20enables%20robust%20identification%20of%20essential%20genes%20from%20genome-scale%20CRISPR/Cas9%20knockout%20screens.%20Genome%20Biol.%2015%2C%20554%20%282014%29."
+  },
+  {
+   "n": 24,
+   "citation": "Li, W. et al. Quality control, modeling, and visualization of CRISPR screens with MAGeCK-VISPR. Genome Biol. 16, 281 (2015).",
+   "url": "https://scholar.google.com/scholar?q=Li%2C%20W.%20et%20al.%20Quality%20control%2C%20modeling%2C%20and%20visualization%20of%20CRISPR%20screens%20with%20MAGeCK-VISPR.%20Genome%20Biol.%2016%2C%20281%20%282015%29."
+  },
+  {
+   "n": 25,
+   "citation": "Hafner, A., Bulyk, M. L., Jambhekar, A. & Lahav, G. The multiple mechanisms that regulate p53 activity and cell fate. Nat. Rev. Mol. Cell Biol. 20, 199–210 (2019).",
+   "url": "https://scholar.google.com/scholar?q=Hafner%2C%20A.%2C%20Bulyk%2C%20M.%20L.%2C%20Jambhekar%2C%20A.%20%26%20Lahav%2C%20G.%20The%20multiple%20mechanisms%20that%20regulate%20p53%20activity%20and%20cell%20fate.%20Nat.%20Rev.%20Mol.%20Cell%20Biol.%2020%2C%20199%E2%80%93210%20%282019%29."
+  },
+  {
+   "n": 26,
+   "citation": "Rangel-Pozzo, A. et al. p53 CRISPR deletion affects DNA structure and nuclear architecture. J. Clin. Med. 9, 598 (2020).",
+   "url": "https://scholar.google.com/scholar?q=Rangel-Pozzo%2C%20A.%20et%20al.%20p53%20CRISPR%20deletion%20affects%20DNA%20structure%20and%20nuclear%20architecture.%20J.%20Clin.%20Med.%209%2C%20598%20%282020%29."
+  },
+  {
+   "n": 27,
+   "citation": "Rtibi, K. et al. Irinotecan chemotherapy-induced intestinal oxidative stress: underlying causes of disturbed mucosal water and electrolyte transport. Pathophysiology 24, 275–279 (2017).",
+   "url": "https://scholar.google.com/scholar?q=Rtibi%2C%20K.%20et%20al.%20Irinotecan%20chemotherapy-induced%20intestinal%20oxidative%20stress%3A%20underlying%20causes%20of%20disturbed%20mucosal%20water%20and%20electrolyte%20transport.%20Pathophysiology%2024%2C%20275%E2%80%93279%20%282017%29."
+  },
+  {
+   "n": 28,
+   "citation": "Yu, W. et al. Cisplatin generates oxidative stress which is accompanied by rapid shifts in central carbon metabolism. Sci. Rep. 8, 4306 (2018).",
+   "url": "https://scholar.google.com/scholar?q=Yu%2C%20W.%20et%20al.%20Cisplatin%20generates%20oxidative%20stress%20which%20is%20accompanied%20by%20rapid%20shifts%20in%20central%20carbon%20metabolism.%20Sci.%20Rep.%208%2C%204306%20%282018%29."
+  },
+  {
+   "n": 29,
+   "citation": "Skubnik, J., Pavlickova, V., Ruml, T. & Rimpelova, S. Current perspectives on taxanes: focus on their bioactivity, delivery and combination therapy. Plants (Basel) 10, 569 (2021).",
+   "url": "https://scholar.google.com/scholar?q=Skubnik%2C%20J.%2C%20Pavlickova%2C%20V.%2C%20Ruml%2C%20T.%20%26%20Rimpelova%2C%20S.%20Current%20perspectives%20on%20taxanes%3A%20focus%20on%20their%20bioactivity%2C%20delivery%20and%20combination%20therapy.%20Plants%20%28Basel%29%2010%2C%20569%20%282021%29."
+  },
+  {
+   "n": 30,
+   "citation": "Lee, S. et al. Targeting mitochondrial oxidative phosphorylation abrogated irinotecan resistance in NSCLC. Sci. Rep. 8, 15707 (2018).",
+   "url": "https://scholar.google.com/scholar?q=Lee%2C%20S.%20et%20al.%20Targeting%20mitochondrial%20oxidative%20phosphorylation%20abrogated%20irinotecan%20resistance%20in%20NSCLC.%20Sci.%20Rep.%208%2C%2015707%20%282018%29."
+  },
+  {
+   "n": 31,
+   "citation": "Sondka, Z. et al. The COSMIC cancer gene census: describing genetic dysfunction across all human cancers. Nat. Rev. Cancer 18, 696–705 (2018).",
+   "url": "https://scholar.google.com/scholar?q=Sondka%2C%20Z.%20et%20al.%20The%20COSMIC%20cancer%20gene%20census%3A%20describing%20genetic%20dysfunction%20across%20all%20human%20cancers.%20Nat.%20Rev.%20Cancer%2018%2C%20696%E2%80%93705%20%282018%29."
+  },
+  {
+   "n": 32,
+   "citation": "Lai, D., Visser-Grieve, S. & Yang, X. Tumour suppressor genes in chemotherapeutic drug response. Biosci. Rep. 32, 361–374 (2012).",
+   "url": "https://scholar.google.com/scholar?q=Lai%2C%20D.%2C%20Visser-Grieve%2C%20S.%20%26%20Yang%2C%20X.%20Tumour%20suppressor%20genes%20in%20chemotherapeutic%20drug%20response.%20Biosci.%20Rep.%2032%2C%20361%E2%80%93374%20%282012%29."
+  },
+  {
+   "n": 33,
+   "citation": "Huang, S. et al. MED12 controls the response to multiple cancer drugs through regulation of TGF-beta receptor signaling. Cell 151, 937–950 (2012).",
+   "url": "https://scholar.google.com/scholar?q=Huang%2C%20S.%20et%20al.%20MED12%20controls%20the%20response%20to%20multiple%20cancer%20drugs%20through%20regulation%20of%20TGF-beta%20receptor%20signaling.%20Cell%20151%2C%20937%E2%80%93950%20%282012%29."
+  },
+  {
+   "n": 34,
+   "citation": "Toscano, F. et al. p53 dependent and independent sensitivity to oxaliplatin of colon cancer cells. Biochem. Pharm. 74, 392–406 (2007).",
+   "url": "https://scholar.google.com/scholar?q=Toscano%2C%20F.%20et%20al.%20p53%20dependent%20and%20independent%20sensitivity%20to%20oxaliplatin%20of%20colon%20cancer%20cells.%20Biochem.%20Pharm.%2074%2C%20392%E2%80%93406%20%282007%29."
+  },
+  {
+   "n": 35,
+   "citation": "Therachiyil, L. et al. Dysregulated phosphorylation of p53, autophagy and stemness attributes the mutant p53 harboring colon cancer cells impaired sensitivity to oxaliplatin. Front Oncol. 10, 1744 (2020).",
+   "url": "https://scholar.google.com/scholar?q=Therachiyil%2C%20L.%20et%20al.%20Dysregulated%20phosphorylation%20of%20p53%2C%20autophagy%20and%20stemness%20attributes%20the%20mutant%20p53%20harboring%20colon%20cancer%20cells%20impaired%20sensitivity%20to%20oxaliplatin.%20Front%20Oncol.%2010%2C%201744%20%2820"
+  },
+  {
+   "n": 36,
+   "citation": "Hata, T. et al. Role of p21waf1/cip1 in effects of oxaliplatin in colorectal cancer cells. Mol. Cancer Ther. 4, 1585–1594 (2005).",
+   "url": "https://scholar.google.com/scholar?q=Hata%2C%20T.%20et%20al.%20Role%20of%20p21waf1/cip1%20in%20effects%20of%20oxaliplatin%20in%20colorectal%20cancer%20cells.%20Mol.%20Cancer%20Ther.%204%2C%201585%E2%80%931594%20%282005%29."
+  },
+  {
+   "n": 37,
+   "citation": "Bian, Y. et al. Cancer SLC43A2 alters T cell methionine metabolism and histone methylation. Nature 585, 277–282 (2020).",
+   "url": "https://scholar.google.com/scholar?q=Bian%2C%20Y.%20et%20al.%20Cancer%20SLC43A2%20alters%20T%20cell%20methionine%20metabolism%20and%20histone%20methylation.%20Nature%20585%2C%20277%E2%80%93282%20%282020%29."
+  },
+  {
+   "n": 38,
+   "citation": "Kurniawan, F. et al. BEND3 safeguards pluripotency by repressing differentiation-associated genes. Proc. Natl Acad. Sci. USA 119, e2107406119 (2022).",
+   "url": "https://scholar.google.com/scholar?q=Kurniawan%2C%20F.%20et%20al.%20BEND3%20safeguards%20pluripotency%20by%20repressing%20differentiation-associated%20genes.%20Proc.%20Natl%20Acad.%20Sci.%20USA%20119%2C%20e2107406119%20%282022%29."
+  },
+  {
+   "n": 39,
+   "citation": "Zhang, J. et al. Highly enriched BEND3 prevents the premature activation of bivalent genes during differentiation. Science 375, 1053–1058 (2022).",
+   "url": "https://scholar.google.com/scholar?q=Zhang%2C%20J.%20et%20al.%20Highly%20enriched%20BEND3%20prevents%20the%20premature%20activation%20of%20bivalent%20genes%20during%20differentiation.%20Science%20375%2C%201053%E2%80%931058%20%282022%29."
+  },
+  {
+   "n": 40,
+   "citation": "Wang, Y. L., Faiola, F., Xu, M., Pan, S. & Martinez, E. Human ATAC Is a GCN5/PCAF-containing acetylase complex with a novel NC2-like histone fold module that interacts with the TATA-binding protein. J. Biol. Chem. 283, 33808–33815 (2008).",
+   "url": "https://scholar.google.com/scholar?q=Wang%2C%20Y.%20L.%2C%20Faiola%2C%20F.%2C%20Xu%2C%20M.%2C%20Pan%2C%20S.%20%26%20Martinez%2C%20E.%20Human%20ATAC%20Is%20a%20GCN5/PCAF-containing%20acetylase%20complex%20with%20a%20novel%20NC2-like%20histone%20fold%20module%20that%20interacts%20with%20the%20TATA-binding%20protein.%20J"
+  },
+  {
+   "n": 41,
+   "citation": "Bian, C. et al. Sgf29 binds histone H3K4me2/3 and is required for SAGA complex recruitment and histone H3 acetylation. EMBO J. 30, 2829–2842 (2011).",
+   "url": "https://scholar.google.com/scholar?q=Bian%2C%20C.%20et%20al.%20Sgf29%20binds%20histone%20H3K4me2/3%20and%20is%20required%20for%20SAGA%20complex%20recruitment%20and%20histone%20H3%20acetylation.%20EMBO%20J.%2030%2C%202829%E2%80%932842%20%282011%29."
+  },
+  {
+   "n": 42,
+   "citation": "Zhang, Y., Qin, P., Tian, L., Yan, J. & Zhou, Y. The role of mediator complex subunit 19 in human diseases. Exp. Biol. Med. 246, 1681–1687 (2021).",
+   "url": "https://scholar.google.com/scholar?q=Zhang%2C%20Y.%2C%20Qin%2C%20P.%2C%20Tian%2C%20L.%2C%20Yan%2C%20J.%20%26%20Zhou%2C%20Y.%20The%20role%20of%20mediator%20complex%20subunit%2019%20in%20human%20diseases.%20Exp.%20Biol.%20Med.%20246%2C%201681%E2%80%931687%20%282021%29."
+  },
+  {
+   "n": 43,
+   "citation": "Hannibal, L. & Jacobsen, D. W. Intracellular processing of vitamin B12 by MMACHC (CblC). Vitam. Horm. 119, 275–298 (2022).",
+   "url": "https://scholar.google.com/scholar?q=Hannibal%2C%20L.%20%26%20Jacobsen%2C%20D.%20W.%20Intracellular%20processing%20of%20vitamin%20B12%20by%20MMACHC%20%28CblC%29.%20Vitam.%20Horm.%20119%2C%20275%E2%80%93298%20%282022%29."
+  },
+  {
+   "n": 44,
+   "citation": "Singh, S.,Upadhyay, A. K., Ajay, A. K. & Bhat, M. K. p53 regulates ERK activation in carboplatin induced apoptosis in cervical carcinoma: a novel target of p53 in apoptosis. FEBS Lett. 581, 289–295 (2007).",
+   "url": "https://scholar.google.com/scholar?q=Singh%2C%20S.%2CUpadhyay%2C%20A.%20K.%2C%20Ajay%2C%20A.%20K.%20%26%20Bhat%2C%20M.%20K.%20p53%20regulates%20ERK%20activation%20in%20carboplatin%20induced%20apoptosis%20in%20cervical%20carcinoma%3A%20a%20novel%20target%20of%20p53%20in%20apoptosis.%20FEBS%20Lett.%20581%2C%20289%E2%80%93295%20%282"
+  },
+  {
+   "n": 45,
+   "citation": "Tang, D. et al. ERK activation mediates cell cycle arrest and apoptosis after DNA damage independently of p53. J. Biol. Chem. 277, 12710–12717 (2002).",
+   "url": "https://scholar.google.com/scholar?q=Tang%2C%20D.%20et%20al.%20ERK%20activation%20mediates%20cell%20cycle%20arrest%20and%20apoptosis%20after%20DNA%20damage%20independently%20of%20p53.%20J.%20Biol.%20Chem.%20277%2C%2012710%E2%80%9312717%20%282002%29."
+  },
+  {
+   "n": 46,
+   "citation": "Tentner, A. R. et al. Combined experimental and computational analysis of DNA damage signaling reveals context-dependent roles for Erk in apoptosis and G1/S arrest after genotoxic stress. Mol. Syst. Biol. 8, 568 (2012).",
+   "url": "https://scholar.google.com/scholar?q=Tentner%2C%20A.%20R.%20et%20al.%20Combined%20experimental%20and%20computational%20analysis%20of%20DNA%20damage%20signaling%20reveals%20context-dependent%20roles%20for%20Erk%20in%20apoptosis%20and%20G1/S%20arrest%20after%20genotoxic%20stress.%20Mol.%20Syst.%20B"
+  },
+  {
+   "n": 47,
+   "citation": "el-Deiry, W. S. et al. WAF1, a potential mediator of p53 tumor suppression. Cell 75, 817–825 (1993).",
+   "url": "https://scholar.google.com/scholar?q=el-Deiry%2C%20W.%20S.%20et%20al.%20WAF1%2C%20a%20potential%20mediator%20of%20p53%20tumor%20suppression.%20Cell%2075%2C%20817%E2%80%93825%20%281993%29."
+  },
+  {
+   "n": 48,
+   "citation": "Zitouni, S., Nabais, C., Jana, S. C., Guerrero, A. & Bettencourt-Dias, M. Polo-like kinases: structural variations lead to multiple functions. Nat. Rev. Mol. Cell Biol. 15, 433–452 (2014).",
+   "url": "https://scholar.google.com/scholar?q=Zitouni%2C%20S.%2C%20Nabais%2C%20C.%2C%20Jana%2C%20S.%20C.%2C%20Guerrero%2C%20A.%20%26%20Bettencourt-Dias%2C%20M.%20Polo-like%20kinases%3A%20structural%20variations%20lead%20to%20multiple%20functions.%20Nat.%20Rev.%20Mol.%20Cell%20Biol.%2015%2C%20433%E2%80%93452%20%282014%29."
+  },
+  {
+   "n": 49,
+   "citation": "Archambault, V. & Glover, D. M. Polo-like kinases: conservation and divergence in their functions and regulation. Nat. Rev. Mol. Cell Biol. 10, 265–275 (2009).",
+   "url": "https://scholar.google.com/scholar?q=Archambault%2C%20V.%20%26%20Glover%2C%20D.%20M.%20Polo-like%20kinases%3A%20conservation%20and%20divergence%20in%20their%20functions%20and%20regulation.%20Nat.%20Rev.%20Mol.%20Cell%20Biol.%2010%2C%20265%E2%80%93275%20%282009%29."
+  },
+  {
+   "n": 50,
+   "citation": "Press, M. F. et al. Role for polo-like kinase 4 in mediation of cytokinesis. Proc. Natl Acad. Sci. USA 116, 11309–11318 (2019).",
+   "url": "https://scholar.google.com/scholar?q=Press%2C%20M.%20F.%20et%20al.%20Role%20for%20polo-like%20kinase%204%20in%20mediation%20of%20cytokinesis.%20Proc.%20Natl%20Acad.%20Sci.%20USA%20116%2C%2011309%E2%80%9311318%20%282019%29."
+  },
+  {
+   "n": 51,
+   "citation": "Rosario, C. O. et al. Plk4 is required for cytokinesis and maintenance of chromosomal stability. Proc. Natl Acad. Sci. USA 107, 6888–6893 (2010).",
+   "url": "https://scholar.google.com/scholar?q=Rosario%2C%20C.%20O.%20et%20al.%20Plk4%20is%20required%20for%20cytokinesis%20and%20maintenance%20of%20chromosomal%20stability.%20Proc.%20Natl%20Acad.%20Sci.%20USA%20107%2C%206888%E2%80%936893%20%282010%29."
+  },
+  {
+   "n": 52,
+   "citation": "Xu, Z., Sun, Y., Wang, D., Sun, H. & Liu, X. SNHG16 promotes tumorigenesis and cisplatin resistance by regulating miR-338-3p/PLK4 pathway in neuroblastoma cells. Cancer Cell Int. 20, 236 (2020).",
+   "url": "https://scholar.google.com/scholar?q=Xu%2C%20Z.%2C%20Sun%2C%20Y.%2C%20Wang%2C%20D.%2C%20Sun%2C%20H.%20%26%20Liu%2C%20X.%20SNHG16%20promotes%20tumorigenesis%20and%20cisplatin%20resistance%20by%20regulating%20miR-338-3p/PLK4%20pathway%20in%20neuroblastoma%20cells.%20Cancer%20Cell%20Int.%2020%2C%20236%20%282020%29."
+  },
+  {
+   "n": 53,
+   "citation": "Wang, J. et al. Pololike kinase 4 promotes tumorigenesis and induces resistance to radiotherapy in glioblastoma. Oncol. Rep. 41, 2159–2167 (2019).",
+   "url": "https://scholar.google.com/scholar?q=Wang%2C%20J.%20et%20al.%20Pololike%20kinase%204%20promotes%20tumorigenesis%20and%20induces%20resistance%20to%20radiotherapy%20in%20glioblastoma.%20Oncol.%20Rep.%2041%2C%202159%E2%80%932167%20%282019%29."
+  },
+  {
+   "n": 54,
+   "citation": "Zhang, Z. et al. PLK4 is a determinant of temozolomide sensitivity through phosphorylation of IKBKE in glioblastoma. Cancer Lett. 443, 91–107 (2019).",
+   "url": "https://scholar.google.com/scholar?q=Zhang%2C%20Z.%20et%20al.%20PLK4%20is%20a%20determinant%20of%20temozolomide%20sensitivity%20through%20phosphorylation%20of%20IKBKE%20in%20glioblastoma.%20Cancer%20Lett.%20443%2C%2091%E2%80%93107%20%282019%29."
+  },
+  {
+   "n": 55,
+   "citation": "Li, Z. et al. Expression of polo-like kinase 4(PLK4) in breast cancer and its response to taxane-based neoadjuvant chemotherapy. J. Cancer 7, 1125–1132 (2016).",
+   "url": "https://scholar.google.com/scholar?q=Li%2C%20Z.%20et%20al.%20Expression%20of%20polo-like%20kinase%204%28PLK4%29%20in%20breast%20cancer%20and%20its%20response%20to%20taxane-based%20neoadjuvant%20chemotherapy.%20J.%20Cancer%207%2C%201125%E2%80%931132%20%282016%29."
+  },
+  {
+   "n": 56,
+   "citation": "Yu, Z. et al. Inhibition of the PLK1-coupled cell cycle machinery overcomes resistance to oxaliplatin in colorectal cancer. Adv. Sci. 8, e2100759 (2021).",
+   "url": "https://scholar.google.com/scholar?q=Yu%2C%20Z.%20et%20al.%20Inhibition%20of%20the%20PLK1-coupled%20cell%20cycle%20machinery%20overcomes%20resistance%20to%20oxaliplatin%20in%20colorectal%20cancer.%20Adv.%20Sci.%208%2C%20e2100759%20%282021%29."
+  },
+  {
+   "n": 57,
+   "citation": "Sampson, P. B. et al. The discovery of Polo-like kinase 4 inhibitors: design and optimization of spiro[cyclopropane-1,3′[3H]indol]-2’(1’H).ones as orally bioavailable antitumor agents. J. Med. Chem. 58, 130–146 (2015).",
+   "url": "https://scholar.google.com/scholar?q=Sampson%2C%20P.%20B.%20et%20al.%20The%20discovery%20of%20Polo-like%20kinase%204%20inhibitors%3A%20design%20and%20optimization%20of%20spiro%5Bcyclopropane-1%2C3%E2%80%B2%5B3H%5Dindol%5D-2%E2%80%99%281%E2%80%99H%29.ones%20as%20orally%20bioavailable%20antitumor%20agents.%20J.%20Med.%20Chem.%205"
+  },
+  {
+   "n": 58,
+   "citation": "Mason, J. M. et al. Functional characterization of CFI-400945, a Polo-like kinase 4 inhibitor, as a potential anticancer agent. Cancer Cell 26, 163–176 (2014).",
+   "url": "https://scholar.google.com/scholar?q=Mason%2C%20J.%20M.%20et%20al.%20Functional%20characterization%20of%20CFI-400945%2C%20a%20Polo-like%20kinase%204%20inhibitor%2C%20as%20a%20potential%20anticancer%20agent.%20Cancer%20Cell%2026%2C%20163%E2%80%93176%20%282014%29."
+  },
+  {
+   "n": 59,
+   "citation": "Meitinger, F. et al. TRIM37 controls cancer-specific vulnerability to PLK4 inhibition. Nature 585, 440–446 (2020).",
+   "url": "https://scholar.google.com/scholar?q=Meitinger%2C%20F.%20et%20al.%20TRIM37%20controls%20cancer-specific%20vulnerability%20to%20PLK4%20inhibition.%20Nature%20585%2C%20440%E2%80%93446%20%282020%29."
+  },
+  {
+   "n": 60,
+   "citation": "Yeow, Z. Y. et al. Targeting TRIM37-driven centrosome dysfunction in 17q23-amplified breast cancer. Nature 585, 447–452 (2020).",
+   "url": "https://scholar.google.com/scholar?q=Yeow%2C%20Z.%20Y.%20et%20al.%20Targeting%20TRIM37-driven%20centrosome%20dysfunction%20in%2017q23-amplified%20breast%20cancer.%20Nature%20585%2C%20447%E2%80%93452%20%282020%29."
+  },
+  {
+   "n": 61,
+   "citation": "Balestra, F. R. et al. TRIM37 prevents formation of centriolar protein assemblies by regulating centrobin. Elife 10, e62640 (2021).",
+   "url": "https://scholar.google.com/scholar?q=Balestra%2C%20F.%20R.%20et%20al.%20TRIM37%20prevents%20formation%20of%20centriolar%20protein%20assemblies%20by%20regulating%20centrobin.%20Elife%2010%2C%20e62640%20%282021%29."
+  },
+  {
+   "n": 62,
+   "citation": "Tkach, J. M. et al. Global cellular response to chemical perturbation of PLK4 activity and abnormal centrosome number. Elife 11, e73944 (2022).",
+   "url": "https://scholar.google.com/scholar?q=Tkach%2C%20J.%20M.%20et%20al.%20Global%20cellular%20response%20to%20chemical%20perturbation%20of%20PLK4%20activity%20and%20abnormal%20centrosome%20number.%20Elife%2011%2C%20e73944%20%282022%29."
+  },
+  {
+   "n": 63,
+   "citation": "Martinez-Balibrea, E. et al. Tumor-related molecular mechanisms of oxaliplatin resistance. Mol. Cancer Ther. 14, 1767–1776 (2015).",
+   "url": "https://scholar.google.com/scholar?q=Martinez-Balibrea%2C%20E.%20et%20al.%20Tumor-related%20molecular%20mechanisms%20of%20oxaliplatin%20resistance.%20Mol.%20Cancer%20Ther.%2014%2C%201767%E2%80%931776%20%282015%29."
+  },
+  {
+   "n": 64,
+   "citation": "Nakamura, T., Saito, H. & Takekawa, M. SAPK pathways and p53 cooperatively regulate PLK4 activity and centrosome integrity under stress. Nat. Commun. 4, 1775 (2013).",
+   "url": "https://scholar.google.com/scholar?q=Nakamura%2C%20T.%2C%20Saito%2C%20H.%20%26%20Takekawa%2C%20M.%20SAPK%20pathways%20and%20p53%20cooperatively%20regulate%20PLK4%20activity%20and%20centrosome%20integrity%20under%20stress.%20Nat.%20Commun.%204%2C%201775%20%282013%29."
+  },
+  {
+   "n": 65,
+   "citation": "Schmitt, M. et al. Colon tumour cell death causes mTOR dependence by paracrine P2X4 stimulation. Nature 612, 347–353 (2022).",
+   "url": "https://scholar.google.com/scholar?q=Schmitt%2C%20M.%20et%20al.%20Colon%20tumour%20cell%20death%20causes%20mTOR%20dependence%20by%20paracrine%20P2X4%20stimulation.%20Nature%20612%2C%20347%E2%80%93353%20%282022%29."
+  },
+  {
+   "n": 66,
+   "citation": "Wang, M. et al. Acquired semi-squamatization during chemotherapy suggests differentiation as a therapeutic strategy for bladder cancer. Cancer Cell 40, 1044–1059.e1048 (2022).",
+   "url": "https://scholar.google.com/scholar?q=Wang%2C%20M.%20et%20al.%20Acquired%20semi-squamatization%20during%20chemotherapy%20suggests%20differentiation%20as%20a%20therapeutic%20strategy%20for%20bladder%20cancer.%20Cancer%20Cell%2040%2C%201044%E2%80%931059.e1048%20%282022%29."
+  },
+  {
+   "n": 67,
+   "citation": "Su, S. et al. CD10(+)GPR77(+) cancer-associated fibroblasts promote cancer formation and chemoresistance by sustaining cancer stemness. Cell 172, 841–856.e816 (2018).",
+   "url": "https://scholar.google.com/scholar?q=Su%2C%20S.%20et%20al.%20CD10%28%2B%29GPR77%28%2B%29%20cancer-associated%20fibroblasts%20promote%20cancer%20formation%20and%20chemoresistance%20by%20sustaining%20cancer%20stemness.%20Cell%20172%2C%20841%E2%80%93856.e816%20%282018%29."
+  },
+  {
+   "n": 68,
+   "citation": "Fischer, K. R. et al. Epithelial-to-mesenchymal transition is not required for lung metastasis but contributes to chemoresistance. Nature 527, 472–476 (2015).",
+   "url": "https://scholar.google.com/scholar?q=Fischer%2C%20K.%20R.%20et%20al.%20Epithelial-to-mesenchymal%20transition%20is%20not%20required%20for%20lung%20metastasis%20but%20contributes%20to%20chemoresistance.%20Nature%20527%2C%20472%E2%80%93476%20%282015%29."
+  },
+  {
+   "n": 69,
+   "citation": "Vaidya, F. U. et al. Molecular and cellular paradigms of multidrug resistance in cancer. Cancer Rep. 5, e1291 (2020).",
+   "url": "https://scholar.google.com/scholar?q=Vaidya%2C%20F.%20U.%20et%20al.%20Molecular%20and%20cellular%20paradigms%20of%20multidrug%20resistance%20in%20cancer.%20Cancer%20Rep.%205%2C%20e1291%20%282020%29."
+  },
+  {
+   "n": 70,
+   "citation": "Sullivan, M. R. et al. Methionine synthase is essential for cancer cell proliferation in physiological folate environments. Nat. Metab. 3, 1500–1511 (2021).",
+   "url": "https://scholar.google.com/scholar?q=Sullivan%2C%20M.%20R.%20et%20al.%20Methionine%20synthase%20is%20essential%20for%20cancer%20cell%20proliferation%20in%20physiological%20folate%20environments.%20Nat.%20Metab.%203%2C%201500%E2%80%931511%20%282021%29."
+  },
+  {
+   "n": 71,
+   "citation": "Longley, D. B., Harkin, D. P. & Johnston, P. G. 5-fluorouracil: mechanisms of action and clinical strategies. Nat. Rev. Cancer 3, 330–338 (2003).",
+   "url": "https://scholar.google.com/scholar?q=Longley%2C%20D.%20B.%2C%20Harkin%2C%20D.%20P.%20%26%20Johnston%2C%20P.%20G.%205-fluorouracil%3A%20mechanisms%20of%20action%20and%20clinical%20strategies.%20Nat.%20Rev.%20Cancer%203%2C%20330%E2%80%93338%20%282003%29."
+  },
+  {
+   "n": 72,
+   "citation": "Ni Chonghaile, T. et al. Pretreatment mitochondrial priming correlates with clinical response to cytotoxic chemotherapy. Science 334, 1129–1133 (2011).",
+   "url": "https://scholar.google.com/scholar?q=Ni%20Chonghaile%2C%20T.%20et%20al.%20Pretreatment%20mitochondrial%20priming%20correlates%20with%20clinical%20response%20to%20cytotoxic%20chemotherapy.%20Science%20334%2C%201129%E2%80%931133%20%282011%29."
+  },
+  {
+   "n": 73,
+   "citation": "Gligorov, J. & Lotz, J. P. Preclinical pharmacology of the taxanes: implications of the differences. Oncologist 9, 3–8 (2004).",
+   "url": "https://scholar.google.com/scholar?q=Gligorov%2C%20J.%20%26%20Lotz%2C%20J.%20P.%20Preclinical%20pharmacology%20of%20the%20taxanes%3A%20implications%20of%20the%20differences.%20Oncologist%209%2C%203%E2%80%938%20%282004%29."
+  },
+  {
+   "n": 74,
+   "citation": "Guo, C. et al. Therapeutic targeting of the mevalonategeranylgeranyl diphosphate pathway with statins overcomes chemotherapy resistance in small cell lung cancer. Nat. Cancer 3, 614–628 (2022).",
+   "url": "https://scholar.google.com/scholar?q=Guo%2C%20C.%20et%20al.%20Therapeutic%20targeting%20of%20the%20mevalonategeranylgeranyl%20diphosphate%20pathway%20with%20statins%20overcomes%20chemotherapy%20resistance%20in%20small%20cell%20lung%20cancer.%20Nat.%20Cancer%203%2C%20614%E2%80%93628%20%282022%29."
+  },
+  {
+   "n": 75,
+   "citation": "Zeng, K. et al. Inhibition of CDK1 overcomes oxaliplatin resistance by regulating ACSL4-mediated ferroptosis in colorectal cancer. Adv. Sci. 10, e2301088 (2023).",
+   "url": "https://scholar.google.com/scholar?q=Zeng%2C%20K.%20et%20al.%20Inhibition%20of%20CDK1%20overcomes%20oxaliplatin%20resistance%20by%20regulating%20ACSL4-mediated%20ferroptosis%20in%20colorectal%20cancer.%20Adv.%20Sci.%2010%2C%20e2301088%20%282023%29."
+  },
+  {
+   "n": 76,
+   "citation": "Veitch, Z. W. et al. Safety and tolerability of CFI-400945, a first-inclass, selective PLK4 inhibitor in advanced solid tumours: a phase 1 dose-escalation trial. Br. J. Cancer 121, 318–324 (2019).",
+   "url": "https://scholar.google.com/scholar?q=Veitch%2C%20Z.%20W.%20et%20al.%20Safety%20and%20tolerability%20of%20CFI-400945%2C%20a%20first-inclass%2C%20selective%20PLK4%20inhibitor%20in%20advanced%20solid%20tumours%3A%20a%20phase%201%20dose-escalation%20trial.%20Br.%20J.%20Cancer%20121%2C%20318%E2%80%93324%20%282019%29."
+  },
+  {
+   "n": 77,
+   "citation": "Sato, T. et al. Long-term expansion of epithelial organoids from human colon, adenoma, adenocarcinoma, and Barrett’s epithelium. Gastroenterology 141, 1762–1772 (2011).",
+   "url": "https://scholar.google.com/scholar?q=Sato%2C%20T.%20et%20al.%20Long-term%20expansion%20of%20epithelial%20organoids%20from%20human%20colon%2C%20adenoma%2C%20adenocarcinoma%2C%20and%20Barrett%E2%80%99s%20epithelium.%20Gastroenterology%20141%2C%201762%E2%80%931772%20%282011%29."
+  },
+  {
+   "n": 78,
+   "citation": "van de Wetering, M. et al. Prospective derivation of a living organoid biobank of colorectal cancer patients. Cell 161, 933–945 (2015).",
+   "url": "https://scholar.google.com/scholar?q=van%20de%20Wetering%2C%20M.%20et%20al.%20Prospective%20derivation%20of%20a%20living%20organoid%20biobank%20of%20colorectal%20cancer%20patients.%20Cell%20161%2C%20933%E2%80%93945%20%282015%29."
+  },
+  {
+   "n": 79,
+   "citation": "Cotto, K. C. et al. DGIdb 3.0: a redesign and expansion of the druggene interaction database. Nucleic Acids Res. 46, D1068–D1073 (2018).",
+   "url": "https://scholar.google.com/scholar?q=Cotto%2C%20K.%20C.%20et%20al.%20DGIdb%203.0%3A%20a%20redesign%20and%20expansion%20of%20the%20druggene%20interaction%20database.%20Nucleic%20Acids%20Res.%2046%2C%20D1068%E2%80%93D1073%20%282018%29."
+  },
+  {
+   "n": 80,
+   "citation": "Wang, B. et al. Integrative analysis of pooled CRISPR genetic screens using MAGeCKFlute. Nat. Protoc. 14, 756–780 (2019).",
+   "url": "https://scholar.google.com/scholar?q=Wang%2C%20B.%20et%20al.%20Integrative%20analysis%20of%20pooled%20CRISPR%20genetic%20screens%20using%20MAGeCKFlute.%20Nat.%20Protoc.%2014%2C%20756%E2%80%93780%20%282019%29."
+  },
+  {
+   "n": 81,
+   "citation": "Hart, T., Brown, K. R., Sircoulomb, F., Rottapel, R. & Moffat, J. Measuring error rates in genomic perturbation screens: gold standards for human functional genomics. Mol. Syst. Biol. 10, 733 (2014).",
+   "url": "https://scholar.google.com/scholar?q=Hart%2C%20T.%2C%20Brown%2C%20K.%20R.%2C%20Sircoulomb%2C%20F.%2C%20Rottapel%2C%20R.%20%26%20Moffat%2C%20J.%20Measuring%20error%20rates%20in%20genomic%20perturbation%20screens%3A%20gold%20standards%20for%20human%20functional%20genomics.%20Mol.%20Syst.%20Biol.%2010%2C%20733%20%282014%29."
+  }
+ ]
+}
